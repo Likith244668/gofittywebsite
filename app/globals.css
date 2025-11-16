@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-antonio: var(--font-antonio);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes line-left-right-1 {
+  0% {
+    left: calc(50% - 600px);
+    opacity: 1;
+  }
+  100% {
+    left: calc(50% + 400px);
+    opacity: 1;
+  }
+}
+
+@keyframes line-left-right-2 {
+  0% {
+    left: calc(50% - 550px);
+    opacity: 1;
+  }
+  100% {
+    left: calc(50% + 350px);
+    opacity: 1;
+  }
+}
+
+@keyframes line-right-left {
+  0% {
+    left: calc(50% + 500px);
+    opacity: 1;
+  }
+  100% {
+    left: calc(50% - 500px);
+    opacity: 1;
+  }
+}
+
+.animate-line-left-right-1 {
+  animation: line-left-right-1 1.5s ease-in-out forwards;
+}
+
+.animate-line-left-right-2 {
+  animation: line-left-right-2 1.5s ease-in-out forwards;
+}
+
+.animate-line-right-left {
+  animation: line-right-left 1.5s ease-in-out forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) rotate(var(--rotation, 0deg));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(var(--rotation, 0deg));
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(var(--rotation, 0deg));
+  }
+  50% {
+    transform: translateY(-10px) rotate(var(--rotation, 0deg));
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out both;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes text3DBump {
+  0% {
+    opacity: 0;
+    transform: perspective(1200px) translateZ(-80px) scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: perspective(1200px) translateZ(25px) scale(1.03);
+  }
+  75% {
+    opacity: 1;
+    transform: perspective(1200px) translateZ(-3px) scale(0.99);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1200px) translateZ(0px) scale(1);
+  }
+}
+
+.animate-text-3d-bump {
+  animation: text3DBump 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+@keyframes headerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-header-fade-in {
+  animation: headerFadeIn 0.6s ease-out forwards;
+}
