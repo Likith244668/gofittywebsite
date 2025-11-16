@@ -9,6 +9,12 @@ import GofyttAcademy from "./components/GofyttAcademy";
 import TeamSpace from "./components/TeamSpace";
 import EventsAndExperiences from "./components/EventsAndExperiences";
 import JoinThe1PercentFitClub from "./components/JoinThe1PercentFitClub";
+import MediaGallery from "./components/MediaGallery";
+import PressMedia from "./components/PressMedia";
+import AmbassadorProgram from "./components/AmbassadorProgram";
+import TheAppComingSoon from "./components/TheAppComingSoon";
+import WorkWithGofytt from "./components/WorkWithGofytt";
+import ContactSupportFooter from "./components/ContactSupportFooter";
 
 export default function Home() {
   return (
@@ -20,10 +26,16 @@ export default function Home() {
       <MembersWall />
       <SuccessStories />
       <TheKnowledgeHub />
+      <PressMedia />
+      <MediaGallery />
+      <AmbassadorProgram />
+      <TheAppComingSoon />
       <GofyttAcademy />
       <TeamSpace />
+      <WorkWithGofytt />
       <EventsAndExperiences />
       <JoinThe1PercentFitClub />
+      <ContactSupportFooter />
     </main>
   );
 }

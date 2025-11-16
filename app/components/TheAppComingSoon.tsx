@@ -1,0 +1,62 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+
+export default function TheAppComingSoon() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -100px 0px' }
+    );
+    const current = sectionRef.current;
+    if (current) observer.observe(current);
+    return () => {
+      if (current) observer.unobserve(current);
+    };
+  }, []);
+
+  return (
+    <section
+      ref={sectionRef}
+      className="py-24 px-6 sm:px-10 lg:px-20"
+      style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700, backgroundColor: '#1c0533' }}
+    >
+      <div className="mx-auto max-w-7xl text-white">
+        <div
+          className={`mx-auto max-w-3xl rounded-3xl border border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-10 text-center transition-all duration-1000 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+        >
+          <p className="mb-2 text-2xl sm:text-3xl">The App</p>
+          <h2 className="mb-6 text-4xl sm:text-5xl md:text-6xl">Coming Soon</h2>
+          <p
+            className="mx-auto mb-8 max-w-xl text-base text-gray-300 sm:text-lg"
+            style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
+          >
+            Track workouts, personalize nutrition, join challenges, and connect with coaches — all in one place.
+          </p>
+          <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
+            <button className="rounded-xl bg-white px-6 py-3 text-sm font-bold text-black">
+              Get Notified
+            </button>
+            <button className="rounded-xl border-2 border-white/20 bg-white/5 px-6 py-3 text-sm font-bold text-white hover:border-white/40 hover:bg-white/10 transition-all">
+              View Feature Roadmap
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
