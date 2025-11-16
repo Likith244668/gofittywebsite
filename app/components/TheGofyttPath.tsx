@@ -1,10 +1,12 @@
 'use client';
 
+import type { ReactNode } from 'react';
+
 type JourneyStage = {
   stage: string;
   title: string;
   description: string;
-  icon: JSX.Element;
+  icon: ReactNode;
   color: string;
   bgColor: string;
   borderColor: string;

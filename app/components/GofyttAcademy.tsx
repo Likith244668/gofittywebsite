@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, type ReactNode } from 'react';
 import Image from 'next/image';
 
 type Coach = {
@@ -20,7 +20,7 @@ type Program = {
   description: string;
   duration: string;
   features: string[];
-  icon: JSX.Element;
+  icon: ReactNode;
   color: string;
 };
 
