@@ -11,30 +11,46 @@ type MediaItem = {
   createdAt: number;
 };
 
+// Helper function to format dates consistently (avoiding hydration mismatch)
+function formatDate(timestamp: number): string {
+  const date = new Date(timestamp);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = date.getHours();
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  const hours12 = hours % 12 || 12;
+  return `${month}/${day}/${year}, ${hours12}:${minutes}:${seconds} ${ampm}`;
+}
+
 export default function MediaGallery() {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  // Use fixed timestamps to avoid hydration mismatch
+  const fixedNow = 1731420000000; // Fixed reference timestamp
   const [items, setItems] = useState<MediaItem[]>([
     {
       id: 'm1',
       type: 'image',
       src: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1200&auto=format&fit=crop',
       title: 'Strength Session',
-      createdAt: Date.now() - 1000 * 60 * 60 * 24 * 4
+      createdAt: fixedNow - 1000 * 60 * 60 * 24 * 4
     },
     {
       id: 'm2',
       type: 'image',
       src: 'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?q=80&w=1200&auto=format&fit=crop',
       title: 'Mobility Flow',
-      createdAt: Date.now() - 1000 * 60 * 60 * 24 * 2
+      createdAt: fixedNow - 1000 * 60 * 60 * 24 * 2
     },
     {
       id: 'm3',
       type: 'video',
       src: 'https://www.w3schools.com/html/mov_bbb.mp4',
       title: 'Form Check: Squats',
-      createdAt: Date.now() - 1000 * 60 * 60 * 6
+      createdAt: fixedNow - 1000 * 60 * 60 * 6
     }
   ]);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -272,7 +288,7 @@ export default function MediaGallery() {
                         className="text-xs text-gray-400"
                         style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
                       >
-                        {new Date(item.createdAt).toLocaleString()}
+                        {formatDate(item.createdAt)}
                       </p>
                     </div>
                     <button
