@@ -42,32 +42,32 @@ export default function PressMedia() {
   return (
     <section
       ref={sectionRef}
-      className="py-24 px-6 sm:px-10 lg:px-20"
+      className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-10 xl:px-20"
       style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700, backgroundColor: '#0f0420' }}
     >
       <div className="mx-auto max-w-7xl text-white">
         <div
-          className={`mb-10 text-center transition-all duration-1000 ${
+          className={`mb-8 sm:mb-10 text-center transition-all duration-1000 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
           <h2
-            className="mb-3 text-3xl sm:text-4xl md:text-5xl"
+            className="mb-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl px-4"
             style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
           >
             Press & Media
           </h2>
           <p
-            className="mx-auto max-w-2xl text-base text-gray-300 sm:text-lg"
+            className="mx-auto max-w-2xl text-sm sm:text-base text-gray-300 lg:text-lg px-4"
             style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
           >
             Brand mentions and companies we work with.
           </p>
         </div>
 
-        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+        <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5">
           <div
-            className="flex items-center gap-12 py-10 will-change-transform"
+            className="flex items-center gap-8 sm:gap-12 py-8 sm:py-10 will-change-transform"
             style={{
               animation: isVisible ? 'marquee 30s linear infinite' : 'none'
             }}
@@ -75,17 +75,17 @@ export default function PressMedia() {
             {marqueeItems.map((brand, idx) => (
               <div
                 key={`${brand.id}-${idx}`}
-                className="flex min-w-40 items-center justify-center opacity-80 transition-opacity hover:opacity-100"
-                style={{ paddingInline: '12px' }}
+                className="flex min-w-32 sm:min-w-40 items-center justify-center opacity-80 transition-opacity hover:opacity-100"
+                style={{ paddingInline: '8px' }}
                 title={brand.name}
               >
-                <div className="relative h-10 w-40">
+                <div className="relative h-8 w-32 sm:h-10 sm:w-40">
                   <Image
                     src={brand.logo}
                     alt={brand.name}
                     fill
                     className="object-contain"
-                    sizes="160px"
+                    sizes="(max-width: 640px) 128px, 160px"
                   />
                 </div>
               </div>

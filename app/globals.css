@@ -139,3 +139,13 @@ body {
 .animate-header-fade-in {
   animation: headerFadeIn 0.6s ease-out forwards;
 }
+
+/* Hide scrollbar for horizontal scroll containers */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

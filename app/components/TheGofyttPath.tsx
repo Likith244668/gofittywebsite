@@ -84,7 +84,7 @@ const journeyStages: JourneyStage[] = [
 export default function TheGofyttPath() {
   return (
     <section 
-      className="py-24 px-6 sm:px-10 lg:px-20"
+      className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-10 xl:px-20"
       style={{
         fontFamily: 'var(--font-antonio)',
         fontWeight: 700,
@@ -93,15 +93,15 @@ export default function TheGofyttPath() {
     >
       <div className="mx-auto max-w-7xl text-white">
         {/* Header Section */}
-        <div className="mb-20 text-center">
+        <div className="mb-12 sm:mb-16 lg:mb-20 text-center px-4">
           <h2 
-            className="mb-4 text-4xl tracking-tight sm:text-5xl md:text-6xl"
+            className="mb-3 sm:mb-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight"
             style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
           >
             The Gofytt Path
           </h2>
           <p 
-            className="mx-auto max-w-2xl text-lg text-gray-300 sm:text-xl md:text-2xl"
+            className="mx-auto max-w-2xl text-base sm:text-lg text-gray-300 md:text-xl lg:text-2xl"
             style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
           >
             The journey members take from awareness to mastery
@@ -255,16 +255,16 @@ export default function TheGofyttPath() {
         </div>
 
         {/* Call to Action */}
-        <div className="mt-20 text-center">
-          <div className="mx-auto max-w-3xl rounded-3xl border border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-10 shadow-[0_25px_60px_rgba(0,0,0,0.55)]">
+        <div className="mt-12 sm:mt-16 lg:mt-20 text-center px-4">
+          <div className="mx-auto max-w-3xl rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-6 sm:p-8 lg:p-10 shadow-[0_25px_60px_rgba(0,0,0,0.55)]">
             <p 
-              className="mb-4 text-xl font-semibold text-white sm:text-2xl"
+              className="mb-3 sm:mb-4 text-lg sm:text-xl lg:text-2xl font-semibold text-white"
               style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
             >
               Your Journey Starts Here
             </p>
             <p 
-              className="mx-auto text-base leading-relaxed text-gray-300 sm:text-lg"
+              className="mx-auto text-sm sm:text-base leading-relaxed text-gray-300 lg:text-lg"
               style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
             >
               Every master was once a beginner. Every expert was once a student. Your path to transformation begins with a single step—the decision to start. Join thousands who have walked this path and discovered their potential.

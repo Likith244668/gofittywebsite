@@ -34,34 +34,34 @@ export default function WorkWithGofytt() {
   return (
     <section
       ref={sectionRef}
-      className="py-24 px-6 sm:px-10 lg:px-20"
+      className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-10 xl:px-20"
       style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700, backgroundColor: '#0f0420' }}
     >
       <div className="mx-auto max-w-7xl text-white">
         <div
-          className={`mb-12 text-center transition-all duration-1000 ${
+          className={`mb-8 sm:mb-12 text-center transition-all duration-1000 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <h2 className="mb-4 text-3xl sm:text-4xl md:text-5xl">Work with Gofytt</h2>
+          <h2 className="mb-3 sm:mb-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl px-4">Work with Gofytt</h2>
           <p
-            className="mx-auto max-w-2xl text-base text-gray-300 sm:text-lg"
+            className="mx-auto max-w-2xl text-sm sm:text-base text-gray-300 lg:text-lg px-4"
             style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
           >
-            Let’s build meaningful outcomes together.
+            Let's build meaningful outcomes together.
           </p>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((c, idx) => (
             <article
               key={c.title}
-              className="rounded-3xl border border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-8 shadow-[0_18px_40px_rgba(0,0,0,0.35)] transition-all duration-500 hover:-translate-y-2"
+              className="rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-6 sm:p-8 shadow-[0_18px_40px_rgba(0,0,0,0.35)] transition-all duration-500 hover:-translate-y-2"
               style={{ animation: isVisible ? `fadeInUp 0.6s ease-out ${idx * 120}ms both` : 'none' }}
             >
-              <h3 className="mb-2 text-2xl">{c.title}</h3>
+              <h3 className="mb-2 text-xl sm:text-2xl">{c.title}</h3>
               <p
-                className="text-gray-300"
+                className="text-sm sm:text-base text-gray-300"
                 style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
               >
                 {c.desc}
@@ -70,10 +70,10 @@ export default function WorkWithGofytt() {
           ))}
         </div>
 
-        <div className="mt-10 text-center">
+        <div className="mt-8 sm:mt-10 text-center px-4">
           <a
             href="mailto:hello@gofytt.com"
-            className="inline-block rounded-xl bg-gradient-to-r from-[#fb5607] to-[#ff6b6b] px-8 py-4 text-sm font-bold text-white shadow-[0_8px_30px_rgba(251,86,7,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-[0_12px_40px_rgba(251,86,7,0.6)]"
+            className="inline-block rounded-xl bg-gradient-to-r from-[#fb5607] to-[#ff6b6b] px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-bold text-white shadow-[0_8px_30px_rgba(251,86,7,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-[0_12px_40px_rgba(251,86,7,0.6)]"
           >
             Start a Conversation
           </a>

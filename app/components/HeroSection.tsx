@@ -18,9 +18,9 @@ export default function HeroSection() {
       data-name="Desktop"
       data-hero-section
     >
-      <div className="relative flex flex-col items-center justify-center px-4 text-center z-10">
+      <div className="relative flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 text-center z-10">
         <p 
-          className={`mb-0 text-[72px] leading-[1.2] tracking-[-8.65px] sm:text-[112px] md:text-[165px] relative ${
+          className={`mb-0 text-[48px] sm:text-[72px] md:text-[112px] lg:text-[140px] xl:text-[165px] leading-[1.2] tracking-[-4px] sm:tracking-[-6px] md:tracking-[-8.65px] relative ${
             isAnimating ? 'animate-text-3d-bump' : 'opacity-0'
           }`}
           style={{ 
@@ -36,7 +36,7 @@ export default function HeroSection() {
           IT&apos;S NOT FITNESS.
         </p>
         <p 
-          className={`mt-[-0.2em] text-[72px] leading-[1.2] tracking-[-8.65px] text-[#fb5607] sm:text-[108px] md:text-[155px] ${
+          className={`mt-[-0.2em] text-[48px] sm:text-[72px] md:text-[108px] lg:text-[135px] xl:text-[155px] leading-[1.2] tracking-[-4px] sm:tracking-[-6px] md:tracking-[-8.65px] text-[#fb5607] ${
             isAnimating ? 'animate-text-3d-bump' : 'opacity-0'
           }`}
           style={{ 
@@ -55,7 +55,7 @@ export default function HeroSection() {
 
       {/* Initial Line - Right to Left animation on page load */}
       <div 
-        className={`absolute z-20 ${
+        className={`absolute z-20 hidden sm:block ${
           hasPlayedInitialAnimation ? 'opacity-100 animate-line-right-left' : 'opacity-0 pointer-events-none'
         }`}
         style={{ 

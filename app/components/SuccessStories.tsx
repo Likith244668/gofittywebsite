@@ -167,17 +167,19 @@ export default function SuccessStories() {
   };
 
   return (
-    <section className="bg-[#151515] py-12 text-white" aria-labelledby="success-stories-heading">
-      <div className="text-center">
-        <h2
-          id="success-stories-heading"
-          className="text-2xl font-semibold tracking-tight text-white sm:text-3xl md:text-4xl"
-        >
-          Real-life Success Stories Of Our Diabetes Reversal Program
-        </h2>
-      </div>
+    <section className="bg-[#151515] py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-20 text-white" aria-labelledby="success-stories-heading">
+      <div className="mx-auto max-w-7xl">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2
+            id="success-stories-heading"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-white px-4"
+            style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
+          >
+            Real-life Success Stories Of Our Diabetes Reversal Program
+          </h2>
+        </div>
 
-      <div className="relative mt-8 w-full">
+        <div className="relative mt-8 w-full overflow-hidden">
         <div className="overflow-hidden">
           <div
             className="flex gap-4 transition-transform duration-500 ease-out"
@@ -187,7 +189,7 @@ export default function SuccessStories() {
               <article
                 key={story.name}
                 style={{ flex: `0 0 ${cardWidth}`, maxWidth: cardWidth }}
-                className="mx-auto flex min-h-[520px] flex-col rounded-2xl border border-white/10 bg-gradient-to-b from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-5 shadow-[0_18px_40px_rgba(0,0,0,0.35)] transition hover:-translate-y-1.5 hover:shadow-[0_22px_50px_rgba(0,0,0,0.5)]"
+                className="mx-auto flex min-h-[480px] sm:min-h-[520px] flex-col rounded-2xl border border-white/10 bg-gradient-to-b from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-4 sm:p-5 shadow-[0_18px_40px_rgba(0,0,0,0.35)] transition hover:-translate-y-1.5 hover:shadow-[0_22px_50px_rgba(0,0,0,0.5)]"
               >
                 <div className="relative mb-4 overflow-hidden rounded-xl border border-white/10">
                   {activeVideoId === story.videoId ? (
@@ -269,15 +271,15 @@ export default function SuccessStories() {
           </div>
         </div>
 
-        <div className="mt-6 flex items-center justify-center gap-4">
+        <div className="mt-6 sm:mt-8 flex items-center justify-center gap-4 px-4">
           <button
             type="button"
             onClick={handleBackward}
             disabled={!canGoBackward}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-white/40 hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-40"
+            className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-white/40 hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-40"
             aria-label="View previous success stories"
           >
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <svg viewBox="0 0 24 24" className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" strokeWidth="1.8">
               <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
@@ -285,14 +287,15 @@ export default function SuccessStories() {
             type="button"
             onClick={handleForward}
             disabled={!canGoForward}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-white/40 hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-40"
+            className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-white/40 hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-40"
             aria-label="View more success stories"
           >
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <svg viewBox="0 0 24 24" className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" strokeWidth="1.8">
               <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
         </div>
+      </div>
       </div>
     </section>
   );

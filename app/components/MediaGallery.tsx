@@ -140,7 +140,7 @@ export default function MediaGallery() {
   return (
     <section
       ref={sectionRef}
-      className="py-24 px-6 sm:px-10 lg:px-20"
+      className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-10 xl:px-20"
       style={{
         fontFamily: 'var(--font-antonio)',
         fontWeight: 700,
@@ -149,18 +149,18 @@ export default function MediaGallery() {
     >
       <div className="mx-auto max-w-7xl text-white">
         <div
-          className={`mb-10 text-center transition-all duration-1000 ${
+          className={`mb-8 sm:mb-10 text-center transition-all duration-1000 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
           <h2
-            className="mb-4 text-4xl tracking-tight sm:text-5xl md:text-6xl"
+            className="mb-3 sm:mb-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight px-4"
             style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
           >
             Media & Gallery
           </h2>
           <p
-            className="mx-auto max-w-2xl text-lg text-gray-300 sm:text-xl"
+            className="mx-auto max-w-2xl text-sm sm:text-base lg:text-lg text-gray-300 xl:text-xl px-4"
             style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
           >
             Add new media, update titles, and browse the community gallery.
@@ -168,7 +168,7 @@ export default function MediaGallery() {
         </div>
 
         <div
-          className={`mb-10 rounded-3xl border border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-6 transition-all duration-1000 ${
+          className={`mb-8 sm:mb-10 rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-4 sm:p-6 transition-all duration-1000 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
@@ -224,16 +224,16 @@ export default function MediaGallery() {
           </div>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item, index) => (
             <article
               key={item.id}
-              className={`group relative overflow-hidden rounded-3xl border-2 border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] shadow-[0_18px_40px_rgba(0,0,0,0.35)] transition-all duration-500 hover:-translate-y-2`}
+              className={`group relative overflow-hidden rounded-2xl sm:rounded-3xl border-2 border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] shadow-[0_18px_40px_rgba(0,0,0,0.35)] transition-all duration-500 hover:-translate-y-2`}
               style={{
                 animation: isVisible ? `fadeInUp 0.6s ease-out ${index * 80}ms both` : 'none'
               }}
             >
-              <div className="relative h-60 w-full overflow-hidden">
+              <div className="relative h-48 sm:h-60 w-full overflow-hidden">
                 {item.type === 'image' ? (
                   <Image
                     src={item.src}
@@ -251,35 +251,37 @@ export default function MediaGallery() {
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
               </div>
-              <div className="p-5">
+              <div className="p-4 sm:p-5">
                 {editingId === item.id ? (
-                  <div className="flex items-center gap-3">
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
                     <input
                       value={newTitle}
                       onChange={(e) => setNewTitle(e.target.value)}
                       className="flex-1 rounded-lg bg-white/5 px-3 py-2 text-sm text-white outline-none ring-1 ring-white/10 focus:ring-white/30"
                       style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
                     />
-                    <button
-                      onClick={() => saveEdit(item.id)}
-                      className="rounded-lg bg-white px-3 py-2 text-xs font-bold text-black"
-                      style={{ fontFamily: 'var(--font-antonio)' }}
-                    >
-                      Save
-                    </button>
-                    <button
-                      onClick={cancelEdit}
-                      className="rounded-lg border border-white/30 px-3 py-2 text-xs font-bold text-white"
-                      style={{ fontFamily: 'var(--font-antonio)' }}
-                    >
-                      Cancel
-                    </button>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => saveEdit(item.id)}
+                        className="flex-1 sm:flex-none rounded-lg bg-white px-3 py-2 text-xs font-bold text-black"
+                        style={{ fontFamily: 'var(--font-antonio)' }}
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={cancelEdit}
+                        className="flex-1 sm:flex-none rounded-lg border border-white/30 px-3 py-2 text-xs font-bold text-white"
+                        style={{ fontFamily: 'var(--font-antonio)' }}
+                      >
+                        Cancel
+                      </button>
+                    </div>
                   </div>
                 ) : (
                   <div className="flex items-start justify-between gap-3">
-                    <div>
+                    <div className="flex-1 min-w-0">
                       <h4
-                        className="mb-1 text-lg font-bold text-white"
+                        className="mb-1 text-base sm:text-lg font-bold text-white truncate"
                         style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
                       >
                         {item.title}
@@ -293,7 +295,7 @@ export default function MediaGallery() {
                     </div>
                     <button
                       onClick={() => startEdit(item)}
-                      className="rounded-lg border-2 border-white/20 bg-white/5 px-3 py-1.5 text-xs font-bold text-white transition-all duration-300 hover:border-white/40 hover:bg-white/10"
+                      className="rounded-lg border-2 border-white/20 bg-white/5 px-3 py-1.5 text-xs font-bold text-white transition-all duration-300 hover:border-white/40 hover:bg-white/10 flex-shrink-0"
                       style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
                     >
                       Edit

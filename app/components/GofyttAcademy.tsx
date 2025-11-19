@@ -183,7 +183,7 @@ export default function GofyttAcademy() {
   return (
     <section 
       ref={sectionRef}
-      className="py-24 px-6 sm:px-10 lg:px-20"
+      className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-10 xl:px-20"
       style={{
         fontFamily: 'var(--font-antonio)',
         fontWeight: 700,

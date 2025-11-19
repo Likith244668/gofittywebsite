@@ -3,7 +3,7 @@
 export default function CommunitySpace() {
   return (
     <section 
-      className="py-16 px-6 sm:px-10 lg:px-20"
+      className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-10 xl:px-20"
       style={{
         fontFamily: 'var(--font-antonio)',
         fontWeight: 700,
@@ -11,15 +11,15 @@ export default function CommunitySpace() {
     >
       <div className="mx-auto max-w-6xl text-white">
         {/* Header Section */}
-        <div className="mb-10 text-center">
+        <div className="mb-8 sm:mb-10 text-center px-4">
           <h2 
-            className="mb-3 text-3xl tracking-tight sm:text-4xl md:text-5xl"
+            className="mb-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight"
             style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
           >
             Community Space
           </h2>
           <h3 
-            className="text-xl text-[#fb5607] sm:text-2xl md:text-3xl"
+            className="text-lg sm:text-xl text-[#fb5607] md:text-2xl lg:text-3xl"
             style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
           >
             The 1% Fit Philosophy
@@ -38,11 +38,11 @@ export default function CommunitySpace() {
           </div>
 
           {/* Triangle Visualization */}
-          <div className="relative mb-12 flex min-h-[320px] items-center justify-center">
+          <div className="relative mb-8 sm:mb-12 flex min-h-[240px] sm:min-h-[320px] items-center justify-center px-4">
             {/* Triangle SVG */}
             <svg 
               viewBox="0 0 400 350" 
-              className="w-full max-w-sm sm:max-w-md"
+              className="w-full max-w-[280px] sm:max-w-sm md:max-w-md"
               style={{ filter: 'drop-shadow(0 10px 30px rgba(251, 86, 7, 0.3))' }}
             >
               {/* Triangle outline */}
@@ -93,17 +93,17 @@ export default function CommunitySpace() {
           </div>
 
           {/* Three Pillars */}
-          <div className="grid gap-8 md:grid-cols-3">
+          <div className="grid gap-6 sm:gap-8 grid-cols-1 md:grid-cols-3">
             {/* Physical Pillar */}
-            <article className="rounded-3xl border border-[#fb5607]/30 bg-gradient-to-b from-[#2c0d54]/50 to-[#1e0839]/50 p-6 shadow-[0_14px_32px_rgba(0,0,0,0.25)] transition-transform duration-300 hover:-translate-y-2 hover:border-[#fb5607]/60">
-              <div className="mb-5 flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#fb5607]/20">
-                  <svg className="h-6 w-6 text-[#fb5607]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <article className="rounded-2xl sm:rounded-3xl border border-[#fb5607]/30 bg-gradient-to-b from-[#2c0d54]/50 to-[#1e0839]/50 p-5 sm:p-6 shadow-[0_14px_32px_rgba(0,0,0,0.25)] transition-transform duration-300 hover:-translate-y-2 hover:border-[#fb5607]/60">
+              <div className="mb-4 sm:mb-5 flex items-center gap-3">
+                <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-[#fb5607]/20">
+                  <svg className="h-5 w-5 sm:h-6 sm:w-6 text-[#fb5607]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
                 <h4 
-                  className="text-xl text-[#fb5607]"
+                  className="text-lg sm:text-xl text-[#fb5607]"
                   style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
                 >
                   Physical
@@ -118,15 +118,15 @@ export default function CommunitySpace() {
             </article>
 
             {/* Mind Pillar */}
-            <article className="rounded-3xl border border-[#8dd9ff]/30 bg-gradient-to-b from-[#2c0d54]/50 to-[#1e0839]/50 p-6 shadow-[0_14px_32px_rgba(0,0,0,0.25)] transition-transform duration-300 hover:-translate-y-2 hover:border-[#8dd9ff]/60">
-              <div className="mb-5 flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#8dd9ff]/20">
-                  <svg className="h-6 w-6 text-[#8dd9ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <article className="rounded-2xl sm:rounded-3xl border border-[#8dd9ff]/30 bg-gradient-to-b from-[#2c0d54]/50 to-[#1e0839]/50 p-5 sm:p-6 shadow-[0_14px_32px_rgba(0,0,0,0.25)] transition-transform duration-300 hover:-translate-y-2 hover:border-[#8dd9ff]/60">
+              <div className="mb-4 sm:mb-5 flex items-center gap-3">
+                <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-[#8dd9ff]/20">
+                  <svg className="h-5 w-5 sm:h-6 sm:w-6 text-[#8dd9ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                   </svg>
                 </div>
                 <h4 
-                  className="text-xl text-[#8dd9ff]"
+                  className="text-lg sm:text-xl text-[#8dd9ff]"
                   style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
                 >
                   Mind
@@ -141,15 +141,15 @@ export default function CommunitySpace() {
             </article>
 
             {/* Social Pillar */}
-            <article className="rounded-3xl border border-[#5ff7b6]/30 bg-gradient-to-b from-[#2c0d54]/50 to-[#1e0839]/50 p-6 shadow-[0_14px_32px_rgba(0,0,0,0.25)] transition-transform duration-300 hover:-translate-y-2 hover:border-[#5ff7b6]/60">
-              <div className="mb-5 flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#5ff7b6]/20">
-                  <svg className="h-6 w-6 text-[#5ff7b6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <article className="rounded-2xl sm:rounded-3xl border border-[#5ff7b6]/30 bg-gradient-to-b from-[#2c0d54]/50 to-[#1e0839]/50 p-5 sm:p-6 shadow-[0_14px_32px_rgba(0,0,0,0.25)] transition-transform duration-300 hover:-translate-y-2 hover:border-[#5ff7b6]/60">
+              <div className="mb-4 sm:mb-5 flex items-center gap-3">
+                <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-[#5ff7b6]/20">
+                  <svg className="h-5 w-5 sm:h-6 sm:w-6 text-[#5ff7b6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                   </svg>
                 </div>
                 <h4 
-                  className="text-xl text-[#5ff7b6]"
+                  className="text-lg sm:text-xl text-[#5ff7b6]"
                   style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
                 >
                   Social
@@ -165,9 +165,9 @@ export default function CommunitySpace() {
           </div>
 
           {/* Philosophy Statement */}
-          <div className="mt-12 rounded-3xl border border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-8 text-center shadow-[0_20px_48px_rgba(0,0,0,0.5)]">
+          <div className="mt-8 sm:mt-12 rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-6 sm:p-8 text-center shadow-[0_20px_48px_rgba(0,0,0,0.5)]">
             <p 
-              className="mb-3 text-lg font-semibold text-white sm:text-xl"
+              className="mb-3 text-base sm:text-lg lg:text-xl font-semibold text-white"
               style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
             >
               The 1% Principle
