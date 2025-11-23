@@ -1,275 +1,258 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 
 type JourneyStage = {
   stage: string;
   title: string;
   description: string;
-  icon: ReactNode;
+  image: string;
   color: string;
-  bgColor: string;
-  borderColor: string;
+  characterPose: string;
 };
 
 const journeyStages: JourneyStage[] = [
   {
     stage: '01',
     title: 'Awareness',
-    description: 'Recognizing the need for change. Understanding where you are and where you want to be. The first step begins with honest self-reflection.',
-    icon: (
-      <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-      </svg>
-    ),
+    description: 'The moment you realize you want more. It starts with a look in the mirror and a fire in your belly.',
+    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80', // Contemplative/Focus
     color: '#8dd9ff',
-    bgColor: 'bg-[#8dd9ff]/20',
-    borderColor: 'border-[#8dd9ff]/40'
+    characterPose: 'Focusing'
   },
   {
     stage: '02',
     title: 'Discovery',
-    description: 'Exploring your potential. Learning about your body, capabilities, and the tools available. Setting realistic goals and understanding the path ahead.',
-    icon: (
-      <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-      </svg>
-    ),
+    description: 'Testing your limits. You learn what your body can do, finding the tools and techniques that work for you.',
+    image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=600&q=80', // Active/Learning
     color: '#5ff7b6',
-    bgColor: 'bg-[#5ff7b6]/20',
-    borderColor: 'border-[#5ff7b6]/40'
+    characterPose: 'Exploring'
   },
   {
     stage: '03',
     title: 'Commitment',
-    description: 'Making the decision to transform. Establishing routines, building habits, and dedicating yourself to consistent action. This is where change becomes real.',
-    icon: (
-      <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
+    description: 'No more excuses. You build the habit, show up on the hard days, and make fitness non-negotiable.',
+    image: 'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=600&q=80', // Determined/Training
     color: '#f6b14b',
-    bgColor: 'bg-[#f6b14b]/20',
-    borderColor: 'border-[#f6b14b]/40'
+    characterPose: 'Grinding'
   },
   {
     stage: '04',
     title: 'Growth',
-    description: 'Building momentum and seeing progress. Overcoming challenges, celebrating milestones, and continuously pushing your boundaries. Every day brings new strength.',
-    icon: (
-      <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-      </svg>
-    ),
+    description: 'Results start showing. You break personal records, feel stronger, and your confidence skyrockets.',
+    image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=600&q=80', // Strong/Success
     color: '#ff6b6b',
-    bgColor: 'bg-[#ff6b6b]/20',
-    borderColor: 'border-[#ff6b6b]/40'
+    characterPose: 'Evolving'
   },
   {
     stage: '05',
     title: 'Mastery',
-    description: 'Living the transformation. Fitness becomes a natural part of your life. You inspire others, maintain your progress, and continue evolving. This is your new normal.',
-    icon: (
-      <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-      </svg>
-    ),
+    description: 'It’s not just a workout; it’s who you are. You inspire others and set new standards for yourself.',
+    image: 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=600&q=80', // Master/Leader
     color: '#fb5607',
-    bgColor: 'bg-[#fb5607]/20',
-    borderColor: 'border-[#fb5607]/40'
+    characterPose: 'Leading'
   }
 ];
 
 export default function TheGofyttPath() {
+  const [activeStage, setActiveStage] = useState<number>(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const containerRef = useRef<HTMLElement>(null);
+  const stageRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!containerRef.current) return;
+
+      const containerTop = containerRef.current.offsetTop;
+      const containerHeight = containerRef.current.offsetHeight;
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+
+      // Calculate progress through the section
+      const start = containerTop - windowHeight / 2;
+      const end = containerTop + containerHeight - windowHeight / 2;
+      const progress = Math.min(Math.max((scrollY - start) / (end - start), 0), 1);
+
+      setScrollProgress(progress);
+
+      // Determine active stage based on scroll position
+      stageRefs.current.forEach((ref, index) => {
+        if (!ref) return;
+        const rect = ref.getBoundingClientRect();
+        const center = windowHeight / 2;
+
+        // If the element is near the center of the screen
+        if (rect.top < center + 100 && rect.bottom > center - 100) {
+          setActiveStage(index);
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <section 
-      className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-10 xl:px-20"
+    <section
+      ref={containerRef}
+      className="relative py-12 sm:py-16 overflow-hidden"
       style={{
-        fontFamily: 'var(--font-antonio)',
-        fontWeight: 700,
-        backgroundColor: '#1c0533'
+        backgroundColor: '#050505',
+        backgroundImage: `
+          radial-gradient(circle at 50% 0%, #1a0b2e 0%, transparent 70%),
+          linear-gradient(to bottom, #050505 0%, #0a0a0a 100%)
+        `
       }}
     >
-      <div className="mx-auto max-w-7xl text-white">
-        {/* Header Section */}
-        <div className="mb-12 sm:mb-16 lg:mb-20 text-center px-4">
-          <h2 
-            className="mb-3 sm:mb-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight"
-            style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="mb-12 text-center">
+          <h2
+            className="mb-4 text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter text-white"
+            style={{ fontFamily: 'var(--font-antonio)' }}
           >
-            The Gofytt Path
+            THE PATH TO <span className="text-[#fb5607]">GLORY</span>
           </h2>
-          <p 
-            className="mx-auto max-w-2xl text-base sm:text-lg text-gray-300 md:text-xl lg:text-2xl"
-            style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
+          <p
+            className="mx-auto max-w-2xl text-base text-gray-400"
+            style={{ fontFamily: 'var(--font-geist-sans)' }}
           >
-            The journey members take from awareness to mastery
+            Follow the steps. Trust the process. Become the 1%.
           </p>
         </div>
 
-        {/* Journey Path - Desktop View */}
-        <div className="hidden lg:block">
-          <div className="relative">
-            {/* Connecting Path Line */}
-            <div className="absolute left-0 right-0 top-1/2 h-1 -translate-y-1/2 bg-gradient-to-r from-[#8dd9ff] via-[#5ff7b6] via-[#f6b14b] via-[#ff6b6b] to-[#fb5607] opacity-30" />
-            
-            {/* Journey Stages */}
-            <div className="relative flex items-start justify-between gap-4">
-              {journeyStages.map((stage, index) => (
-                <div key={stage.stage} className="flex flex-1 flex-col items-center">
-                  {/* Stage Card */}
-                  <article 
-                    className={`relative z-10 w-full rounded-3xl border-2 ${stage.borderColor} ${stage.bgColor} bg-gradient-to-b from-[#2c0d54]/80 to-[#1e0839]/80 p-6 shadow-[0_18px_40px_rgba(0,0,0,0.35)] transition-all duration-300 hover:-translate-y-3 hover:shadow-[0_25px_50px_rgba(0,0,0,0.5)]`}
+        {/* 3D Path Container */}
+        <div className="relative">
+          {/* Progress Line (Vertical Center) */}
+          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 -translate-x-1/2 bg-gray-800 rounded-full overflow-hidden z-0">
+            <div
+              className="w-full bg-gradient-to-b from-[#8dd9ff] via-[#f6b14b] to-[#fb5607] transition-all duration-300 ease-out"
+              style={{ height: `${scrollProgress * 100}%` }}
+            />
+          </div>
+
+          {/* Stages */}
+          <div className="space-y-16 md:space-y-24">
+            {journeyStages.map((stage, index) => {
+              const isActive = activeStage === index;
+              const isLeft = index % 2 === 0;
+
+              return (
+                <div
+                  key={stage.stage}
+                  ref={el => { stageRefs.current[index] = el; }}
+                  className={`relative flex flex-col md:flex-row items-center gap-6 md:gap-12 ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'
+                    }`}
+                  style={{
+                    perspective: '1000px'
+                  }}
+                >
+                  {/* Stage Marker (Center) */}
+                  <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-6 h-6 md:w-10 md:h-10 rounded-full border-4 border-[#050505] z-10 flex items-center justify-center transition-all duration-500"
+                    style={{
+                      backgroundColor: isActive ? stage.color : '#1f2937',
+                      transform: isActive ? 'translate(-50%) scale(1.2)' : 'translate(-50%) scale(1)',
+                      boxShadow: isActive ? `0 0 30px ${stage.color}` : 'none'
+                    }}
                   >
-                    {/* Stage Number */}
-                    <div className="mb-4 flex items-center justify-between">
-                      <span 
-                        className="text-sm font-bold uppercase tracking-wider opacity-60"
-                        style={{ fontFamily: 'var(--font-antonio)' }}
+                    <div className="w-1.5 h-1.5 md:w-2.5 md:h-2.5 rounded-full bg-white" />
+                  </div>
+
+                  {/* Content Side */}
+                  <div className={`w-full md:w-1/2 pl-10 md:pl-0 ${isLeft ? 'md:text-right md:pr-10' : 'md:text-left md:pl-10'}`}>
+                    <div
+                      className={`transition-all duration-700 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-30 translate-y-10'
+                        }`}
+                    >
+                      <span
+                        className="block text-5xl md:text-7xl font-bold opacity-10 mb-1"
+                        style={{ fontFamily: 'var(--font-antonio)', color: stage.color }}
                       >
                         {stage.stage}
                       </span>
-                      <div 
-                        className="rounded-full p-2"
-                        style={{ 
-                          backgroundColor: `${stage.color}20`,
-                          color: stage.color
-                        }}
-                      >
-                        {stage.icon}
-                      </div>
-                    </div>
-                    
-                    {/* Stage Title */}
-                    <h3 
-                      className="mb-3 text-xl font-bold"
-                      style={{ 
-                        fontFamily: 'var(--font-antonio)', 
-                        fontWeight: 700,
-                        color: stage.color
-                      }}
-                    >
-                      {stage.title}
-                    </h3>
-                    
-                    {/* Stage Description */}
-                    <p 
-                      className="text-sm leading-relaxed text-gray-300"
-                      style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
-                    >
-                      {stage.description}
-                    </p>
-                  </article>
-                  
-                  {/* Connection Arrow (except for last item) */}
-                  {index < journeyStages.length - 1 && (
-                    <div className="absolute top-1/2 left-full z-0 hidden -translate-x-1/2 -translate-y-1/2 lg:block">
-                      <svg 
-                        width="40" 
-                        height="20" 
-                        viewBox="0 0 40 20" 
-                        fill="none"
-                        className="opacity-50"
-                      >
-                        <path 
-                          d="M30 10L35 15L30 20M35 10H5" 
-                          stroke={stage.color} 
-                          strokeWidth="2" 
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Journey Path - Mobile/Tablet View */}
-        <div className="lg:hidden">
-          <div className="space-y-8">
-            {journeyStages.map((stage, index) => (
-              <div key={stage.stage} className="relative">
-                {/* Connection Line (except for first item) */}
-                {index > 0 && (
-                  <div 
-                    className="absolute -top-8 left-8 h-8 w-0.5 opacity-30"
-                    style={{ 
-                      background: `linear-gradient(to bottom, ${journeyStages[index - 1].color}, ${stage.color})`
-                    }}
-                  />
-                )}
-                
-                {/* Stage Card */}
-                <article 
-                  className={`relative rounded-3xl border-2 ${stage.borderColor} ${stage.bgColor} bg-gradient-to-b from-[#2c0d54]/80 to-[#1e0839]/80 p-6 shadow-[0_18px_40px_rgba(0,0,0,0.35)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_25px_50px_rgba(0,0,0,0.5)]`}
-                >
-                  <div className="flex items-start gap-4">
-                    {/* Icon */}
-                    <div 
-                      className="flex-shrink-0 rounded-full p-3"
-                      style={{ 
-                        backgroundColor: `${stage.color}20`,
-                        color: stage.color
-                      }}
-                    >
-                      {stage.icon}
-                    </div>
-                    
-                    {/* Content */}
-                    <div className="flex-1">
-                      <div className="mb-2 flex items-center justify-between">
-                        <span 
-                          className="text-xs font-bold uppercase tracking-wider opacity-60"
-                          style={{ fontFamily: 'var(--font-antonio)' }}
-                        >
-                          {stage.stage}
-                        </span>
-                      </div>
-                      
-                      <h3 
-                        className="mb-2 text-xl font-bold"
-                        style={{ 
-                          fontFamily: 'var(--font-antonio)', 
-                          fontWeight: 700,
-                          color: stage.color
-                        }}
+                      <h3
+                        className="text-2xl md:text-3xl font-bold text-white mb-2"
+                        style={{ fontFamily: 'var(--font-antonio)' }}
                       >
                         {stage.title}
                       </h3>
-                      
-                      <p 
-                        className="text-sm leading-relaxed text-gray-300"
-                        style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
-                      >
+                      <p className="text-gray-400 text-base leading-relaxed">
                         {stage.description}
                       </p>
                     </div>
                   </div>
-                </article>
-              </div>
-            ))}
+
+                  {/* 3D Character Card Side */}
+                  <div className={`w-full md:w-1/2 pl-10 md:pl-0 ${isLeft ? 'md:pl-10' : 'md:pr-10'}`}>
+                    <div
+                      className="relative w-full max-w-sm mx-auto aspect-[3/4] rounded-2xl transition-all duration-700 ease-out"
+                      style={{
+                        transformStyle: 'preserve-3d',
+                        transform: isActive
+                          ? `rotateY(${isLeft ? '-15deg' : '15deg'}) rotateX(5deg) scale(1)`
+                          : `rotateY(${isLeft ? '-5deg' : '5deg'}) rotateX(0deg) scale(0.9)`,
+                        opacity: isActive ? 1 : 0.5,
+                        filter: isActive ? 'none' : 'grayscale(100%) blur(2px)'
+                      }}
+                    >
+                      {/* Card Background/Glow */}
+                      <div
+                        className="absolute inset-0 rounded-2xl transition-all duration-500"
+                        style={{
+                          background: `linear-gradient(135deg, ${stage.color}20, transparent)`,
+                          boxShadow: isActive ? `0 20px 50px -10px ${stage.color}40` : 'none',
+                          transform: 'translateZ(-20px)'
+                        }}
+                      />
+
+                      {/* Character Image */}
+                      <div className="relative h-full w-full rounded-2xl overflow-hidden border border-white/10">
+                        <Image
+                          src={stage.image}
+                          alt={stage.characterPose}
+                          fill
+                          className="object-cover transition-transform duration-1000"
+                          style={{
+                            transform: isActive ? 'scale(1.1)' : 'scale(1)'
+                          }}
+                        />
+
+                        {/* Overlay Gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+
+                        {/* Floating Badge */}
+                        <div
+                          className="absolute bottom-4 left-4 px-3 py-1.5 rounded-full backdrop-blur-md border border-white/20 text-white font-bold tracking-wider uppercase text-xs transition-all duration-700 delay-300"
+                          style={{
+                            backgroundColor: `${stage.color}40`,
+                            transform: isActive ? 'translateZ(30px) translateY(0)' : 'translateZ(30px) translateY(20px)',
+                            opacity: isActive ? 1 : 0
+                          }}
+                        >
+                          {stage.characterPose}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        {/* Call to Action */}
-        <div className="mt-12 sm:mt-16 lg:mt-20 text-center px-4">
-          <div className="mx-auto max-w-3xl rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-6 sm:p-8 lg:p-10 shadow-[0_25px_60px_rgba(0,0,0,0.55)]">
-            <p 
-              className="mb-3 sm:mb-4 text-lg sm:text-xl lg:text-2xl font-semibold text-white"
-              style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
-            >
-              Your Journey Starts Here
-            </p>
-            <p 
-              className="mx-auto text-sm sm:text-base leading-relaxed text-gray-300 lg:text-lg"
-              style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
-            >
-              Every master was once a beginner. Every expert was once a student. Your path to transformation begins with a single step—the decision to start. Join thousands who have walked this path and discovered their potential.
-            </p>
-          </div>
+        {/* Final CTA */}
+        <div className="mt-16 text-center">
+          <button
+            className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-300 bg-[#fb5607] rounded-full hover:bg-[#ff6b1f] hover:scale-110 hover:shadow-[0_0_40px_rgba(251,86,7,0.6)]"
+            style={{ fontFamily: 'var(--font-antonio)' }}
+          >
+            <span className="relative z-10">BEGIN YOUR TRANSFORMATION</span>
+            <div className="absolute inset-0 rounded-full bg-white/20 blur-lg group-hover:blur-xl transition-all opacity-0 group-hover:opacity-100" />
+          </button>
         </div>
       </div>
     </section>

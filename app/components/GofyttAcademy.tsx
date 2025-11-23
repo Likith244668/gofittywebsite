@@ -181,35 +181,34 @@ export default function GofyttAcademy() {
   }, []);
 
   return (
-    <section 
+    <section
       ref={sectionRef}
       className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-10 xl:px-20"
       style={{
         fontFamily: 'var(--font-antonio)',
         fontWeight: 700,
-        backgroundColor: '#151515'
+        backgroundColor: '#1c0533'
       }}
     >
       <div className="mx-auto max-w-7xl text-white">
         {/* Header Section */}
-        <div 
-          className={`mb-16 text-center transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
+        <div
+          className={`mb-16 text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
         >
-          <h2 
+          <h2
             className="mb-4 text-4xl tracking-tight sm:text-5xl md:text-6xl"
             style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
           >
             Gofytt Academy
           </h2>
-          <p 
+          <p
             className="mb-2 text-2xl text-[#fb5607] sm:text-3xl md:text-4xl"
             style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
           >
             Train with GoFytt Coaches
           </p>
-          <p 
+          <p
             className="mx-auto max-w-2xl text-lg text-gray-300 sm:text-xl"
             style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
           >
@@ -218,12 +217,11 @@ export default function GofyttAcademy() {
         </div>
 
         {/* Programs Section */}
-        <div 
-          className={`mb-20 transition-all duration-1000 delay-200 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
+        <div
+          className={`mb-20 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
         >
-          <h3 
+          <h3
             className="mb-12 text-center text-3xl font-bold sm:text-4xl"
             style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
           >
@@ -235,20 +233,19 @@ export default function GofyttAcademy() {
               return (
                 <div
                   key={program.id}
-                  className={`group relative cursor-pointer overflow-hidden rounded-3xl border-2 transition-all duration-500 ${
-                    isSelected
+                  className={`group relative cursor-pointer overflow-hidden rounded-3xl border-2 transition-all duration-500 ${isSelected
                       ? `border-${program.color} shadow-[0_25px_50px_${program.color}40]`
                       : 'border-white/10 hover:border-white/30'
-                  } bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-6 shadow-[0_18px_40px_rgba(0,0,0,0.35)] hover:-translate-y-2`}
+                    } bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-6 shadow-[0_18px_40px_rgba(0,0,0,0.35)] hover:-translate-y-2`}
                   style={{
-                    animation: isVisible 
-                      ? `fadeInUp 0.6s ease-out ${index * 100}ms both` 
+                    animation: isVisible
+                      ? `fadeInUp 0.6s ease-out ${index * 100}ms both`
                       : 'none',
                     borderColor: isSelected ? program.color : undefined
                   }}
                   onClick={() => setSelectedProgram(program.id)}
                 >
-                  <div 
+                  <div
                     className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl"
                     style={{
                       backgroundColor: `${program.color}20`,
@@ -257,21 +254,21 @@ export default function GofyttAcademy() {
                   >
                     {program.icon}
                   </div>
-                  
-                  <h4 
+
+                  <h4
                     className="mb-2 text-xl font-bold text-white sm:text-2xl"
                     style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
                   >
                     {program.title}
                   </h4>
-                  
-                  <p 
+
+                  <p
                     className="mb-4 text-sm text-gray-300 sm:text-base"
                     style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
                   >
                     {program.description}
                   </p>
-                  
+
                   <div className="mb-4 flex items-center gap-2 text-xs text-gray-400 sm:text-sm">
                     <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -280,15 +277,14 @@ export default function GofyttAcademy() {
                   </div>
 
                   {/* Features List - Expand on hover/select */}
-                  <div 
-                    className={`overflow-hidden transition-all duration-500 ${
-                      isSelected ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                    }`}
+                  <div
+                    className={`overflow-hidden transition-all duration-500 ${isSelected ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                      }`}
                   >
                     <ul className="space-y-2 text-sm text-gray-300">
                       {program.features.map((feature, idx) => (
                         <li key={idx} className="flex items-start gap-2">
-                          <span 
+                          <span
                             className="mt-1 flex-shrink-0"
                             style={{ color: program.color }}
                           >
@@ -305,10 +301,9 @@ export default function GofyttAcademy() {
                   </div>
 
                   {/* Hover Glow */}
-                  <div 
-                    className={`absolute inset-0 -z-10 rounded-3xl transition-opacity duration-500 ${
-                      isSelected ? 'opacity-20' : 'opacity-0 group-hover:opacity-10'
-                    }`}
+                  <div
+                    className={`absolute inset-0 -z-10 rounded-3xl transition-opacity duration-500 ${isSelected ? 'opacity-20' : 'opacity-0 group-hover:opacity-10'
+                      }`}
                     style={{
                       backgroundColor: program.color,
                       filter: 'blur(20px)'
@@ -321,12 +316,11 @@ export default function GofyttAcademy() {
         </div>
 
         {/* Coaches Section */}
-        <div 
-          className={`transition-all duration-1000 delay-400 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
+        <div
+          className={`transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
         >
-          <h3 
+          <h3
             className="mb-12 text-center text-3xl font-bold sm:text-4xl"
             style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
           >
@@ -338,14 +332,13 @@ export default function GofyttAcademy() {
               return (
                 <div
                   key={coach.id}
-                  className={`group relative cursor-pointer overflow-hidden rounded-3xl border-2 transition-all duration-500 ${
-                    isSelected
+                  className={`group relative cursor-pointer overflow-hidden rounded-3xl border-2 transition-all duration-500 ${isSelected
                       ? `border-${coach.color} shadow-[0_25px_50px_${coach.color}40]`
                       : 'border-white/10 hover:border-white/30'
-                  } bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] shadow-[0_18px_40px_rgba(0,0,0,0.35)] hover:-translate-y-2`}
+                    } bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] shadow-[0_18px_40px_rgba(0,0,0,0.35)] hover:-translate-y-2`}
                   style={{
-                    animation: isVisible 
-                      ? `fadeInUp 0.6s ease-out ${index * 150}ms both` 
+                    animation: isVisible
+                      ? `fadeInUp 0.6s ease-out ${index * 150}ms both`
                       : 'none',
                     borderColor: isSelected ? coach.color : undefined
                   }}
@@ -360,15 +353,15 @@ export default function GofyttAcademy() {
                       className="object-cover transition-transform duration-700 group-hover:scale-110"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                     />
-                    <div 
+                    <div
                       className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"
                       style={{
                         background: `linear-gradient(to top, ${coach.color}40, transparent)`
                       }}
                     />
-                    
+
                     {/* Experience Badge */}
-                    <div 
+                    <div
                       className="absolute top-4 right-4 rounded-full px-3 py-1.5 text-xs font-semibold backdrop-blur-sm"
                       style={{
                         backgroundColor: `${coach.color}20`,
@@ -382,23 +375,23 @@ export default function GofyttAcademy() {
 
                   {/* Coach Info */}
                   <div className="p-6">
-                    <h4 
+                    <h4
                       className="mb-1 text-xl font-bold text-white sm:text-2xl"
                       style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
                     >
                       {coach.name}
                     </h4>
-                    <p 
+                    <p
                       className="mb-3 text-sm font-semibold"
-                      style={{ 
+                      style={{
                         fontFamily: 'var(--font-geist-sans)',
                         color: coach.color
                       }}
                     >
                       {coach.specialization}
                     </p>
-                    
-                    <p 
+
+                    <p
                       className="mb-4 text-sm leading-relaxed text-gray-300 sm:text-base"
                       style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
                     >
@@ -406,13 +399,12 @@ export default function GofyttAcademy() {
                     </p>
 
                     {/* Achievements - Expand on select */}
-                    <div 
-                      className={`overflow-hidden transition-all duration-500 ${
-                        isSelected ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
-                      }`}
+                    <div
+                      className={`overflow-hidden transition-all duration-500 ${isSelected ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
+                        }`}
                     >
                       <div className="space-y-2">
-                        <p 
+                        <p
                           className="text-xs font-semibold text-gray-400 uppercase tracking-wider"
                           style={{ fontFamily: 'var(--font-geist-sans)' }}
                         >
@@ -431,11 +423,10 @@ export default function GofyttAcademy() {
 
                     {/* View Profile Button */}
                     <button
-                      className={`mt-4 w-full rounded-xl px-4 py-2.5 text-sm font-bold transition-all duration-300 ${
-                        isSelected
+                      className={`mt-4 w-full rounded-xl px-4 py-2.5 text-sm font-bold transition-all duration-300 ${isSelected
                           ? 'bg-white text-black'
                           : 'bg-white/10 text-white hover:bg-white/20'
-                      }`}
+                        }`}
                       style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
                     >
                       {isSelected ? 'Selected' : 'View Profile'}
@@ -443,10 +434,9 @@ export default function GofyttAcademy() {
                   </div>
 
                   {/* Hover Glow */}
-                  <div 
-                    className={`absolute inset-0 -z-10 rounded-3xl transition-opacity duration-500 ${
-                      isSelected ? 'opacity-20' : 'opacity-0 group-hover:opacity-10'
-                    }`}
+                  <div
+                    className={`absolute inset-0 -z-10 rounded-3xl transition-opacity duration-500 ${isSelected ? 'opacity-20' : 'opacity-0 group-hover:opacity-10'
+                      }`}
                     style={{
                       backgroundColor: coach.color,
                       filter: 'blur(20px)'
@@ -459,19 +449,18 @@ export default function GofyttAcademy() {
         </div>
 
         {/* CTA Section */}
-        <div 
-          className={`mt-20 text-center transition-all duration-1000 delay-600 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
+        <div
+          className={`mt-20 text-center transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
         >
           <div className="mx-auto max-w-4xl rounded-3xl border border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-10 sm:p-12 shadow-[0_25px_60px_rgba(0,0,0,0.55)]">
-            <h3 
+            <h3
               className="mb-4 text-2xl font-semibold text-white sm:text-3xl md:text-4xl"
               style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
             >
               Ready to Transform Your Life?
             </h3>
-            <p 
+            <p
               className="mb-8 text-base leading-relaxed text-gray-300 sm:text-lg"
               style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
             >

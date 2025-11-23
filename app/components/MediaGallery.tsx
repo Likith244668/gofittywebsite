@@ -53,12 +53,6 @@ export default function MediaGallery() {
       createdAt: fixedNow - 1000 * 60 * 60 * 6
     }
   ]);
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [newTitle, setNewTitle] = useState('');
-  const [newUrl, setNewUrl] = useState('');
-  const [newType, setNewType] = useState<'image' | 'video'>('image');
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -78,65 +72,6 @@ export default function MediaGallery() {
     };
   }, []);
 
-  function handleAddFromUrl() {
-    if (!newUrl.trim()) return;
-    const id = crypto.randomUUID();
-    setItems((prev) => [
-      {
-        id,
-        type: newType,
-        src: newUrl.trim(),
-        title: newTitle.trim() || (newType === 'image' ? 'New Image' : 'New Video'),
-        createdAt: Date.now()
-      },
-      ...prev
-    ]);
-    setNewUrl('');
-    setNewTitle('');
-    setNewType('image');
-  }
-
-  function handleAddFromFile(file: File) {
-    const objectUrl = URL.createObjectURL(file);
-    const isVideo = file.type.startsWith('video/');
-    const id = crypto.randomUUID();
-    setItems((prev) => [
-      {
-        id,
-        type: isVideo ? 'video' : 'image',
-        src: objectUrl,
-        title: file.name.replace(/\.[^/.]+$/, ''),
-        createdAt: Date.now()
-      },
-      ...prev
-    ]);
-  }
-
-  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    handleAddFromFile(file);
-    if (fileInputRef.current) fileInputRef.current.value = '';
-  }
-
-  function startEdit(item: MediaItem) {
-    setEditingId(item.id);
-    setNewTitle(item.title);
-  }
-
-  function saveEdit(id: string) {
-    setItems((prev) =>
-      prev.map((it) => (it.id === id ? { ...it, title: newTitle.trim() || it.title } : it))
-    );
-    setEditingId(null);
-    setNewTitle('');
-  }
-
-  function cancelEdit() {
-    setEditingId(null);
-    setNewTitle('');
-  }
-
   return (
     <section
       ref={sectionRef}
@@ -144,14 +79,13 @@ export default function MediaGallery() {
       style={{
         fontFamily: 'var(--font-antonio)',
         fontWeight: 700,
-        backgroundColor: '#151515'
+        backgroundColor: '#1c0533'
       }}
     >
       <div className="mx-auto max-w-7xl text-white">
         <div
-          className={`mb-8 sm:mb-10 text-center transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
+          className={`mb-8 sm:mb-10 text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
         >
           <h2
             className="mb-3 sm:mb-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight px-4"
@@ -163,66 +97,11 @@ export default function MediaGallery() {
             className="mx-auto max-w-2xl text-sm sm:text-base lg:text-lg text-gray-300 xl:text-xl px-4"
             style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
           >
-            Add new media, update titles, and browse the community gallery.
+            Browse the community gallery and check out the latest sessions.
           </p>
         </div>
 
-        <div
-          className={`mb-8 sm:mb-10 rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-4 sm:p-6 transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
-        >
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
-            <div className="flex-1">
-              <label className="mb-2 block text-sm text-gray-300" style={{ fontFamily: 'var(--font-geist-sans)' }}>
-                Media URL
-              </label>
-              <input
-                value={newUrl}
-                onChange={(e) => setNewUrl(e.target.value)}
-                placeholder="https://..."
-                className="w-full rounded-lg bg-white/5 px-3 py-2 text-sm text-white outline-none ring-1 ring-white/10 focus:ring-white/30"
-                style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
-              />
-            </div>
-            <div>
-              <label className="mb-2 block text-sm text-gray-300" style={{ fontFamily: 'var(--font-geist-sans)' }}>
-                Type
-              </label>
-              <select
-                value={newType}
-                onChange={(e) => setNewType(e.target.value as 'image' | 'video')}
-                className="rounded-lg bg-white/5 px-3 py-2 text-sm text-white outline-none ring-1 ring-white/10 focus:ring-white/30"
-                style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
-              >
-                <option value="image">Image</option>
-                <option value="video">Video</option>
-              </select>
-            </div>
-            <div className="flex gap-3">
-              <button
-                onClick={handleAddFromUrl}
-                className="rounded-xl bg-gradient-to-r from-[#fb5607] to-[#ff6b6b] px-5 py-2.5 text-sm font-bold text-white shadow-[0_8px_30px_rgba(251,86,7,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-[0_12px_40px_rgba(251,86,7,0.6)]"
-                style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
-              >
-                Add from URL
-              </button>
-              <label
-                className="cursor-pointer rounded-xl border-2 border-white/20 bg-white/5 px-5 py-2.5 text-sm font-bold text-white transition-all duration-300 hover:border-white/40 hover:bg-white/10"
-                style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
-              >
-                Upload
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*,video/*"
-                  onChange={handleFileChange}
-                  className="hidden"
-                />
-              </label>
-            </div>
-          </div>
-        </div>
+
 
         <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item, index) => (
@@ -252,56 +131,22 @@ export default function MediaGallery() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
               </div>
               <div className="p-4 sm:p-5">
-                {editingId === item.id ? (
-                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
-                    <input
-                      value={newTitle}
-                      onChange={(e) => setNewTitle(e.target.value)}
-                      className="flex-1 rounded-lg bg-white/5 px-3 py-2 text-sm text-white outline-none ring-1 ring-white/10 focus:ring-white/30"
-                      style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
-                    />
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => saveEdit(item.id)}
-                        className="flex-1 sm:flex-none rounded-lg bg-white px-3 py-2 text-xs font-bold text-black"
-                        style={{ fontFamily: 'var(--font-antonio)' }}
-                      >
-                        Save
-                      </button>
-                      <button
-                        onClick={cancelEdit}
-                        className="flex-1 sm:flex-none rounded-lg border border-white/30 px-3 py-2 text-xs font-bold text-white"
-                        style={{ fontFamily: 'var(--font-antonio)' }}
-                      >
-                        Cancel
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex-1 min-w-0">
-                      <h4
-                        className="mb-1 text-base sm:text-lg font-bold text-white truncate"
-                        style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
-                      >
-                        {item.title}
-                      </h4>
-                      <p
-                        className="text-xs text-gray-400"
-                        style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
-                      >
-                        {formatDate(item.createdAt)}
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => startEdit(item)}
-                      className="rounded-lg border-2 border-white/20 bg-white/5 px-3 py-1.5 text-xs font-bold text-white transition-all duration-300 hover:border-white/40 hover:bg-white/10 flex-shrink-0"
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex-1 min-w-0">
+                    <h4
+                      className="mb-1 text-base sm:text-lg font-bold text-white truncate"
                       style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
                     >
-                      Edit
-                    </button>
+                      {item.title}
+                    </h4>
+                    <p
+                      className="text-xs text-gray-400"
+                      style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
+                    >
+                      {formatDate(item.createdAt)}
+                    </p>
                   </div>
-                )}
+                </div>
               </div>
             </article>
           ))}

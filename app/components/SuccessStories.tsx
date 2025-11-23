@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
 import Image from "next/image";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, useRef } from "react";
 
 type SuccessStory = {
   name: string;
@@ -16,286 +16,189 @@ type SuccessStory = {
 const successStories: SuccessStory[] = [
   {
     name: "Sudipto Sarar",
-    badge: "Sudipto Sarar’s Diabetes Reversal Journey",
+    badge: "Diabetes Reversal",
     statLabel: "HbA1c",
     statFrom: "10.9%",
     statTo: "6.7%",
-    description:
-      "“Hi, I’m Sudipto Sarar. I was diagnosed with diabetes at the age of 30, which marked the beginning of a long and difficult journey. But with Gofytt, I completely transformed my life Hi, I’m Sudipto Sarar. I was diagnosed with diabetes at the age of 30, which marked the beginning of a long and difficult journey. But with Gofytt, I completely transformed my life here its a long story to tell here Sudipto Sarar. I was diagnosed with diabetes at the age of 30, which marked the beginning of a long and difficult journey. But with Gofytt, I completely transformed my life..",
+    description: "Diagnosed at 30, I thought my life was over. Gofytt didn't just reverse my numbers; they gave me my future back.",
     videoId: "dQw4w9WgXcQ",
   },
   {
     name: "Sulekha",
-    badge: "Sulekha Kumari’s Diabetes Reversal Journey",
+    badge: "Type 2 Reversal",
     statLabel: "HbA1c",
     statFrom: "10.1%",
     statTo: "5.1%",
-    description:
-      "“Hi, my name is Sulekha. I’m 34 years old and I work as a cybersecurity professional in Bangalore. In December 2022, I was diagnosed with Type 2 diabetes. With Gofytt’s coaching, everything changed “Hi, I’m Sudipto Sarar. I was diagnosed with diabetes at the age of 30, which marked the beginning of a long and difficult journey. But with Gofytt, I completely transformed my life Sudipto Sarar. I was diagnosed with diabetes at the age of 30, which marked the beginning of a long and difficult journey. But with Gofytt, I completely transformed my life here its a long story to tell here Sudipto Sarar. I was diagnosed with diabetes at the age of 30, which marked the beginning of a long and difficult journey. But with Gofytt, I completely transformed my life..",
+    description: "As a busy tech professional, health took a backseat. Gofytt's coaching integrated seamlessly into my chaotic schedule.",
     videoId: "aqz-KE-bpKQ",
   },
   {
     name: "Shrinivas",
-    badge: "Shrinivas’s Diabetes Reversal Journey",
+    badge: "Metabolic Reset",
     statLabel: "HbA1c",
     statFrom: "9.8%",
     statTo: "5.4%",
-    description:
-      "“My name is Shrinivas, and I recently began my journey with Gofytt. From day one, the personalised plans helped me stabilise my sugars and regain confidence “Hi, I’m Sudipto Sarar. I was diagnosed with diabetes at the age of 30, which marked the beginning of a long and difficult journey. But with Gofytt, I completely transformed my life Hi, I’m Sudipto Sarar. I was diagnosed with diabetes at the age of 30, which marked the beginning of a long and difficult journey. But with Gofytt, I completely transformed my life here its a long story to tell here Sudipto Sarar. I was diagnosed with diabetes at the age of 30, which marked the beginning of a long and difficult journey. But with Gofytt, I completely transformed my life..",
+    description: "From day one, the personalized plan stabilized my sugars. I regained confidence I hadn't felt in years.",
     videoId: "ysz5S6PUM-U",
   },
   {
     name: "Madhav",
-    badge: "Madhav Bhat’s Diabetes Reversal Journey",
+    badge: "Energy Restoration",
     statLabel: "Sugar Level",
-    statFrom: "431 mg/dL",
-    statTo: "114 mg/dL",
-    description:
-      "“Hello, I’m Madhav. My journey with diabetes began in 2022. With the structured support from Gofytt, my energy returned and my sugars dropped dramatically “Hi, I’m Sudipto Sarar. I was diagnosed with diabetes at the age of 30, which marked the beginning of a long and difficult journey. But with Gofytt, I completely transformed my life Hi, I’m Sudipto Sarar. I was diagnosed with diabetes at the age of 30, which marked the beginning of a long and difficult journey. But with Gofytt, I completely transformed my life here its a long story to tell here Sudipto Sarar. I was diagnosed with diabetes at the age of 30, which marked the beginning of a long and difficult journey. But with Gofytt, I completely transformed my life..",
+    statFrom: "431",
+    statTo: "114",
+    description: "My energy returned, and my sugars dropped dramatically. It's not just a diet; it's a complete lifestyle upgrade.",
     videoId: "oHg5SJYRHA0",
   },
   {
     name: "Aparna",
-    badge: "Aparna’s Diabetes Reversal Journey",
+    badge: "Lifestyle Balance",
     statLabel: "HbA1c",
     statFrom: "9.2%",
     statTo: "5.2%",
-    description:
-      "“I’m Aparna, a working mom who was struggling to balance family and health. Gofytt helped me rework my lifestyle without drastic sacrifices…”",
+    description: "Balancing family and health seemed impossible until Gofytt showed me how to prioritize without sacrifice.",
     videoId: "6_b7RDuLwcI",
   },
   {
     name: "Raghav",
-    badge: "Raghav’s Diabetes Reversal Journey",
+    badge: "Fitness Transformation",
     statLabel: "Sugar Level",
-    statFrom: "398 mg/dL",
-    statTo: "118 mg/dL",
-    description:
-      "“Raghav here! Daily accountability from my Gofytt coach kept me consistent. In just months, I went from constant fatigue to running 5Ks…”",
+    statFrom: "398",
+    statTo: "118",
+    description: "I went from constant fatigue to running 5Ks. The daily accountability was the game-changer I needed.",
     videoId: "0O2aH4XLbto",
-  },
-  {
-    name: "Leena",
-    badge: "Leena’s Diabetes Reversal Journey",
-    statLabel: "HbA1c",
-    statFrom: "11.0%",
-    statTo: "6.0%",
-    description:
-      "“Leena speaking! I joined Gofytt after countless failed diets. The science-backed plan and community support finally made healthy living natural…”",
-    videoId: "V-_O7nl0Ii0",
-  },
-  {
-    name: "Prakash",
-    badge: "Prakash’s Diabetes Reversal Journey",
-    statLabel: "Sugar Level",
-    statFrom: "410 mg/dL",
-    statTo: "120 mg/dL",
-    description:
-      "“I’m Prakash. My doctors warned me about insulin. Thanks to Gofytt’s personalised workouts and nutrition, I avoided it and feel younger than ever…”",
-    videoId: "j5-yKhDd64s",
   },
 ];
 
 export default function SuccessStories() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [visibleCount, setVisibleCount] = useState(1);
   const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const updateVisibleCount = () => {
-      if (window.innerWidth >= 1280) {
-        setVisibleCount(4);
-      } else if (window.innerWidth >= 768) {
-        setVisibleCount(2);
-      } else {
-        setVisibleCount(1);
-      }
-    };
-
-    updateVisibleCount();
-    window.addEventListener("resize", updateVisibleCount);
-    return () => window.removeEventListener("resize", updateVisibleCount);
-  }, []);
-
-  const maxIndex = useMemo(() => Math.max(successStories.length - visibleCount, 0), [visibleCount]);
-  const clampedIndex = useMemo(() => Math.min(currentIndex, maxIndex), [currentIndex, maxIndex]);
-
-  const clampIndex = useCallback(
-    (value: number) => {
-      const next = Math.min(Math.max(value, 0), maxIndex);
-      return next;
-    },
-    [maxIndex],
-  );
-
-  const canGoBackward = clampedIndex > 0;
-  const canGoForward = clampedIndex < maxIndex;
-
-  const cardWidth = useMemo(
-    () => `calc(${(100 / visibleCount).toFixed(4)}% - 1.25rem)`,
-    [visibleCount],
-  );
-
-  const handleBackward = () => {
-    if (canGoBackward) {
-      setCurrentIndex((prev) => clampIndex(clampIndex(prev) - 1));
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = direction === 'left' ? -400 : 400;
+      scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
-  };
-
-  const handleForward = () => {
-    if (canGoForward) {
-      setCurrentIndex((prev) => clampIndex(clampIndex(prev) + 1));
-    }
-  };
-
-  const slideStyle = useMemo(() => {
-    const shift = (100 / visibleCount) * clampedIndex;
-    return {
-      transform: `translateX(-${shift}%)`,
-    };
-  }, [clampedIndex, visibleCount]);
-
-  const getThumbnailUrl = (videoId: string) =>
-    `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-
-  const handlePlayVideo = (videoId: string) => {
-    setActiveVideoId(videoId);
-  };
-
-  const handleCloseVideo = () => {
-    setActiveVideoId(null);
   };
 
   return (
-    <section className="bg-[#151515] py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-20 text-white" aria-labelledby="success-stories-heading">
-      <div className="mx-auto max-w-7xl">
-        <div className="text-center mb-8 sm:mb-12">
-          <h2
-            id="success-stories-heading"
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-white px-4"
-            style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
-          >
-            Real-life Success Stories Of Our Diabetes Reversal Program
-          </h2>
-        </div>
+    <section className="relative py-24 sm:py-32 bg-[#050505] overflow-hidden">
+      {/* Background Ambience */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
+        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#fb5607] rounded-full blur-[120px] opacity-20 mix-blend-screen" />
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#2c0d54] rounded-full blur-[120px] opacity-20 mix-blend-screen" />
+      </div>
 
-        <div className="relative mt-8 w-full overflow-hidden">
-        <div className="overflow-hidden">
-          <div
-            className="flex gap-4 transition-transform duration-500 ease-out"
-            style={slideStyle}
-          >
-            {successStories.map((story) => (
-              <article
-                key={story.name}
-                style={{ flex: `0 0 ${cardWidth}`, maxWidth: cardWidth }}
-                className="mx-auto flex min-h-[480px] sm:min-h-[520px] flex-col rounded-2xl border border-white/10 bg-gradient-to-b from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-4 sm:p-5 shadow-[0_18px_40px_rgba(0,0,0,0.35)] transition hover:-translate-y-1.5 hover:shadow-[0_22px_50px_rgba(0,0,0,0.5)]"
-              >
-                <div className="relative mb-4 overflow-hidden rounded-xl border border-white/10">
-                  {activeVideoId === story.videoId ? (
-                    <div className="relative aspect-[16/9]">
-                      <iframe
-                        src={`https://www.youtube.com/embed/${story.videoId}?autoplay=1&rel=0&modestbranding=1`}
-                        title={`${story.name} testimonial`}
-                        className="h-full w-full"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      />
-                      <button
-                        type="button"
-                        onClick={handleCloseVideo}
-                        className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-white transition hover:bg-black/80"
-                        aria-label="Close video"
-                      >
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-6 w-6">
-                          <path d="M6 6l12 12M6 18L18 6" strokeLinecap="round" />
-                        </svg>
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="relative aspect-[16/9]">
-                      <Image
-                        src={getThumbnailUrl(story.videoId)}
-                        alt={`${story.name} testimonial thumbnail`}
-                        fill
-                        className="object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#2c0d54]/95 via-[#2c0d54]/70 to-[#2c0d54]/20" />
-                      <div className="relative z-10 flex h-full flex-col justify-between p-5">
-                        <div className="space-y-1.5 max-w-[70%]">
-                          <p className="text-xs uppercase tracking-[0.2em] text-[#8dd9ff]">Gofytt</p>
-                          <h3 className="text-lg font-semibold uppercase leading-tight text-white">
-                            {story.badge}
-                          </h3>
-                        </div>
-                        <div className="mt-4 flex items-center gap-2 text-xs font-medium text-[#f6b14b]">
-                          <span>{story.statLabel}:</span>
-                          <span className="text-white">{story.statFrom}</span>
-                          <span className="text-[#ff6b6b]">➜</span>
-                          <span>{story.statTo}</span>
-                        </div>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => handlePlayVideo(story.videoId)}
-                        className="group absolute inset-0 z-20 flex items-center justify-center"
-                        aria-label={`Play ${story.name}'s story`}
-                      >
-                        <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ff4f64] shadow-lg transition group-hover:scale-110 group-hover:shadow-xl">
-                          <svg
-                            viewBox="0 0 24 24"
-                            aria-hidden="true"
-                            className="h-6 w-6 fill-white"
-                          >
-                            <path d="M10 8.64 15 12l-5 3.36z" />
-                          </svg>
-                        </span>
-                      </button>
-                    </div>
-                  )}
-                </div>
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-                <div className="flex flex-col flex-1 text-left">
-                  <h4 className="text-xl font-semibold text-white">{story.name}</h4>
-                  <div className="mt-2 flex items-center gap-2 text-xs text-[#d3c5ff]">
-                    <span className="font-semibold text-white">{story.statLabel}:</span>
-                    <span>{story.statFrom}</span>
-                    <span className="text-[#ff6b6b]">➜</span>
-                    <span className="text-[#5ff7b6]">{story.statTo}</span>
-                  </div>
-                  <hr className="my-4 border-white/10" />
-                  <p className="text-xs leading-relaxed text-[#c5b6f5]">{story.description}</p>
-                </div>
-              </article>
-            ))}
+        {/* Header */}
+        <div className="flex flex-col md:flex-row items-end justify-between mb-12 sm:mb-20 gap-8">
+          <div className="max-w-2xl">
+            <h2
+              className="text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tighter mb-4"
+              style={{ fontFamily: 'var(--font-antonio)' }}
+            >
+              REAL STORIES.<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#fb5607] to-[#ff6b6b]">REAL RESULTS.</span>
+            </h2>
+            <p className="text-gray-400 text-lg" style={{ fontFamily: 'var(--font-geist-sans)' }}>
+              See how everyday people are reclaiming their health and rewriting their futures with Gofytt.
+            </p>
+          </div>
+
+          {/* Navigation Buttons */}
+          <div className="flex gap-4">
+            <button
+              onClick={() => scroll('left')}
+              className="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white transition-all hover:bg-[#fb5607] hover:border-[#fb5607] hover:scale-110"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+            </button>
+            <button
+              onClick={() => scroll('right')}
+              className="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white transition-all hover:bg-[#fb5607] hover:border-[#fb5607] hover:scale-110"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+            </button>
           </div>
         </div>
 
-        <div className="mt-6 sm:mt-8 flex items-center justify-center gap-4 px-4">
-          <button
-            type="button"
-            onClick={handleBackward}
-            disabled={!canGoBackward}
-            className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-white/40 hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-40"
-            aria-label="View previous success stories"
-          >
-            <svg viewBox="0 0 24 24" className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" strokeWidth="1.8">
-              <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-          <button
-            type="button"
-            onClick={handleForward}
-            disabled={!canGoForward}
-            className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-white/40 hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-40"
-            aria-label="View more success stories"
-          >
-            <svg viewBox="0 0 24 24" className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" strokeWidth="1.8">
-              <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
+        {/* Carousel */}
+        <div
+          ref={scrollContainerRef}
+          className="flex gap-6 overflow-x-auto pb-12 snap-x snap-mandatory scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {successStories.map((story, index) => (
+            <div
+              key={index}
+              className="flex-none w-[85vw] sm:w-[400px] snap-center group"
+            >
+              <div className="relative h-[500px] rounded-3xl overflow-hidden bg-[#1a1a1a] border border-white/10 transition-all duration-500 hover:border-[#fb5607]/50 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+
+                {/* Video/Image Area */}
+                <div className="relative h-[280px] w-full bg-black">
+                  {activeVideoId === story.videoId ? (
+                    <iframe
+                      src={`https://www.youtube.com/embed/${story.videoId}?autoplay=1&modestbranding=1&rel=0`}
+                      title={story.name}
+                      className="w-full h-full object-cover"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  ) : (
+                    <>
+                      <Image
+                        src={`https://img.youtube.com/vi/${story.videoId}/hqdefault.jpg`}
+                        alt={story.name}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent" />
+
+                      {/* Play Button */}
+                      <button
+                        onClick={() => setActiveVideoId(story.videoId)}
+                        className="absolute inset-0 flex items-center justify-center group/btn"
+                      >
+                        <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center transition-all duration-300 group-hover/btn:scale-110 group-hover/btn:bg-[#fb5607] group-hover/btn:border-[#fb5607]">
+                          <svg className="w-6 h-6 text-white fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                        </div>
+                      </button>
+                    </>
+                  )}
+                </div>
+
+                {/* Content Area */}
+                <div className="p-6 relative">
+                  <div className="absolute -top-12 right-6 bg-[#fb5607] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">
+                    {story.badge}
+                  </div>
+
+                  <h3 className="text-2xl font-bold text-white mb-1" style={{ fontFamily: 'var(--font-antonio)' }}>
+                    {story.name}
+                  </h3>
+
+                  {/* Stats Row */}
+                  <div className="flex items-center gap-3 mb-4 text-sm">
+                    <span className="text-gray-400 font-medium">{story.statLabel}</span>
+                    <div className="flex items-center gap-2 bg-white/5 px-3 py-1 rounded-lg border border-white/10">
+                      <span className="text-white font-bold">{story.statFrom}</span>
+                      <svg className="w-4 h-4 text-[#fb5607]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                      <span className="text-[#5ff7b6] font-bold">{story.statTo}</span>
+                    </div>
+                  </div>
+
+                  <p className="text-gray-400 text-sm leading-relaxed line-clamp-3" style={{ fontFamily: 'var(--font-geist-sans)' }}>
+                    "{story.description}"
+                  </p>
+                </div>
+
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
+
       </div>
     </section>
   );

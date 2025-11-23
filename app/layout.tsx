@@ -35,6 +35,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${antonio.variable} antialiased`}
       >
+        <div className="fixed inset-0 z-[9999] pointer-events-none opacity-[0.04] bg-noise mix-blend-overlay"></div>
         <Header />
         <ScrollEffects />
         {children}

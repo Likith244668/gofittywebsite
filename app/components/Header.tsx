@@ -28,7 +28,7 @@ export default function Header() {
     // Monitor scroll position - hide header when not in HeroSection
     const handleScroll = () => {
       if (!hasShown) return;
-      
+
       const heroSection = document.querySelector('[data-hero-section]') as HTMLElement;
       if (!heroSection) {
         setIsVisible(false);
@@ -47,10 +47,10 @@ export default function Header() {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
+
     // Check initial scroll position
     handleScroll();
-    
+
     return () => {
       clearTimeout(showTimer);
       window.removeEventListener('scroll', handleScroll);
@@ -79,39 +79,41 @@ export default function Header() {
   }, [isMobileMenuOpen]);
 
   return (
-    <header 
+    <header
       ref={headerRef}
-      className={`fixed top-0 left-0 right-0 z-50 bg-black transition-opacity duration-300 ease-out ${
-        isVisible ? 'opacity-100 animate-header-fade-in' : 'opacity-0 pointer-events-none'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 bg-black transition-opacity duration-300 ease-out ${isVisible ? 'opacity-100 animate-header-fade-in' : 'opacity-0 pointer-events-none'
+        }`}
       style={{ willChange: 'opacity' }}
     >
       {/* Top dark gray bar */}
       <div className="h-1 bg-gray-800"></div>
-      
+
       {/* Main header content */}
       <div className="flex items-center justify-between px-4 sm:px-6 lg:px-12 py-3 sm:py-4 bg-black">
         {/* Logo - Left */}
         <div className="flex items-center gap-2 flex-shrink-0">
           <span className="text-[#fb5607] font-bold text-2xl sm:text-3xl lg:text-4xl uppercase tracking-tight" style={{ fontFamily: 'var(--font-antonio)' }}>
-           Gofytt
+            Gofytt
           </span>
         </div>
 
         {/* Navigation Bar - Center (Desktop) */}
         <nav className="hidden lg:flex items-center justify-center flex-1">
           <div className="bg-gray-800 rounded-full px-8 xl:px-10 py-1.5 xl:py-4.5 flex items-center gap-16 xl:gap-24">
-            <a href="#" className="text-white font-bold uppercase text-xs xl:text-sm hover:text-[#fb5607] transition-colors whitespace-nowrap" style={{ fontFamily: 'var(--font-antonio)' }}>
-              CLASSES
+            <a href="/" className="text-white font-bold uppercase text-xs xl:text-sm hover:text-[#fb5607] transition-colors whitespace-nowrap" style={{ fontFamily: 'var(--font-antonio)' }}>
+              HOME
             </a>
-            <a href="#" className="text-white font-bold uppercase text-xs xl:text-sm hover:text-[#fb5607] transition-colors whitespace-nowrap" style={{ fontFamily: 'var(--font-antonio)' }}>
-              BONUSES
+            <a href="/#about" className="text-white font-bold uppercase text-xs xl:text-sm hover:text-[#fb5607] transition-colors whitespace-nowrap" style={{ fontFamily: 'var(--font-antonio)' }}>
+              ABOUT
             </a>
-            <a href="#" className="text-white font-bold uppercase text-xs xl:text-sm hover:text-[#fb5607] transition-colors whitespace-nowrap" style={{ fontFamily: 'var(--font-antonio)' }}>
-              MEMBERSHIPS
+            <a href="/#1-percent-club" className="text-white font-bold uppercase text-xs xl:text-sm hover:text-[#fb5607] transition-colors whitespace-nowrap" style={{ fontFamily: 'var(--font-antonio)' }}>
+              THE 1% CLUB
             </a>
-            <a href="#" className="text-white font-bold uppercase text-xs xl:text-sm hover:text-[#fb5607] transition-colors whitespace-nowrap" style={{ fontFamily: 'var(--font-antonio)' }}>
-              LOCATIONS
+            <a href="/knowledge-hub" className="text-white font-bold uppercase text-xs xl:text-sm hover:text-[#fb5607] transition-colors whitespace-nowrap" style={{ fontFamily: 'var(--font-antonio)' }}>
+              KNOWLEDGE HUB
+            </a>
+            <a href="/events-and-experiences" className="text-white font-bold uppercase text-xs xl:text-sm hover:text-[#fb5607] transition-colors whitespace-nowrap" style={{ fontFamily: 'var(--font-antonio)' }}>
+              EVENTS
             </a>
           </div>
         </nav>
@@ -122,7 +124,7 @@ export default function Header() {
           <button className="hidden sm:block text-[#fb5607] font-bold uppercase text-lg sm:text-xl lg:text-2xl hover:text-[#ff6b1f] transition-colors whitespace-nowrap flex-shrink-0" style={{ fontFamily: 'var(--font-antonio)' }}>
             JOIN NOW [+]
           </button>
-          
+
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -144,42 +146,49 @@ export default function Header() {
 
       {/* Mobile Menu */}
       <div
-        className={`lg:hidden fixed inset-0 top-[57px] bg-black z-40 transform transition-transform duration-300 ease-in-out ${
-          isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+        className={`lg:hidden fixed inset-0 top-[57px] bg-black z-40 transform transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
       >
         <nav className="flex flex-col h-full pt-8 px-6">
           <a
-            href="#"
+            href="/"
             onClick={() => setIsMobileMenuOpen(false)}
             className="text-white font-bold uppercase text-lg py-4 border-b border-gray-800 hover:text-[#fb5607] transition-colors"
             style={{ fontFamily: 'var(--font-antonio)' }}
           >
-            CLASSES
+            HOME
           </a>
           <a
-            href="#"
+            href="/#about"
             onClick={() => setIsMobileMenuOpen(false)}
             className="text-white font-bold uppercase text-lg py-4 border-b border-gray-800 hover:text-[#fb5607] transition-colors"
             style={{ fontFamily: 'var(--font-antonio)' }}
           >
-            BONUSES
+            ABOUT
           </a>
           <a
-            href="#"
+            href="/#1-percent-club"
             onClick={() => setIsMobileMenuOpen(false)}
             className="text-white font-bold uppercase text-lg py-4 border-b border-gray-800 hover:text-[#fb5607] transition-colors"
             style={{ fontFamily: 'var(--font-antonio)' }}
           >
-            MEMBERSHIPS
+            THE 1% CLUB
           </a>
           <a
-            href="#"
+            href="/knowledge-hub"
             onClick={() => setIsMobileMenuOpen(false)}
             className="text-white font-bold uppercase text-lg py-4 border-b border-gray-800 hover:text-[#fb5607] transition-colors"
             style={{ fontFamily: 'var(--font-antonio)' }}
           >
-            LOCATIONS
+            KNOWLEDGE HUB
+          </a>
+          <a
+            href="/events-and-experiences"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="text-white font-bold uppercase text-lg py-4 border-b border-gray-800 hover:text-[#fb5607] transition-colors"
+            style={{ fontFamily: 'var(--font-antonio)' }}
+          >
+            EVENTS
           </a>
           <button
             onClick={() => setIsMobileMenuOpen(false)}

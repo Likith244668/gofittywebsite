@@ -29,13 +29,12 @@ export default function AmbassadorProgram() {
     <section
       ref={sectionRef}
       className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-10 xl:px-20"
-      style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700, backgroundColor: '#151515' }}
+      style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700, backgroundColor: '#1c0533' }}
     >
       <div className="mx-auto max-w-7xl text-white">
         <div
-          className={`mb-8 sm:mb-12 text-center transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
+          className={`mb-8 sm:mb-12 text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
         >
           <h2 className="mb-3 sm:mb-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl px-4">Ambassador Programme</h2>
           <p
@@ -47,9 +46,8 @@ export default function AmbassadorProgram() {
         </div>
 
         <div
-          className={`grid gap-6 sm:grid-cols-2 transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
+          className={`grid gap-6 sm:grid-cols-2 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
         >
           <div className="rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-6 sm:p-8">
             <h3 className="mb-3 text-xl sm:text-2xl">Perks</h3>

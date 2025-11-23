@@ -35,13 +35,12 @@ export default function WorkWithGofytt() {
     <section
       ref={sectionRef}
       className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-10 xl:px-20"
-      style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700, backgroundColor: '#0f0420' }}
+      style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700, backgroundColor: '#050505' }}
     >
       <div className="mx-auto max-w-7xl text-white">
         <div
-          className={`mb-8 sm:mb-12 text-center transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
+          className={`mb-8 sm:mb-12 text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
         >
           <h2 className="mb-3 sm:mb-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl px-4">Work with Gofytt</h2>
           <p

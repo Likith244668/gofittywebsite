@@ -41,6 +41,66 @@ const PlusBadge = () => (
   </span>
 );
 
+const TiltCard = ({ service }: { service: typeof heroService }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+  const [spotlight, setSpotlight] = useState({ x: 50, y: 50, opacity: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = ((y - centerY) / centerY) * -10; // Max 10deg
+    const rotateY = ((x - centerX) / centerX) * 10; // Max 10deg
+
+    setRotation({ x: rotateX, y: rotateY });
+    setSpotlight({ x: (x / rect.width) * 100, y: (y / rect.height) * 100, opacity: 1 });
+  };
+
+  const handleMouseLeave = () => {
+    setRotation({ x: 0, y: 0 });
+    setSpotlight((prev) => ({ ...prev, opacity: 0 }));
+  };
+
+  return (
+    <article
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="group relative flex min-h-[400px] sm:min-h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-3xl sm:rounded-[56px] bg-gray-900/10 ring-1 ring-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.25),0_30px_80px_rgba(251,86,7,0.12)] transition-all duration-200 ease-out"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url(${service.image})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        transform: `perspective(1000px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale3d(1.02, 1.02, 1.02)`,
+        willChange: 'transform'
+      }}
+    >
+      {/* Spotlight Effect */}
+      <div
+        className="pointer-events-none absolute inset-0 transition-opacity duration-500"
+        style={{
+          opacity: spotlight.opacity,
+          background: `radial-gradient(600px circle at ${spotlight.x}% ${spotlight.y}%, rgba(255,255,255,0.1), transparent 40%)`
+        }}
+      />
+
+      <PlusBadge />
+      <span
+        className="text-3xl sm:text-4xl lg:text-[42px] tracking-[0.2rem] sm:tracking-[0.28rem] text-white px-4 text-center transition-transform duration-200"
+        style={{ transform: `translateZ(50px)` }}
+      >
+        {service.name}
+      </span>
+    </article>
+  );
+};
+
 export default function OurServices() {
   const sectionRef = useRef<HTMLElement>(null);
   const [isInView, setIsInView] = useState(false);
@@ -69,44 +129,16 @@ export default function OurServices() {
       style={{
         fontFamily: 'var(--font-antonio)',
         fontWeight: 700,
-        backgroundColor: '#1a1a1a',
+        backgroundColor: '#050505',
         backgroundImage:
-          'radial-gradient(1200px 600px at 50% 0%, rgba(255,255,255,0.06), rgba(0,0,0,0) 60%)'
+          'radial-gradient(circle at 50% 0%, #1a0b2e 0%, transparent 70%)'
       }}
       ref={sectionRef}
     >
       <div className="mx-auto flex max-w-6xl flex-col gap-8 sm:gap-12 text-white lg:flex-row lg:items-start">
         {/* Main featured service card */}
         <div className="flex flex-col gap-6 sm:gap-8 lg:w-[40%]">
-          <article
-            className="group relative flex min-h-[400px] sm:min-h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-3xl sm:rounded-[56px] bg-gray-900/10 ring-1 ring-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.25),0_30px_80px_rgba(251,86,7,0.12)] transition-transform duration-300 ease-out hover:-translate-y-4"
-            style={{
-              backgroundImage: `linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url(${heroService.image})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              willChange: 'transform'
-            }}
-          >
-            {/* Soft animated glow */}
-            <div
-              className={`pointer-events-none absolute inset-0 transition-opacity duration-700 ${isInView ? 'opacity-50' : 'opacity-0'} group-hover:opacity-60`}
-              style={{ borderRadius: 'inherit' }}
-            >
-              <div
-                className="absolute -inset-6 blur-2xl animate-pulse"
-                style={{
-                  borderRadius: 'inherit',
-                  background:
-                    'radial-gradient(closest-side, rgba(251,86,7,0.18), rgba(251,86,7,0.06), transparent)',
-                  animationDuration: '2600ms'
-                }}
-              />
-            </div>
-            <PlusBadge />
-            <span className="text-3xl sm:text-4xl lg:text-[42px] tracking-[0.2rem] sm:tracking-[0.28rem] text-white px-4 text-center">
-              {heroService.name}
-            </span>
-          </article>
+          <TiltCard service={heroService} />
 
           <p
             className="max-w-sm text-sm leading-relaxed text-gray-300 sm:text-base px-2"
