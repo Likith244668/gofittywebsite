@@ -18,7 +18,7 @@ const journeyStages: JourneyStage[] = [
     title: 'Awareness',
     description: 'The moment you realize you want more. It starts with a look in the mirror and a fire in your belly.',
     image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80', // Contemplative/Focus
-    color: '#8dd9ff',
+    color: '#ff6b35',
     characterPose: 'Focusing'
   },
   {
@@ -26,7 +26,7 @@ const journeyStages: JourneyStage[] = [
     title: 'Discovery',
     description: 'Testing your limits. You learn what your body can do, finding the tools and techniques that work for you.',
     image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=600&q=80', // Active/Learning
-    color: '#5ff7b6',
+    color: '#ff8800',
     characterPose: 'Exploring'
   },
   {
@@ -34,7 +34,7 @@ const journeyStages: JourneyStage[] = [
     title: 'Commitment',
     description: 'No more excuses. You build the habit, show up on the hard days, and make fitness non-negotiable.',
     image: 'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=600&q=80', // Determined/Training
-    color: '#f6b14b',
+    color: '#ff8800',
     characterPose: 'Grinding'
   },
   {
@@ -103,7 +103,7 @@ export default function TheGofyttPath() {
       style={{
         backgroundColor: '#050505',
         backgroundImage: `
-          radial-gradient(circle at 50% 0%, #1a0b2e 0%, transparent 70%),
+          radial-gradient(circle at 50% 0%, rgba(251,86,7,0.15) 0%, transparent 70%),
           linear-gradient(to bottom, #050505 0%, #0a0a0a 100%)
         `
       }}
@@ -130,7 +130,7 @@ export default function TheGofyttPath() {
           {/* Progress Line (Vertical Center) */}
           <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 -translate-x-1/2 bg-gray-800 rounded-full overflow-hidden z-0">
             <div
-              className="w-full bg-gradient-to-b from-[#8dd9ff] via-[#f6b14b] to-[#fb5607] transition-all duration-300 ease-out"
+              className="w-full bg-gradient-to-b from-[#ff6b35] via-[#ff8800] to-[#fb5607] transition-all duration-300 ease-out"
               style={{ height: `${scrollProgress * 100}%` }}
             />
           </div>

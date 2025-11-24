@@ -34,7 +34,7 @@ const events: Event[] = [
     registered: 18,
     price: '₹2,500',
     instructor: 'Dr. Marcus Johnson',
-    color: '#8dd9ff',
+    color: '#ff6b35',
     status: 'upcoming'
   },
   {
@@ -50,7 +50,7 @@ const events: Event[] = [
     registered: 67,
     price: 'Free',
     instructor: 'Sarah Mitchell',
-    color: '#5ff7b6',
+    color: '#ff8800',
     status: 'upcoming'
   },
   {
@@ -66,7 +66,7 @@ const events: Event[] = [
     registered: 12,
     price: '₹15,000',
     instructor: 'Priya Sharma',
-    color: '#f6b14b',
+    color: '#ff8800',
     status: 'upcoming'
   },
   {
@@ -114,7 +114,7 @@ const events: Event[] = [
     registered: 40,
     price: '₹1,500',
     instructor: 'Priya Sharma',
-    color: '#5ff7b6',
+    color: '#ff8800',
     status: 'latest'
   }
 ];
@@ -181,9 +181,9 @@ export default function EventsAndExperiences() {
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     await new Promise(resolve => setTimeout(resolve, 1500));
-    
+
     setBookingData({ name: '', email: '', phone: '', eventId: '' });
     setShowBookingModal(false);
     setIsSubmitting(false);
@@ -193,9 +193,9 @@ export default function EventsAndExperiences() {
   const handleHostEventSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     await new Promise(resolve => setTimeout(resolve, 1500));
-    
+
     setHostEventData({
       name: '',
       email: '',
@@ -225,7 +225,7 @@ export default function EventsAndExperiences() {
 
   return (
     <>
-      <section 
+      <section
         ref={sectionRef}
         className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-10 xl:px-20"
         style={{
@@ -236,18 +236,17 @@ export default function EventsAndExperiences() {
       >
         <div className="mx-auto max-w-7xl text-white">
           {/* Header Section */}
-          <div 
-            className={`mb-12 text-center transition-all duration-1000 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}
+          <div
+            className={`mb-12 text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
           >
-            <h2 
+            <h2
               className="mb-4 text-4xl tracking-tight sm:text-5xl md:text-6xl"
               style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
             >
               Events & Experiences
             </h2>
-            <p 
+            <p
               className="mx-auto max-w-2xl text-lg text-gray-300 sm:text-xl"
               style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
             >
@@ -256,29 +255,26 @@ export default function EventsAndExperiences() {
           </div>
 
           {/* Tabs */}
-          <div 
-            className={`mb-8 flex justify-center gap-4 transition-all duration-1000 delay-200 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}
+          <div
+            className={`mb-8 flex justify-center gap-4 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
           >
             <button
               onClick={() => setActiveTab('upcoming')}
-              className={`rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 sm:px-8 sm:py-4 sm:text-base ${
-                activeTab === 'upcoming'
+              className={`rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 sm:px-8 sm:py-4 sm:text-base ${activeTab === 'upcoming'
                   ? 'bg-[#fb5607] text-white shadow-[0_8px_30px_rgba(251,86,7,0.4)]'
                   : 'bg-white/10 text-gray-300 hover:bg-white/20'
-              }`}
+                }`}
               style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
             >
               Upcoming Events
             </button>
             <button
               onClick={() => setActiveTab('latest')}
-              className={`rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 sm:px-8 sm:py-4 sm:text-base ${
-                activeTab === 'latest'
+              className={`rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 sm:px-8 sm:py-4 sm:text-base ${activeTab === 'latest'
                   ? 'bg-[#fb5607] text-white shadow-[0_8px_30px_rgba(251,86,7,0.4)]'
                   : 'bg-white/10 text-gray-300 hover:bg-white/20'
-              }`}
+                }`}
               style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
             >
               Latest Events
@@ -286,22 +282,21 @@ export default function EventsAndExperiences() {
           </div>
 
           {/* Events Grid */}
-          <div 
-            className={`mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-1000 delay-300 ${
-              isVisible ? 'opacity-100' : 'opacity-0'
-            }`}
+          <div
+            className={`mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100' : 'opacity-0'
+              }`}
           >
             {filteredEvents.map((event, index) => {
               const isFull = event.registered >= event.capacity;
               const spotsLeft = event.capacity - event.registered;
-              
+
               return (
                 <article
                   key={event.id}
-                  className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] transition-all duration-500 hover:-translate-y-2 hover:border-white/20 hover:shadow-[0_25px_50px_rgba(0,0,0,0.5)]"
+                  className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-black via-[#1a0600] to-[#0a0300] transition-all duration-500 hover:-translate-y-2 hover:border-white/20 hover:shadow-[0_25px_50px_rgba(0,0,0,0.5)]"
                   style={{
-                    animation: isVisible 
-                      ? `fadeInUp 0.6s ease-out ${index * 100}ms both` 
+                    animation: isVisible
+                      ? `fadeInUp 0.6s ease-out ${index * 100}ms both`
                       : 'none'
                   }}
                 >
@@ -315,15 +310,15 @@ export default function EventsAndExperiences() {
                       className="object-cover transition-transform duration-700 group-hover:scale-110"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
-                    <div 
+                    <div
                       className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"
                       style={{
                         background: `linear-gradient(to top, ${event.color}40, transparent)`
                       }}
                     />
-                    
+
                     {/* Event Type Badge */}
-                    <div 
+                    <div
                       className="absolute top-4 left-4 rounded-full px-3 py-1.5 text-xs font-semibold backdrop-blur-sm"
                       style={{
                         backgroundColor: `${event.color}20`,
@@ -342,14 +337,14 @@ export default function EventsAndExperiences() {
 
                   {/* Event Content */}
                   <div className="p-6">
-                    <h3 
+                    <h3
                       className="mb-2 text-xl font-bold text-white transition-colors duration-300 group-hover:text-[#fb5607] sm:text-2xl"
                       style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
                     >
                       {event.title}
                     </h3>
-                    
-                    <p 
+
+                    <p
                       className="mb-4 line-clamp-2 text-sm leading-relaxed text-gray-300 sm:text-base"
                       style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
                     >
@@ -387,9 +382,9 @@ export default function EventsAndExperiences() {
 
                     {/* Price and Book Button */}
                     <div className="flex items-center justify-between">
-                      <div 
+                      <div
                         className="text-2xl font-bold"
-                        style={{ 
+                        style={{
                           fontFamily: 'var(--font-antonio)',
                           color: event.color
                         }}
@@ -399,11 +394,10 @@ export default function EventsAndExperiences() {
                       <button
                         onClick={() => handleBookEvent(event.id)}
                         disabled={isFull}
-                        className={`rounded-xl px-6 py-2.5 text-sm font-bold transition-all duration-300 ${
-                          isFull
+                        className={`rounded-xl px-6 py-2.5 text-sm font-bold transition-all duration-300 ${isFull
                             ? 'cursor-not-allowed bg-gray-600 text-gray-400'
                             : 'bg-[#fb5607] text-white hover:scale-105 hover:shadow-[0_8px_20px_rgba(251,86,7,0.4)]'
-                        }`}
+                          }`}
                         style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
                       >
                         {isFull ? 'Full' : 'Book Now'}
@@ -412,7 +406,7 @@ export default function EventsAndExperiences() {
                   </div>
 
                   {/* Hover Glow */}
-                  <div 
+                  <div
                     className="absolute inset-0 -z-10 rounded-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-20"
                     style={{
                       backgroundColor: event.color,
@@ -425,21 +419,20 @@ export default function EventsAndExperiences() {
           </div>
 
           {/* Host an Event Section */}
-          <div 
-            className={`transition-all duration-1000 delay-500 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}
+          <div
+            className={`transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
           >
-            <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-8 sm:p-10 shadow-[0_25px_60px_rgba(0,0,0,0.55)]">
+            <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-black via-[#1a0600] to-[#0a0300] p-8 sm:p-10 shadow-[0_25px_60px_rgba(0,0,0,0.55)]">
               <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
                 <div>
-                  <h3 
+                  <h3
                     className="mb-4 text-3xl font-bold text-white sm:text-4xl"
                     style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
                   >
                     Host an Event
                   </h3>
-                  <p 
+                  <p
                     className="mb-6 text-base leading-relaxed text-gray-300 sm:text-lg"
                     style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
                   >
@@ -460,14 +453,14 @@ export default function EventsAndExperiences() {
                   </ul>
                   <button
                     onClick={() => setShowHostEventModal(true)}
-                    className="rounded-xl bg-gradient-to-r from-[#fb5607] to-[#ff6b6b] px-8 py-4 text-lg font-bold text-white shadow-[0_8px_30px_rgba(251,86,7,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-[0_12px_40px_rgba(251,86,7,0.6)]"
+                    className="rounded-xl bg-gradient-to-r from-[#fb5607] to-[#ff8800] px-8 py-4 text-lg font-bold text-white shadow-[0_8px_30px_rgba(251,86,7,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-[0_12px_40px_rgba(251,86,7,0.6)]"
                     style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
                   >
                     Request to Host Event
                   </button>
                 </div>
                 <div className="relative hidden lg:block">
-                  <div className="aspect-square rounded-3xl bg-gradient-to-br from-[#fb5607]/20 to-[#8dd9ff]/20 p-8">
+                  <div className="aspect-square rounded-3xl bg-gradient-to-br from-[#fb5607]/20 to-[#ff6b35]/20 p-8">
                     <div className="flex h-full items-center justify-center">
                       <svg className="h-32 w-32 text-[#fb5607]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -484,7 +477,7 @@ export default function EventsAndExperiences() {
       {/* Booking Modal */}
       {showBookingModal && selectedEventData && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
-          <div className="relative w-full max-w-md rounded-3xl border border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-8 shadow-2xl">
+          <div className="relative w-full max-w-md rounded-3xl border border-white/10 bg-gradient-to-br from-black via-[#1a0600] to-[#0a0300] p-8 shadow-2xl">
             <button
               onClick={() => setShowBookingModal(false)}
               className="absolute right-4 top-4 text-gray-400 hover:text-white"
@@ -493,14 +486,14 @@ export default function EventsAndExperiences() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            
-            <h3 
+
+            <h3
               className="mb-2 text-2xl font-bold text-white"
               style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
             >
               Book Event
             </h3>
-            <p 
+            <p
               className="mb-6 text-lg text-[#fb5607]"
               style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
             >
@@ -547,7 +540,7 @@ export default function EventsAndExperiences() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full rounded-xl bg-gradient-to-r from-[#fb5607] to-[#ff6b6b] px-8 py-4 text-lg font-bold text-white shadow-[0_8px_30px_rgba(251,86,7,0.4)] transition-all duration-300 hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50"
+                className="w-full rounded-xl bg-gradient-to-r from-[#fb5607] to-[#ff8800] px-8 py-4 text-lg font-bold text-white shadow-[0_8px_30px_rgba(251,86,7,0.4)] transition-all duration-300 hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50"
                 style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
               >
                 {isSubmitting ? 'Processing...' : `Confirm Booking - ${selectedEventData.price}`}
@@ -560,7 +553,7 @@ export default function EventsAndExperiences() {
       {/* Host Event Modal */}
       {showHostEventModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
-          <div className="relative w-full max-w-2xl rounded-3xl border border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-8 shadow-2xl">
+          <div className="relative w-full max-w-2xl rounded-3xl border border-white/10 bg-gradient-to-br from-black via-[#1a0600] to-[#0a0300] p-8 shadow-2xl">
             <button
               onClick={() => setShowHostEventModal(false)}
               className="absolute right-4 top-4 text-gray-400 hover:text-white"
@@ -569,8 +562,8 @@ export default function EventsAndExperiences() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            
-            <h3 
+
+            <h3
               className="mb-6 text-2xl font-bold text-white sm:text-3xl"
               style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
             >
@@ -685,7 +678,7 @@ export default function EventsAndExperiences() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full rounded-xl bg-gradient-to-r from-[#fb5607] to-[#ff6b6b] px-8 py-4 text-lg font-bold text-white shadow-[0_8px_30px_rgba(251,86,7,0.4)] transition-all duration-300 hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50"
+                className="w-full rounded-xl bg-gradient-to-r from-[#fb5607] to-[#ff8800] px-8 py-4 text-lg font-bold text-white shadow-[0_8px_30px_rgba(251,86,7,0.4)] transition-all duration-300 hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50"
                 style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
               >
                 {isSubmitting ? 'Submitting...' : 'Submit Request'}

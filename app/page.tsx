@@ -20,8 +20,8 @@ export default function Home() {
   return (
     <main className="bg-[#1c0533] text-white">
       <HeroSection />
-      <PressMedia />
       <VisionSection />
+      <PressMedia />
       <TheGofyttPath />
       <JoinThe1PercentFitClub />
       <OurServices />

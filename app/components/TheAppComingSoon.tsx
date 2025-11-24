@@ -33,9 +33,8 @@ export default function TheAppComingSoon() {
     >
       <div className="mx-auto max-w-7xl text-white">
         <div
-          className={`mx-auto max-w-3xl rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-6 sm:p-8 lg:p-10 text-center transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
+          className={`mx-auto max-w-3xl rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-black via-[#1a0600] to-[#0a0300] p-6 sm:p-8 lg:p-10 text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
         >
           <p className="mb-2 text-xl sm:text-2xl lg:text-3xl">The App</p>
           <h2 className="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl">Coming Soon</h2>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import GofyttWord from './ui/GofyttWord';
 
 export default function Header() {
   const [isVisible, setIsVisible] = useState(false);
@@ -92,9 +93,11 @@ export default function Header() {
       <div className="flex items-center justify-between px-4 sm:px-6 lg:px-12 py-3 sm:py-4 bg-black">
         {/* Logo - Left */}
         <div className="flex items-center gap-2 flex-shrink-0">
-          <span className="text-[#fb5607] font-bold text-2xl sm:text-3xl lg:text-4xl uppercase tracking-tight" style={{ fontFamily: 'var(--font-antonio)' }}>
-            Gofytt
-          </span>
+          <GofyttWord
+            logoSize={40}
+            textClassName="text-[#fb5607] font-bold text-2xl sm:text-3xl lg:text-4xl uppercase tracking-tight"
+            className="font-bold"
+          />
         </div>
 
         {/* Navigation Bar - Center (Desktop) */}

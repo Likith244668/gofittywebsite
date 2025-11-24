@@ -55,7 +55,7 @@ export default function WorkWithGofytt() {
           {cards.map((c, idx) => (
             <article
               key={c.title}
-              className="rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-6 sm:p-8 shadow-[0_18px_40px_rgba(0,0,0,0.35)] transition-all duration-500 hover:-translate-y-2"
+              className="rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-black via-[#1a0600] to-[#0a0300] p-6 sm:p-8 shadow-[0_18px_40px_rgba(0,0,0,0.35)] transition-all duration-500 hover:-translate-y-2"
               style={{ animation: isVisible ? `fadeInUp 0.6s ease-out ${idx * 120}ms both` : 'none' }}
             >
               <h3 className="mb-2 text-xl sm:text-2xl">{c.title}</h3>

@@ -146,7 +146,7 @@ const categories = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
       </svg>
     ),
-    color: '#8dd9ff',
+    color: '#ff6b35',
     description: 'Nutrition science, meal planning, and dietary strategies'
   },
   {
@@ -156,7 +156,7 @@ const categories = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
       </svg>
     ),
-    color: '#5ff7b6',
+    color: '#ff8800',
     description: 'Mental training, motivation, and psychological strategies'
   },
   {
@@ -166,7 +166,7 @@ const categories = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
       </svg>
     ),
-    color: '#f6b14b',
+    color: '#ff8800',
     description: 'Holistic wellness, balance, and sustainable living'
   }
 ];
@@ -257,7 +257,7 @@ export default function TheKnowledgeHub() {
   const filteredArticles = articles.filter(article => article.category === activeCategory);
 
   return (
-    <section 
+    <section
       ref={sectionRef}
       className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-10 xl:px-20"
       style={{
@@ -268,187 +268,181 @@ export default function TheKnowledgeHub() {
     >
       <div style={{ height: windowHeight ? `${windowHeight * stepsCount}px` : undefined }}>
         <div className={`mx-auto max-w-7xl text-white ${windowHeight ? 'sticky top-0 min-h-screen' : ''}`}>
-        {/* Header Section */}
-        <div 
-          className={`mb-10 text-center transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
-        >
-          <h2 
-            className="mb-4 text-4xl tracking-tight sm:text-5xl md:text-6xl"
-            style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
-          >
-            The Knowledge Hub
-          </h2>
-          <p 
-            className="mx-auto max-w-2xl text-lg text-gray-300 sm:text-xl"
-            style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
-          >
-            Expert insights, science-backed strategies, and practical guides to support your transformation journey.
-          </p>
-        </div>
-
-        {/* Category Tabs */}
-        <div 
-          className={`mb-6 flex flex-wrap justify-center gap-2 transition-all duration-1000 delay-200 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
-        >
-          {categories.map((category) => (
-            <button
-              key={category.name}
-              onClick={() => setActiveCategory(category.name)}
-              className={`group flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition-all duration-300 sm:px-6 sm:py-3 sm:text-sm ${
-                activeCategory === category.name
-                  ? 'bg-white/20 text-white shadow-lg'
-                  : 'bg-white/10 text-gray-300 hover:bg-white/20'
+          {/* Header Section */}
+          <div
+            className={`mb-10 text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
-              style={{ 
-                fontFamily: 'var(--font-antonio)', 
-                fontWeight: 700,
-                borderColor: activeCategory === category.name ? category.color : 'transparent',
-                borderWidth: activeCategory === category.name ? '2px' : '0px'
-              }}
-            >
-              <span style={{ color: activeCategory === category.name ? category.color : 'currentColor' }}>
-                {category.icon}
-              </span>
-              {category.name}
-            </button>
-          ))}
-        </div>
-
-        {/* Category Card removed per request */}
-
-        {/* Articles Grid */}
-        <div 
-          className={`grid gap-6 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-1000 delay-300 ${
-            isVisible ? 'opacity-100' : 'opacity-0'
-          }`}
-        >
-          {filteredArticles.map((article, index) => {
-            const category = categories.find(cat => cat.name === article.category);
-            const isHovered = hoveredArticle === article.id;
-            
-            return (
-              <article
-                key={article.id}
-                className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] transition-all duration-500 hover:-translate-y-2 hover:border-white/20 hover:shadow-[0_25px_50px_rgba(0,0,0,0.5)]"
-                style={{
-                  animation: isVisible 
-                    ? `fadeInUp 0.6s ease-out ${index * 100}ms both` 
-                    : 'none'
-                }}
-                onMouseEnter={() => setHoveredArticle(article.id)}
-                onMouseLeave={() => setHoveredArticle(null)}
-              >
-                {/* Article Image */}
-                <div className="relative h-48 w-full overflow-hidden">
-                  <Image
-                    src={article.image}
-                    alt={article.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                  <div 
-                    className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"
-                    style={{
-                      background: `linear-gradient(to top, ${category?.color || '#fb5607'}40, transparent)`
-                    }}
-                  />
-                  
-                  {/* Category Badge */}
-                  <div 
-                    className="absolute top-4 left-4 rounded-full px-3 py-1.5 text-xs font-semibold backdrop-blur-sm"
-                    style={{
-                      backgroundColor: `${category?.color || '#fb5607'}20`,
-                      color: category?.color || '#fb5607',
-                      border: `1px solid ${category?.color || '#fb5607'}40`
-                    }}
-                  >
-                    {article.category}
-                  </div>
-                </div>
-
-                {/* Article Content */}
-                <div className="p-6">
-                  <div className="mb-3 flex items-center gap-3 text-xs text-gray-400">
-                    <span>{article.readTime}</span>
-                    <span>•</span>
-                    <span>{new Date(article.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
-                  </div>
-                  
-                  <h3 
-                    className="mb-3 text-xl font-bold text-white transition-colors duration-300 group-hover:text-[#fb5607] sm:text-2xl"
-                    style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
-                  >
-                    {article.title}
-                  </h3>
-                  
-                  <p 
-                    className="mb-4 text-sm leading-relaxed text-gray-300 sm:text-base"
-                    style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
-                  >
-                    {article.description}
-                  </p>
-
-                  {/* Read More Link */}
-                  <div className="flex items-center gap-2 text-sm font-semibold text-[#fb5607] transition-all duration-300 group-hover:gap-4">
-                    <span>Read Article</span>
-                    <svg 
-                      className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
-                </div>
-
-                {/* Hover Glow Effect */}
-                <div 
-                  className={`absolute inset-0 -z-10 rounded-3xl transition-opacity duration-500 ${
-                    isHovered ? 'opacity-20' : 'opacity-0'
-                  }`}
-                  style={{
-                    backgroundColor: category?.color || '#fb5607',
-                    filter: 'blur(20px)'
-                  }}
-                />
-              </article>
-            );
-          })}
-        </div>
-
-        {/* Call to Action */}
-        <div 
-          className={`mt-16 text-center transition-all duration-1000 delay-500 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
-        >
-          <div className="mx-auto max-w-3xl rounded-3xl border border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-10 shadow-[0_25px_60px_rgba(0,0,0,0.55)]">
-            <h3 
-              className="mb-4 text-2xl font-semibold text-white sm:text-3xl"
+          >
+            <h2
+              className="mb-4 text-4xl tracking-tight sm:text-5xl md:text-6xl"
               style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
             >
-              Stay Updated
-            </h3>
-            <p 
-              className="mb-6 text-base leading-relaxed text-gray-300 sm:text-lg"
+              The Knowledge Hub
+            </h2>
+            <p
+              className="mx-auto max-w-2xl text-lg text-gray-300 sm:text-xl"
               style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
             >
-              Get the latest articles, tips, and insights delivered to your inbox. Join thousands of members staying ahead of their fitness journey.
+              Expert insights, science-backed strategies, and practical guides to support your transformation journey.
             </p>
-            <button
-              className="rounded-xl bg-gradient-to-r from-[#fb5607] to-[#ff6b6b] px-8 py-4 text-lg font-bold text-white shadow-[0_8px_30px_rgba(251,86,7,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-[0_12px_40px_rgba(251,86,7,0.6)]"
-              style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
-            >
-              Subscribe to Newsletter
-            </button>
           </div>
-        </div>
+
+          {/* Category Tabs */}
+          <div
+            className={`mb-6 flex flex-wrap justify-center gap-2 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+          >
+            {categories.map((category) => (
+              <button
+                key={category.name}
+                onClick={() => setActiveCategory(category.name)}
+                className={`group flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition-all duration-300 sm:px-6 sm:py-3 sm:text-sm ${activeCategory === category.name
+                    ? 'bg-white/20 text-white shadow-lg'
+                    : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                  }`}
+                style={{
+                  fontFamily: 'var(--font-antonio)',
+                  fontWeight: 700,
+                  borderColor: activeCategory === category.name ? category.color : 'transparent',
+                  borderWidth: activeCategory === category.name ? '2px' : '0px'
+                }}
+              >
+                <span style={{ color: activeCategory === category.name ? category.color : 'currentColor' }}>
+                  {category.icon}
+                </span>
+                {category.name}
+              </button>
+            ))}
+          </div>
+
+          {/* Category Card removed per request */}
+
+          {/* Articles Grid */}
+          <div
+            className={`grid gap-6 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100' : 'opacity-0'
+              }`}
+          >
+            {filteredArticles.map((article, index) => {
+              const category = categories.find(cat => cat.name === article.category);
+              const isHovered = hoveredArticle === article.id;
+
+              return (
+                <article
+                  key={article.id}
+                  className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-black via-[#1a0600] to-[#0a0300] transition-all duration-500 hover:-translate-y-2 hover:border-white/20 hover:shadow-[0_25px_50px_rgba(0,0,0,0.5)]"
+                  style={{
+                    animation: isVisible
+                      ? `fadeInUp 0.6s ease-out ${index * 100}ms both`
+                      : 'none'
+                  }}
+                  onMouseEnter={() => setHoveredArticle(article.id)}
+                  onMouseLeave={() => setHoveredArticle(null)}
+                >
+                  {/* Article Image */}
+                  <div className="relative h-48 w-full overflow-hidden">
+                    <Image
+                      src={article.image}
+                      alt={article.title}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                    <div
+                      className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"
+                      style={{
+                        background: `linear-gradient(to top, ${category?.color || '#fb5607'}40, transparent)`
+                      }}
+                    />
+
+                    {/* Category Badge */}
+                    <div
+                      className="absolute top-4 left-4 rounded-full px-3 py-1.5 text-xs font-semibold backdrop-blur-sm"
+                      style={{
+                        backgroundColor: `${category?.color || '#fb5607'}20`,
+                        color: category?.color || '#fb5607',
+                        border: `1px solid ${category?.color || '#fb5607'}40`
+                      }}
+                    >
+                      {article.category}
+                    </div>
+                  </div>
+
+                  {/* Article Content */}
+                  <div className="p-6">
+                    <div className="mb-3 flex items-center gap-3 text-xs text-gray-400">
+                      <span>{article.readTime}</span>
+                      <span>•</span>
+                      <span>{new Date(article.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                    </div>
+
+                    <h3
+                      className="mb-3 text-xl font-bold text-white transition-colors duration-300 group-hover:text-[#fb5607] sm:text-2xl"
+                      style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
+                    >
+                      {article.title}
+                    </h3>
+
+                    <p
+                      className="mb-4 text-sm leading-relaxed text-gray-300 sm:text-base"
+                      style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
+                    >
+                      {article.description}
+                    </p>
+
+                    {/* Read More Link */}
+                    <div className="flex items-center gap-2 text-sm font-semibold text-[#fb5607] transition-all duration-300 group-hover:gap-4">
+                      <span>Read Article</span>
+                      <svg
+                        className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* Hover Glow Effect */}
+                  <div
+                    className={`absolute inset-0 -z-10 rounded-3xl transition-opacity duration-500 ${isHovered ? 'opacity-20' : 'opacity-0'
+                      }`}
+                    style={{
+                      backgroundColor: category?.color || '#fb5607',
+                      filter: 'blur(20px)'
+                    }}
+                  />
+                </article>
+              );
+            })}
+          </div>
+
+          {/* Call to Action */}
+          <div
+            className={`mt-16 text-center transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+          >
+            <div className="mx-auto max-w-3xl rounded-3xl border border-white/10 bg-gradient-to-br from-black via-[#1a0600] to-[#0a0300] p-10 shadow-[0_25px_60px_rgba(0,0,0,0.55)]">
+              <h3
+                className="mb-4 text-2xl font-semibold text-white sm:text-3xl"
+                style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
+              >
+                Stay Updated
+              </h3>
+              <p
+                className="mb-6 text-base leading-relaxed text-gray-300 sm:text-lg"
+                style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
+              >
+                Get the latest articles, tips, and insights delivered to your inbox. Join thousands of members staying ahead of their fitness journey.
+              </p>
+              <button
+                className="rounded-xl bg-gradient-to-r from-[#fb5607] to-[#ff8800] px-8 py-4 text-lg font-bold text-white shadow-[0_8px_30px_rgba(251,86,7,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-[0_12px_40px_rgba(251,86,7,0.6)]"
+                style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700 }}
+              >
+                Subscribe to Newsletter
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>

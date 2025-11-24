@@ -79,7 +79,7 @@ export default function MediaGallery() {
       style={{
         fontFamily: 'var(--font-antonio)',
         fontWeight: 700,
-        backgroundColor: '#1c0533'
+        backgroundColor: '#000000'
       }}
     >
       <div className="mx-auto max-w-7xl text-white">
@@ -107,7 +107,7 @@ export default function MediaGallery() {
           {items.map((item, index) => (
             <article
               key={item.id}
-              className={`group relative overflow-hidden rounded-2xl sm:rounded-3xl border-2 border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] shadow-[0_18px_40px_rgba(0,0,0,0.35)] transition-all duration-500 hover:-translate-y-2`}
+              className={`group relative overflow-hidden rounded-2xl sm:rounded-3xl border-2 border-white/10 bg-gradient-to-br from-black via-[#1a0600] to-[#0a0300] shadow-[0_18px_40px_rgba(0,0,0,0.35)] transition-all duration-500 hover:-translate-y-2`}
               style={{
                 animation: isVisible ? `fadeInUp 0.6s ease-out ${index * 80}ms both` : 'none'
               }}

@@ -49,7 +49,7 @@ export default function AmbassadorProgram() {
           className={`grid gap-6 sm:grid-cols-2 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
         >
-          <div className="rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-[#2c0d54] via-[#1e0839] to-[#0f0420] p-6 sm:p-8">
+          <div className="rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-black via-[#1a0600] to-[#0a0300] p-6 sm:p-8">
             <h3 className="mb-3 text-xl sm:text-2xl">Perks</h3>
             <ul
               className="space-y-2 text-sm sm:text-base text-gray-300"

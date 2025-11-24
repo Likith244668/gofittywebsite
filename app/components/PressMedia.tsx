@@ -56,52 +56,67 @@ const pressData = [
   {
     id: 'b1',
     name: 'Forbes',
-    quote: 'Gofytt is redefining what it means to be fit in the digital age. A masterclass in community-driven wellness.',
-    color: '#ffffff'
+    quote: 'Redefining fitness in the digital age. A masterclass in community-driven wellness.',
+    highlight: 'Masterclass in Wellness',
+    category: 'Business',
+    year: '2024'
   },
   {
     id: 'b2',
     name: 'TechCrunch',
-    quote: 'The most innovative fitness platform we’ve seen this decade. Seamlessly blending tech and human connection.',
-    color: '#00d100'
+    quote: 'The most innovative fitness platform of the decade. Tech meets human connection.',
+    highlight: 'Most Innovative Platform',
+    category: 'Technology',
+    year: '2024'
   },
   {
     id: 'b3',
     name: 'Mens Health',
-    quote: 'Finally, a program that focuses on the 1% improvements that actually stick. Highly recommended.',
-    color: '#ff0000'
+    quote: 'Finally, a program focused on 1% improvements that stick. Highly recommended.',
+    highlight: '1% Better Every Day',
+    category: 'Health',
+    year: '2024'
   },
   {
     id: 'b4',
     name: 'Nike',
-    quote: 'We partner with Gofytt because they share our commitment to excellence and athlete empowerment.',
-    color: '#ffffff'
+    quote: 'We partner with Gofytt for their commitment to excellence and empowerment.',
+    highlight: 'Official Partner',
+    category: 'Sports',
+    year: '2024'
   },
   {
     id: 'b5',
     name: 'Adidas',
-    quote: 'Impossible is nothing when you have the right community behind you. Gofytt proves this every day.',
-    color: '#ffffff'
+    quote: 'Impossible is nothing with the right community. Gofytt proves this daily.',
+    highlight: 'Community Excellence',
+    category: 'Sports',
+    year: '2024'
   },
   {
     id: 'b6',
     name: 'Under Armour',
-    quote: 'The training methodologies used here are world-class. A gold standard for digital fitness.',
-    color: '#ffffff'
+    quote: 'World-class training methodologies. The gold standard for digital fitness.',
+    highlight: 'Gold Standard',
+    category: 'Performance',
+    year: '2024'
   },
   {
     id: 'b7',
     name: 'WHO',
-    quote: 'Promoting physical activity is crucial, and Gofytt is making it accessible and engaging for everyone.',
-    color: '#0093d5'
+    quote: 'Making physical activity accessible and engaging for everyone. Crucial work.',
+    highlight: 'Global Impact',
+    category: 'Health',
+    year: '2024'
   }
 ];
 
 export default function PressMedia() {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [activeQuoteIndex, setActiveQuoteIndex] = useState(0);
-  const [hoveredLogoIndex, setHoveredLogoIndex] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -109,11 +124,10 @@ export default function PressMedia() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsVisible(true);
-            observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.1, rootMargin: '0px 0px -100px 0px' }
+      { threshold: 0.1 }
     );
     const current = sectionRef.current;
     if (current) observer.observe(current);
@@ -122,125 +136,294 @@ export default function PressMedia() {
     };
   }, []);
 
-  // Auto-rotate quotes if not hovering
+  // Auto-rotate carousel - continuous rotation
   useEffect(() => {
-    if (hoveredLogoIndex !== null) {
-      setActiveQuoteIndex(hoveredLogoIndex);
-      return;
-    }
-
     const interval = setInterval(() => {
-      setActiveQuoteIndex((prev) => (prev + 1) % pressData.length);
-    }, 3500);
+      setActiveIndex((prev) => (prev + 1) % pressData.length);
+    }, 2500); // Auto-advance every 2.5 seconds - faster pace
 
     return () => clearInterval(interval);
-  }, [hoveredLogoIndex]);
+  }, []); // No dependencies - always runs
 
-  const activeItem = pressData[activeQuoteIndex];
+  // Track mouse position for parallax effect
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
+      const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
+      setMousePosition({ x, y });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  const handleCardClick = (index: number) => {
+    setActiveIndex(index);
+  };
 
   return (
     <section
       ref={sectionRef}
-      className="relative py-24 sm:py-32 overflow-hidden transition-colors duration-1000"
-      style={{ backgroundColor: '#050505' }}
+      className="relative py-20 sm:py-32 overflow-hidden"
+      style={{
+        background: 'linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #000000 100%)'
+      }}
     >
-      {/* Dynamic Background Glow */}
+      {/* Animated Grid Background */}
+      <div className="absolute inset-0 opacity-20">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(251,86,7,0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(251,86,7,0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '100px 100px',
+            transform: `translate(${mousePosition.x * 20}px, ${mousePosition.y * 20}px)`
+          }}
+        />
+      </div>
+
+      {/* Radial Orange Glow */}
       <div
-        className="absolute inset-0 transition-opacity duration-1000"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          background: `radial-gradient(circle at 50% 50%, ${activeItem.color}15 0%, transparent 60%)`,
-          opacity: 0.6
+          background: `radial-gradient(circle at ${50 + mousePosition.x * 30}% ${50 + mousePosition.y * 30}%, rgba(251,86,7,0.15) 0%, transparent 60%)`,
+          transition: 'background 0.3s ease-out'
         }}
       />
 
-      {/* Top Border Gradient */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-[600px]">
+        {/* Header */}
+        <div className={`text-center mb-16 sm:mb-20 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10'}`}>
+          <div className="inline-flex items-center gap-3 mb-6">
+            <div className="h-px w-12 bg-gradient-to-r from-transparent to-[#fb5607]" />
+            <span
+              className="text-[#fb5607] text-sm sm:text-base font-bold tracking-[0.3em] uppercase"
+              style={{ fontFamily: 'var(--font-antonio)' }}
+            >
+              Recognition
+            </span>
+            <div className="h-px w-12 bg-gradient-to-l from-transparent to-[#fb5607]" />
+          </div>
 
-        {/* Trusted Authority Label */}
-        <div className={`mb-12 flex items-center gap-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="h-[1px] w-12 bg-[#fb5607]" />
-          <span
-            className="text-[#fb5607] uppercase tracking-[0.2em] text-sm font-bold"
+          <h2
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4"
             style={{ fontFamily: 'var(--font-antonio)' }}
           >
-            Trusted Authority
-          </span>
-          <div className="h-[1px] w-12 bg-[#fb5607]" />
+            TRUSTED BY <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#fb5607] to-[#ff6b35]">LEADERS</span>
+          </h2>
+
+          <p className="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto">
+            Featured and partnered with the world&apos;s most influential brands
+          </p>
         </div>
 
-        {/* The Quote Stage */}
-        <div className="relative w-full max-w-5xl mx-auto text-center mb-20 min-h-[200px] flex items-center justify-center">
-          {pressData.map((item, index) => (
-            <div
-              key={item.id}
-              className={`absolute inset-0 flex flex-col items-center justify-center transition-all duration-700 ease-out ${index === activeQuoteIndex
-                ? 'opacity-100 translate-y-0 scale-100 blur-0'
-                : 'opacity-0 translate-y-8 scale-95 blur-sm pointer-events-none'
-                }`}
-            >
-              <h3
-                className="text-3xl sm:text-5xl md:text-6xl font-bold leading-tight text-white mb-8"
-                style={{ fontFamily: 'var(--font-antonio)' }}
-              >
-                &ldquo;{item.quote}&rdquo;
-              </h3>
-
-              {/* Active Logo Indicator */}
-              <div className="flex items-center gap-3 opacity-60">
-                <span className="text-sm uppercase tracking-widest text-gray-400 font-medium">
-                  — {item.name}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Logo Navigation Dock */}
+        {/* 3D Holographic Carousel */}
         <div
-          className={`relative z-10 flex flex-wrap justify-center gap-4 sm:gap-8 p-6 rounded-3xl border border-white/5 bg-white/5 backdrop-blur-sm transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}
+          className="relative"
+          style={{ perspective: '2000px' }}
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
         >
-          {pressData.map((brand, index) => {
-            const isActive = activeQuoteIndex === index;
+          {/* Main Stage */}
+          <div className="relative h-[500px] sm:h-[600px] flex items-center justify-center">
 
-            return (
-              <button
-                key={brand.id}
-                onClick={() => setActiveQuoteIndex(index)}
-                onMouseEnter={() => {
-                  setHoveredLogoIndex(index);
-                  setActiveQuoteIndex(index);
-                }}
-                onMouseLeave={() => setHoveredLogoIndex(null)}
-                className={`group relative flex items-center justify-center w-24 h-16 sm:w-32 sm:h-20 rounded-xl transition-all duration-500 ${isActive
-                  ? 'bg-white/10 scale-110 shadow-[0_0_30px_rgba(255,255,255,0.1)]'
-                  : 'bg-transparent hover:bg-white/5 hover:scale-105'
-                  }`}
-              >
-                {/* Active Indicator Dot */}
-                {isActive && (
+            {pressData.map((item, index) => {
+              const offset = index - activeIndex;
+              const absOffset = Math.abs(offset);
+              const isActive = index === activeIndex;
+
+              // Calculate 3D position
+              const angle = offset * 25; // degrees
+              const translateZ = isActive ? 100 : -absOffset * 150;
+              const translateX = offset * 280;
+              const scale = isActive ? 1 : Math.max(0.6, 1 - absOffset * 0.2);
+              const opacity = isActive ? 1 : Math.max(0, 1 - absOffset * 0.4);
+
+              return (
+                <div
+                  key={item.id}
+                  className={`absolute transition-all duration-700 ease-out cursor-pointer ${isActive ? 'z-20' : 'z-10'}`}
+                  style={{
+                    transform: `
+                      translateX(${translateX}px)
+                      translateZ(${translateZ}px)
+                      rotateY(${angle}deg)
+                      scale(${scale})
+                    `,
+                    opacity,
+                    transformStyle: 'preserve-3d'
+                  }}
+                  onClick={() => handleCardClick(index)}
+                >
+                  {/* Holographic Card */}
                   <div
-                    className="absolute -top-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full shadow-[0_0_10px_currentColor]"
-                    style={{ backgroundColor: brand.color }}
-                  />
-                )}
+                    className={`
+                      relative w-[280px] sm:w-[350px] h-[400px] sm:h-[480px]
+                      rounded-3xl overflow-hidden
+                      border-2 transition-all duration-500
+                      ${isActive
+                        ? 'border-[#fb5607] shadow-[0_0_80px_rgba(251,86,7,0.6)]'
+                        : 'border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.5)]'
+                      }
+                    `}
+                    style={{
+                      background: isActive
+                        ? 'linear-gradient(135deg, rgba(251,86,7,0.1) 0%, rgba(0,0,0,0.9) 50%, rgba(251,86,7,0.05) 100%)'
+                        : 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.8) 100%)',
+                      backdropFilter: 'blur(20px)'
+                    }}
+                  >
+                    {/* Holographic Scan Line Animation */}
+                    {isActive && (
+                      <div
+                        className="absolute inset-0 pointer-events-none"
+                        style={{
+                          background: 'linear-gradient(180deg, transparent 0%, rgba(251,86,7,0.3) 50%, transparent 100%)',
+                          animation: 'scan 3s linear infinite'
+                        }}
+                      />
+                    )}
 
-                <div className="relative h-6 w-20 sm:h-8 sm:w-24 transition-all duration-300">
-                  <PressLogo
-                    name={brand.name}
-                    className={`w-full h-full transition-all duration-500 ${isActive
-                      ? 'opacity-100'
-                      : 'opacity-30 grayscale group-hover:opacity-70 group-hover:grayscale-0'
-                      }`}
-                  />
+                    {/* Corner Accents */}
+                    {isActive && (
+                      <>
+                        <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-[#fb5607]" />
+                        <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-[#fb5607]" />
+                        <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-[#fb5607]" />
+                        <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-[#fb5607]" />
+                      </>
+                    )}
+
+                    {/* Content */}
+                    <div className="relative h-full p-8 flex flex-col">
+                      {/* Logo */}
+                      <div className="flex-shrink-0 mb-6">
+                        <div className={`w-32 h-20 flex items-center justify-center transition-all duration-500 ${isActive ? 'scale-110' : 'scale-100'}`}>
+                          <PressLogo
+                            name={item.name}
+                            className={`w-full h-full transition-all duration-500 ${isActive ? 'opacity-100' : 'opacity-40'}`}
+                            style={{ color: isActive ? '#fb5607' : '#ffffff' }}
+                          />
+                        </div>
+                      </div>
+
+                      {/* Category Badge */}
+                      <div className="flex-shrink-0 mb-4">
+                        <span
+                          className={`inline-block px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-500 ${isActive
+                            ? 'bg-[#fb5607]/20 text-[#fb5607] border border-[#fb5607]/50'
+                            : 'bg-white/5 text-gray-400 border border-white/10'
+                            }`}
+                          style={{ fontFamily: 'var(--font-antonio)' }}
+                        >
+                          {item.category}
+                        </span>
+                      </div>
+
+                      {/* Quote */}
+                      <div className="flex-1 flex flex-col justify-center">
+                        <p
+                          className={`text-lg sm:text-xl font-bold mb-4 transition-all duration-500 ${isActive ? 'text-white' : 'text-gray-500'
+                            }`}
+                          style={{ fontFamily: 'var(--font-antonio)' }}
+                        >
+                          &ldquo;{item.quote}&rdquo;
+                        </p>
+
+                        {/* Highlight */}
+                        {isActive && (
+                          <div className="inline-flex items-center gap-2 text-[#fb5607] font-bold text-sm">
+                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                            </svg>
+                            <span className="uppercase tracking-wider text-xs">{item.highlight}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Footer */}
+                      <div className={`flex-shrink-0 pt-4 border-t transition-colors duration-500 ${isActive ? 'border-[#fb5607]/30' : 'border-white/10'}`}>
+                        <div className="flex items-center justify-between text-sm">
+                          <span className={`font-bold transition-colors duration-500 ${isActive ? 'text-white' : 'text-gray-500'}`}>
+                            — {item.name}
+                          </span>
+                          <span className={`text-xs transition-colors duration-500 ${isActive ? 'text-[#fb5607]' : 'text-gray-600'}`}>
+                            {item.year}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Glow Effect */}
+                    {isActive && (
+                      <div
+                        className="absolute inset-0 -z-10 rounded-3xl blur-2xl opacity-50"
+                        style={{
+                          background: 'radial-gradient(circle, rgba(251,86,7,0.6) 0%, transparent 70%)'
+                        }}
+                      />
+                    )}
+                  </div>
                 </div>
-              </button>
-            );
-          })}
+              );
+            })}
+          </div>
+
+          {/* Navigation Dots */}
+          <div className="flex justify-center gap-2 mt-12">
+            {pressData.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveIndex(index)}
+                className={`transition-all duration-300 rounded-full ${index === activeIndex
+                  ? 'w-12 h-3 bg-gradient-to-r from-[#fb5607] to-[#ff6b35]'
+                  : 'w-3 h-3 bg-white/20 hover:bg-white/40'
+                  }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+
+          {/* Navigation Arrows */}
+          <button
+            onClick={() => setActiveIndex((prev) => (prev - 1 + pressData.length) % pressData.length)}
+            className="absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border-2 border-[#fb5607]/30 bg-black/50 backdrop-blur-sm flex items-center justify-center text-[#fb5607] hover:bg-[#fb5607]/20 hover:border-[#fb5607] transition-all duration-300 hover:scale-110"
+            aria-label="Previous slide"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          <button
+            onClick={() => setActiveIndex((prev) => (prev + 1) % pressData.length)}
+            className="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border-2 border-[#fb5607]/30 bg-black/50 backdrop-blur-sm flex items-center justify-center text-[#fb5607] hover:bg-[#fb5607]/20 hover:border-[#fb5607] transition-all duration-300 hover:scale-110"
+            aria-label="Next slide"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
         </div>
 
       </div>
+
+      {/* CSS Animation for Scan Line */}
+      <style jsx>{`
+        @keyframes scan {
+          0% {
+            transform: translateY(-100%);
+          }
+          100% {
+            transform: translateY(100%);
+          }
+        }
+      `}</style>
     </section>
   );
 }

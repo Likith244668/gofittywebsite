@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import GofyttWord from './ui/GofyttWord';
 
 export default function ContactSupportFooter() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -40,9 +41,11 @@ export default function ContactSupportFooter() {
           {/* Brand Column (4 cols) */}
           <div className="lg:col-span-4 space-y-6">
             <a href="/" className="inline-block">
-              <span className="text-[#fb5607] font-bold text-4xl uppercase tracking-tight" style={{ fontFamily: 'var(--font-antonio)' }}>
-                Gofytt
-              </span>
+              <GofyttWord
+                logoSize={40}
+                textClassName="text-[#fb5607] font-bold text-4xl uppercase tracking-tight"
+                className="font-bold"
+              />
             </a>
             <p className="text-gray-400 text-base leading-relaxed max-w-sm" style={{ fontFamily: 'var(--font-geist-sans)' }}>
               Empowering the 1% to achieve peak performance through elite training, community, and mindset. Join the revolution.
