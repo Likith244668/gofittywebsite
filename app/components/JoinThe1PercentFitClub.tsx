@@ -80,7 +80,7 @@ export default function JoinThe1PercentFitClub() {
       className="relative py-20 sm:py-28 lg:py-32 px-4 sm:px-6 lg:px-8 overflow-hidden"
       style={{
         fontFamily: 'var(--font-antonio)',
-        backgroundColor: '#1c0533'
+        backgroundColor: '#000000'
       }}
     >
       {/* Background Pattern */}
@@ -89,7 +89,7 @@ export default function JoinThe1PercentFitClub() {
           backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(251, 86, 7, 0.4) 1px, transparent 0)',
           backgroundSize: '50px 50px'
         }} />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#1c0533] via-transparent to-[#1c0533]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
       </div>
 
       <div className="relative mx-auto max-w-7xl text-center z-10">

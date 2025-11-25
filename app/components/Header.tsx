@@ -82,14 +82,11 @@ export default function Header() {
   return (
     <header
       ref={headerRef}
-      className={`fixed top-0 left-0 right-0 z-50 bg-transparent transition-opacity duration-300 ease-out ${isVisible ? 'opacity-100 animate-header-fade-in' : 'opacity-0 pointer-events-none'
+      className={`fixed top-0 left-0 right-0 z-50 transition-opacity duration-300 ease-out ${isVisible ? 'opacity-100 animate-header-fade-in' : 'opacity-0 pointer-events-none'
         }`}
       style={{ willChange: 'opacity' }}
     >
-      {/* Top dark gray bar */}
-      <div className="h-1 bg-gray-800"></div>
-
-      {/* Main header content */}
+      {/* Main header content with solid background */}
       <div className="flex items-center justify-between px-4 sm:px-6 lg:px-12 py-3 sm:py-4">
         {/* Logo - Left */}
         <div className="flex items-center gap-2 flex-shrink-0">
@@ -102,9 +99,8 @@ export default function Header() {
 
         {/* Navigation Bar - Center (Desktop) */}
         <nav className="hidden lg:flex items-center justify-center flex-1">
-          <div className="relative bg-gradient-to-r from-gray-900/40 via-gray-800/50 to-gray-900/40 rounded-full px-6 xl:px-8 py-3 xl:py-4 flex items-center gap-8 xl:gap-12 border border-gray-700/30 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
-            {/* Animated glow effect */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#fb5607]/0 via-[#fb5607]/5 to-[#fb5607]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className="relative bg-[#1a1a1a] rounded-full px-6 xl:px-8 py-3 xl:py-4 flex items-center gap-8 xl:gap-12 border border-[#2a2a2a] shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+
 
             <a
               href="/"

@@ -29,7 +29,7 @@ export default function TheAppComingSoon() {
     <section
       ref={sectionRef}
       className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-10 xl:px-20"
-      style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700, backgroundColor: '#1c0533' }}
+      style={{ fontFamily: 'var(--font-antonio)', fontWeight: 700, backgroundColor: '#000000' }}
     >
       <div className="mx-auto max-w-7xl text-white">
         <div
