@@ -82,7 +82,7 @@ export default function Header() {
   return (
     <header
       ref={headerRef}
-      className={`fixed top-0 left-0 right-0 z-50 bg-black transition-opacity duration-300 ease-out ${isVisible ? 'opacity-100 animate-header-fade-in' : 'opacity-0 pointer-events-none'
+      className={`fixed top-0 left-0 right-0 z-50 bg-transparent transition-opacity duration-300 ease-out ${isVisible ? 'opacity-100 animate-header-fade-in' : 'opacity-0 pointer-events-none'
         }`}
       style={{ willChange: 'opacity' }}
     >
@@ -90,7 +90,7 @@ export default function Header() {
       <div className="h-1 bg-gray-800"></div>
 
       {/* Main header content */}
-      <div className="flex items-center justify-between px-4 sm:px-6 lg:px-12 py-3 sm:py-4 bg-black">
+      <div className="flex items-center justify-between px-4 sm:px-6 lg:px-12 py-3 sm:py-4">
         {/* Logo - Left */}
         <div className="flex items-center gap-2 flex-shrink-0">
           <GofyttWord
@@ -102,21 +102,58 @@ export default function Header() {
 
         {/* Navigation Bar - Center (Desktop) */}
         <nav className="hidden lg:flex items-center justify-center flex-1">
-          <div className="bg-gray-800 rounded-full px-8 xl:px-10 py-1.5 xl:py-4.5 flex items-center gap-16 xl:gap-24">
-            <a href="/" className="text-white font-bold uppercase text-xs xl:text-sm hover:text-[#fb5607] transition-colors whitespace-nowrap" style={{ fontFamily: 'var(--font-antonio)' }}>
-              HOME
+          <div className="relative bg-gradient-to-r from-gray-900/40 via-gray-800/50 to-gray-900/40 rounded-full px-6 xl:px-8 py-3 xl:py-4 flex items-center gap-8 xl:gap-12 border border-gray-700/30 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+            {/* Animated glow effect */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#fb5607]/0 via-[#fb5607]/5 to-[#fb5607]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+            <a
+              href="/"
+              className="relative text-white font-bold uppercase text-xs xl:text-sm whitespace-nowrap transition-all duration-300 hover:text-[#fb5607] hover:scale-110 group/link px-3 py-2"
+              style={{ fontFamily: 'var(--font-antonio)' }}
+            >
+              <span className="relative z-10">HOME</span>
+              <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#fb5607]/0 via-[#fb5607]/20 to-[#fb5607]/0 opacity-0 group-hover/link:opacity-100 transition-opacity duration-300 blur-sm"></span>
+              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-transparent via-[#fb5607] to-transparent group-hover/link:w-full transition-all duration-300"></span>
             </a>
-            <a href="/#about" className="text-white font-bold uppercase text-xs xl:text-sm hover:text-[#fb5607] transition-colors whitespace-nowrap" style={{ fontFamily: 'var(--font-antonio)' }}>
-              ABOUT
+
+            <a
+              href="/#about"
+              className="relative text-white font-bold uppercase text-xs xl:text-sm whitespace-nowrap transition-all duration-300 hover:text-[#fb5607] hover:scale-110 group/link px-3 py-2"
+              style={{ fontFamily: 'var(--font-antonio)' }}
+            >
+              <span className="relative z-10">ABOUT</span>
+              <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#fb5607]/0 via-[#fb5607]/20 to-[#fb5607]/0 opacity-0 group-hover/link:opacity-100 transition-opacity duration-300 blur-sm"></span>
+              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-transparent via-[#fb5607] to-transparent group-hover/link:w-full transition-all duration-300"></span>
             </a>
-            <a href="/#1-percent-club" className="text-white font-bold uppercase text-xs xl:text-sm hover:text-[#fb5607] transition-colors whitespace-nowrap" style={{ fontFamily: 'var(--font-antonio)' }}>
-              THE 1% CLUB
+
+            <a
+              href="/#1-percent-club"
+              className="relative text-white font-bold uppercase text-xs xl:text-sm whitespace-nowrap transition-all duration-300 hover:text-[#fb5607] hover:scale-110 group/link px-3 py-2"
+              style={{ fontFamily: 'var(--font-antonio)' }}
+            >
+              <span className="relative z-10">THE 1% CLUB</span>
+              <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#fb5607]/0 via-[#fb5607]/20 to-[#fb5607]/0 opacity-0 group-hover/link:opacity-100 transition-opacity duration-300 blur-sm"></span>
+              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-transparent via-[#fb5607] to-transparent group-hover/link:w-full transition-all duration-300"></span>
             </a>
-            <a href="/knowledge-hub" className="text-white font-bold uppercase text-xs xl:text-sm hover:text-[#fb5607] transition-colors whitespace-nowrap" style={{ fontFamily: 'var(--font-antonio)' }}>
-              KNOWLEDGE HUB
+
+            <a
+              href="/knowledge-hub"
+              className="relative text-white font-bold uppercase text-xs xl:text-sm whitespace-nowrap transition-all duration-300 hover:text-[#fb5607] hover:scale-110 group/link px-3 py-2"
+              style={{ fontFamily: 'var(--font-antonio)' }}
+            >
+              <span className="relative z-10">KNOWLEDGE HUB</span>
+              <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#fb5607]/0 via-[#fb5607]/20 to-[#fb5607]/0 opacity-0 group-hover/link:opacity-100 transition-opacity duration-300 blur-sm"></span>
+              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-transparent via-[#fb5607] to-transparent group-hover/link:w-full transition-all duration-300"></span>
             </a>
-            <a href="/events-and-experiences" className="text-white font-bold uppercase text-xs xl:text-sm hover:text-[#fb5607] transition-colors whitespace-nowrap" style={{ fontFamily: 'var(--font-antonio)' }}>
-              EVENTS
+
+            <a
+              href="/events-and-experiences"
+              className="relative text-white font-bold uppercase text-xs xl:text-sm whitespace-nowrap transition-all duration-300 hover:text-[#fb5607] hover:scale-110 group/link px-3 py-2"
+              style={{ fontFamily: 'var(--font-antonio)' }}
+            >
+              <span className="relative z-10">EVENTS</span>
+              <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#fb5607]/0 via-[#fb5607]/20 to-[#fb5607]/0 opacity-0 group-hover/link:opacity-100 transition-opacity duration-300 blur-sm"></span>
+              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-transparent via-[#fb5607] to-transparent group-hover/link:w-full transition-all duration-300"></span>
             </a>
           </div>
         </nav>
@@ -149,53 +186,73 @@ export default function Header() {
 
       {/* Mobile Menu */}
       <div
-        className={`lg:hidden fixed inset-0 top-[57px] bg-black z-40 transform transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+        className={`lg:hidden fixed inset-0 top-[57px] bg-gradient-to-b from-black/90 via-black/95 to-black/90 z-40 transform transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
       >
         <nav className="flex flex-col h-full pt-8 px-6">
           <a
             href="/"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="text-white font-bold uppercase text-lg py-4 border-b border-gray-800 hover:text-[#fb5607] transition-colors"
+            className="group relative text-white font-bold uppercase text-lg py-5 border-b border-gray-800/50 hover:text-[#fb5607] transition-all duration-300"
             style={{ fontFamily: 'var(--font-antonio)' }}
           >
-            HOME
+            <span className="relative z-10 flex items-center">
+              <span className="inline-block w-0 h-0.5 bg-[#fb5607] group-hover:w-8 transition-all duration-300 mr-0 group-hover:mr-3"></span>
+              HOME
+            </span>
+            <div className="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-[#fb5607] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </a>
           <a
             href="/#about"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="text-white font-bold uppercase text-lg py-4 border-b border-gray-800 hover:text-[#fb5607] transition-colors"
+            className="group relative text-white font-bold uppercase text-lg py-5 border-b border-gray-800/50 hover:text-[#fb5607] transition-all duration-300"
             style={{ fontFamily: 'var(--font-antonio)' }}
           >
-            ABOUT
+            <span className="relative z-10 flex items-center">
+              <span className="inline-block w-0 h-0.5 bg-[#fb5607] group-hover:w-8 transition-all duration-300 mr-0 group-hover:mr-3"></span>
+              ABOUT
+            </span>
+            <div className="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-[#fb5607] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </a>
           <a
             href="/#1-percent-club"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="text-white font-bold uppercase text-lg py-4 border-b border-gray-800 hover:text-[#fb5607] transition-colors"
+            className="group relative text-white font-bold uppercase text-lg py-5 border-b border-gray-800/50 hover:text-[#fb5607] transition-all duration-300"
             style={{ fontFamily: 'var(--font-antonio)' }}
           >
-            THE 1% CLUB
+            <span className="relative z-10 flex items-center">
+              <span className="inline-block w-0 h-0.5 bg-[#fb5607] group-hover:w-8 transition-all duration-300 mr-0 group-hover:mr-3"></span>
+              THE 1% CLUB
+            </span>
+            <div className="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-[#fb5607] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </a>
           <a
             href="/knowledge-hub"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="text-white font-bold uppercase text-lg py-4 border-b border-gray-800 hover:text-[#fb5607] transition-colors"
+            className="group relative text-white font-bold uppercase text-lg py-5 border-b border-gray-800/50 hover:text-[#fb5607] transition-all duration-300"
             style={{ fontFamily: 'var(--font-antonio)' }}
           >
-            KNOWLEDGE HUB
+            <span className="relative z-10 flex items-center">
+              <span className="inline-block w-0 h-0.5 bg-[#fb5607] group-hover:w-8 transition-all duration-300 mr-0 group-hover:mr-3"></span>
+              KNOWLEDGE HUB
+            </span>
+            <div className="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-[#fb5607] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </a>
           <a
             href="/events-and-experiences"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="text-white font-bold uppercase text-lg py-4 border-b border-gray-800 hover:text-[#fb5607] transition-colors"
+            className="group relative text-white font-bold uppercase text-lg py-5 border-b border-gray-800/50 hover:text-[#fb5607] transition-all duration-300"
             style={{ fontFamily: 'var(--font-antonio)' }}
           >
-            EVENTS
+            <span className="relative z-10 flex items-center">
+              <span className="inline-block w-0 h-0.5 bg-[#fb5607] group-hover:w-8 transition-all duration-300 mr-0 group-hover:mr-3"></span>
+              EVENTS
+            </span>
+            <div className="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-[#fb5607] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </a>
           <button
             onClick={() => setIsMobileMenuOpen(false)}
-            className="mt-8 w-full rounded-xl bg-gradient-to-r from-[#fb5607] to-[#ff6b6b] px-6 py-4 text-base font-bold text-white shadow-[0_8px_30px_rgba(251,86,7,0.4)] transition-all duration-300 hover:scale-105"
+            className="mt-8 w-full rounded-xl bg-gradient-to-r from-[#fb5607] to-[#ff6b6b] px-6 py-4 text-base font-bold text-white shadow-[0_8px_30px_rgba(251,86,7,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-[0_12px_40px_rgba(251,86,7,0.6)] active:scale-95"
             style={{ fontFamily: 'var(--font-antonio)' }}
           >
             JOIN NOW [+]
