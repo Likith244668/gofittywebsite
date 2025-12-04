@@ -87,13 +87,13 @@ export default function VisionSection() {
                 <div className={`text-center mb-12 sm:mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <div className="inline-block mb-4">
                         <span
-                            className="text-sm sm:text-base font-bold tracking-[0.3em] uppercase"
+                            className="text-sm sm:text-base md:text-lg lg:text-xl font-bold tracking-[0.3em] uppercase"
                             style={{
                                 fontFamily: 'var(--font-antonio)',
                                 color: '#fb5607'
                             }}
                         >
-                            Our Mission
+                            Gofytt
                         </span>
                     </div>
 

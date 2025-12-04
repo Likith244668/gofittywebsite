@@ -94,7 +94,7 @@ export default function HeroSection() {
           IT&apos;S NOT FITNESS.
         </p>
         <p
-          className={`mt-[-0.15em] text-[36px] sm:text-[56px] md:text-[84px] lg:text-[115px] xl:text-[135px] leading-[1.1] tracking-[-3px] sm:tracking-[-5px] md:tracking-[-7px] text-[#fb5607] ${isAnimating ? 'animate-text-3d-bump' : 'opacity-0'
+          className={`mt-2 text-[36px] sm:text-[56px] md:text-[84px] lg:text-[115px] xl:text-[135px] leading-[1.1] tracking-[-3px] sm:tracking-[-5px] md:tracking-[-7px] text-[#fb5607] ${isAnimating ? 'animate-text-3d-bump' : 'opacity-0'
             }`}
           style={{
             animationDelay: '0.4s',
@@ -113,13 +113,13 @@ export default function HeroSection() {
 
       {/* Initial Line - moves right to left between text lines */}
       <div
-        className={`absolute z-20 hidden sm:block ${hasPlayedInitialAnimation ? 'opacity-100 animate-line-right-left' : 'opacity-0 pointer-events-none'
+        className={`absolute z-20 ${hasPlayedInitialAnimation ? 'opacity-100 animate-line-right-left' : 'opacity-0 pointer-events-none'
           }`}
         style={{
           width: '47%',
           maxWidth: '1100px',
           height: '14px',
-          top: '41.5%',
+          top: '39%',
           left: '50%',
           transform: 'translateX(18.5%)',
           animationDuration: '1.5s'

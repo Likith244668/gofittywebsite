@@ -21,19 +21,19 @@ export default function Home() {
     <main className="bg-[#1c0533] text-white">
       <HeroSection />
       <VisionSection />
-      <PressMedia />
+      <CommunitySpace />
       <TheGofyttPath />
       <JoinThe1PercentFitClub />
-      <OurServices />
-      <CommunitySpace />
       <MembersWall />
       <SuccessStories />
+      <AmbassadorProgram />
       <GofyttAcademy />
       <TeamSpace />
-      <TheAppComingSoon />
-      <AmbassadorProgram />
       <MediaGallery />
-      <WorkWithGofytt />
+      <PressMedia />
+      <TheAppComingSoon />
+      {/* <OurServices /> */}
+      {/* <WorkWithGofytt /> */}
       <ContactSupportFooter />
     </main>
   );

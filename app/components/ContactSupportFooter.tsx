@@ -73,7 +73,7 @@ export default function ContactSupportFooter() {
               Explore
             </h3>
             <ul className="space-y-4">
-              {['Home', 'About', 'The 1% Club', 'Knowledge Hub', 'Events'].map((item) => (
+              {['Home', 'About', 'The 1% Club', 'Events'].map((item) => (
                 <li key={item}>
                   <a href="#" className="text-gray-400 hover:text-[#fb5607] transition-colors text-sm">
                     {item}

@@ -15,12 +15,11 @@ export default function GofyttWord({
     textClassName = '',
     logoSize = 32
 }: GofyttWordProps) {
-    const adjustedSize = logoSize * 1.35;
+    const adjustedSize = logoSize * 2.0;
 
     return (
         <span className={`inline-flex items-center ${className}`}>
-            <GofyttLogo width={adjustedSize} height={adjustedSize} className={`mr-0.5 ${logoClassName}`} />
-            <span className={textClassName}>ofytt</span>
+            <GofyttLogo width={adjustedSize} height={adjustedSize} className={logoClassName} />
         </span>
     );
 }
