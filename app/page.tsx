@@ -15,10 +15,11 @@ import AmbassadorProgram from "./components/AmbassadorProgram";
 import TheAppComingSoon from "./components/TheAppComingSoon";
 import WorkWithGofytt from "./components/WorkWithGofytt";
 import ContactSupportFooter from "./components/ContactSupportFooter";
-
+import { LogoMarquee } from "./components/LogoMarquee";
 export default function Home() {
   return (
     <main className="bg-[#1c0533] text-white">
+
       <HeroSection />
       <VisionSection />
       <CommunitySpace />
@@ -31,6 +32,7 @@ export default function Home() {
       <TeamSpace />
       <MediaGallery />
       <PressMedia />
+      <LogoMarquee />
       <TheAppComingSoon />
       {/* <OurServices /> */}
       {/* <WorkWithGofytt /> */}
