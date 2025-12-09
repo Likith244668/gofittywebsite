@@ -130,7 +130,7 @@ export default function CommunitySpace() {
 
       <div className="relative z-10 text-center mb-16">
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tighter mb-4">
-          THE <span className="transition-colors duration-500" style={{ color: activeState === 3 ? '#fff' : current.color }}>PRISM</span>
+          THE <span className="transition-colors duration-500" style={{ color: activeState === 3 ? '#fff' : current.color }}>FITNESS PRISM</span>
         </h2>
         <p className="text-gray-500 text-sm tracking-[0.2em] uppercase max-w-xl mx-auto" style={{ fontFamily: 'var(--font-geist-sans)' }}>
           A window into your potential

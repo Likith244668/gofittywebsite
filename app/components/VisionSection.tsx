@@ -135,13 +135,13 @@ export default function VisionSection() {
 
                             <div className="space-y-3 text-sm sm:text-base lg:text-lg text-gray-300 leading-relaxed">
                                 <p>
-                                    We believe fitness isn&apos;t just about the hour you spend training—it&apos;s about the <span className="text-white font-semibold">other 23 hours</span> of your day. The energy you bring to your work, the presence you share with family, and the resilience you show facing challenges.
+                                    We believe fitness isn&apos;t just about the hour you spend training - it&apos;s about the <span className="text-white font-semibold">other 23 hours</span> of your day. It is defined by the energy you bring to your work, the presence you share with family, and the resilience you show in the face of challenges.
                                 </p>
                                 <p>
-                                    Our vision is to build a world where <span className="text-[#fb5607] font-semibold">physical vitality fuels human potential</span>. Where every movement counts, and every individual has the power to transcend their limits.
+                                    Our vision is to build a world where <span className="text-[#fb5607] font-semibold">physical vitality fuels human potential</span>. We are creating a future where every movement counts and every individual has the power to transcend their limits.
                                 </p>
                                 <p className="text-white font-semibold pt-2">
-                                    This is more than a platform; it&apos;s a movement towards a life fully lived.
+                                    This is more than a platform; it&apos;s a movement toward a life fully lived.
                                 </p>
                             </div>
                         </div>
