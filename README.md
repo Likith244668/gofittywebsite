@@ -31,6 +31,62 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is configured for automatic deployment to Vercel when you push to Git.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Automatic Deployment Setup
+
+To enable automatic deployment from GitHub to Vercel:
+
+1. **Go to [Vercel Dashboard](https://vercel.com/dashboard)**
+   - Sign in or create a Vercel account
+
+2. **Import Your GitHub Repository**
+   - Click "Add New..." → "Project"
+   - Click "Import Git Repository"
+   - Select your GitHub repository: `Likith244668/gofittywebsite`
+   - Authorize Vercel to access your GitHub account if prompted
+
+3. **Configure Project Settings**
+   - Framework Preset: **Next.js** (auto-detected)
+   - Root Directory: `./` (default)
+   - Build Command: `npm run build` (auto-detected)
+   - Output Directory: `.next` (auto-detected)
+   - Install Command: `npm install` (auto-detected)
+
+4. **Deploy**
+   - Click "Deploy"
+   - Vercel will automatically build and deploy your project
+
+### Automatic Deployments
+
+Once connected, Vercel will automatically:
+- ✅ Deploy on every push to the `main` or `master` branch
+- ✅ Create preview deployments for pull requests
+- ✅ Rebuild on every commit
+
+### Manual Deployment (Alternative)
+
+If you prefer using the Vercel CLI:
+
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Login to Vercel
+vercel login
+
+# Link your project (first time only)
+vercel link
+
+# Deploy
+vercel --prod
+```
+
+### Project Configuration
+
+The project includes a `vercel.json` file with the following settings:
+- Framework: Next.js
+- Build Command: `npm run build`
+- Output Directory: `.next`
+
+Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
