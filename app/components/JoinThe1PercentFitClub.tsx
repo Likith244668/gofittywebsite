@@ -108,8 +108,8 @@ export default function JoinThe1PercentFitClub() {
             className="mx-auto max-w-3xl text-lg sm:text-xl text-gray-300 leading-relaxed"
             style={{ fontFamily: 'var(--font-geist-sans)' }}
           >
-            This isn't just a gym. It's a movement. Commit to the process and unlock the version of yourself you were meant to be.
-          </p>
+            The gym is just the spark. The life you build with that energy is the fire. Join the only community dedicated to mastering the full spectrum of human potential. Don't just show up-ascend.
+            </p>
         </div>
 
         {/* Benefits Grid */}

@@ -32,7 +32,7 @@ export default function CommunitySpace() {
   const states = [
     {
       id: 0,
-      title: 'PHYSICAL',
+      title: 'BODY',
       subtitle: 'UNLEASH POWER',
       color: '#fb5607',
       image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop',
@@ -57,7 +57,7 @@ export default function CommunitySpace() {
     {
       id: 3,
       title: 'GOFYTT',
-      subtitle: 'THE TRINITY',
+      subtitle: 'FITNESS PRISM',
       color: '#ffffff',
       image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1200&auto=format&fit=crop',
       description: 'The complete fusion of self.'
@@ -133,7 +133,7 @@ export default function CommunitySpace() {
           THE <span className="transition-colors duration-500" style={{ color: activeState === 3 ? '#fff' : current.color }}>FITNESS PRISM</span>
         </h2>
         <p className="text-gray-500 text-sm tracking-[0.2em] uppercase max-w-xl mx-auto" style={{ fontFamily: 'var(--font-geist-sans)' }}>
-          A window into your potential
+        Body - Mind - Bond - Gofytt.
         </p>
       </div>
 

@@ -15,43 +15,43 @@ type JourneyStage = {
 const journeyStages: JourneyStage[] = [
   {
     stage: '01',
-    title: 'Awareness',
-    description: 'The moment you realize you want more. It starts with a look in the mirror and a fire in your belly.',
+    title: 'Ignition',
+    description: 'The realization that the gym is too small for your potential. You decide to make the 1 hour of training the spark for the rest of your day.',
     image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80', // Contemplative/Focus
     color: '#ff6b35',
     characterPose: 'Focusing'
   },
   {
     stage: '02',
-    title: 'Discovery',
-    description: 'Testing your limits. You learn what your body can do, finding the tools and techniques that work for you.',
+    title: 'The Refraction',
+    description: 'You adopt the Prism Methodology. Your physical effort stops being just "exercise" and splits into Mental Clarity, Social Presence, and Bodily Power.',
     image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=600&q=80', // Active/Learning
     color: '#ff8800',
-    characterPose: 'Exploring'
+    characterPose: 'Refracting'
   },
   {
     stage: '03',
-    title: 'Commitment',
-    description: 'No more excuses. You build the habit, show up on the hard days, and make fitness non-negotiable.',
+    title: 'The Expansion',
+    description: 'This is the "Other 23 Hours." The resilience you learned under the bar becomes the patience you show your family and the grit you bring to work.',
     image: 'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=600&q=80', // Determined/Training
     color: '#ff8800',
-    characterPose: 'Grinding'
+    characterPose: 'Living'
   },
   {
     stage: '04',
-    title: 'Growth',
-    description: 'Results start showing. You break personal records, feel stronger, and your confidence skyrockets.',
+    title: 'The Integration',
+    description: 'The divide between "gym you" and "real you" vanishes. Discipline becomes automatic. You are no longer training for a look; you are training for a life.',
     image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=600&q=80', // Strong/Success
     color: '#ff6b6b',
     characterPose: 'Evolving'
   },
   {
     stage: '05',
-    title: 'Mastery',
-    description: 'It’s not just a workout; it’s who you are. You inspire others and set new standards for yourself.',
+    title: 'Full Spectrum',
+    description: 'Vitality without limits. You have built a world where your physical energy fuels your human potential. You don’t just survive the day—you own it.',
     image: 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=600&q=80', // Master/Leader
     color: '#fb5607',
-    characterPose: 'Leading'
+    characterPose: 'Transcending'
   }
 ];
 
