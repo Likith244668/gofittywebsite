@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from 'react';
 
 export default function HeroSection() {
-  const [hasPlayedInitialAnimation] = useState(true);
   const [isAnimating] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -109,29 +108,6 @@ export default function HeroSection() {
         >
           IT&apos;S LIFE.
         </p>
-      </div>
-
-      {/* Initial Line - moves right to left between text lines */}
-      <div
-        className={`absolute z-20 ${hasPlayedInitialAnimation ? 'opacity-100 animate-line-right-left' : 'opacity-0 pointer-events-none'
-          }`}
-        style={{
-          width: '47%',
-          maxWidth: '1100px',
-          height: '14px',
-          top: '39%',
-          left: '50%',
-          transform: 'translateX(18.5%)',
-          animationDuration: '1.5s'
-        }}
-        data-node-id="1:11-initial"
-      >
-        <div
-          className="w-full h-full bg-black"
-          style={{
-            boxShadow: '0 0 10px rgba(0,0,0,0.5)'
-          }}
-        />
       </div>
 
     </section>

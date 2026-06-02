@@ -18,7 +18,7 @@ import ContactSupportFooter from "./components/ContactSupportFooter";
 import { LogoMarquee } from "./components/LogoMarquee";
 export default function Home() {
   return (
-    <main className="bg-[#1c0533] text-white">
+    <main className="bg-black text-white">
 
       <HeroSection />
       <VisionSection />
