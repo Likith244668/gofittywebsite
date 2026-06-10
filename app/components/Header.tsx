@@ -259,7 +259,7 @@ export default function Header() {
             className="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-[#fb5607] px-8 py-4 text-base font-bold uppercase tracking-wide text-white shadow-[0_12px_40px_-8px_rgba(251,86,7,0.75)] transition-all duration-300 active:scale-95"
             style={{ fontFamily: 'var(--font-antonio)' }}
           >
-            Join the 1% Fit Club
+            Join the 1% Life Club
           </a>
 
           <div className="mt-8 flex justify-center">
