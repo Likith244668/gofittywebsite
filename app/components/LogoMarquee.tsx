@@ -56,28 +56,6 @@ export function LogoMarquee() {
                 background: 'linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #000000 100%)'
             }}
         >
-            {/* Animated Grid Background */}
-            <div className="absolute inset-0 opacity-20 pointer-events-none">
-                <div
-                    className="absolute inset-0"
-                    style={{
-                        backgroundImage: `
-              linear-gradient(rgba(251,86,7,0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(251,86,7,0.1) 1px, transparent 1px)
-            `,
-                        backgroundSize: '100px 100px',
-                    }}
-                />
-            </div>
-
-            {/* Radial Orange Glow */}
-            <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                    background: `radial-gradient(circle at 50% 50%, rgba(251,86,7,0.15) 0%, transparent 60%)`,
-                }}
-            />
-
             <div className="container mx-auto px-4 relative z-10">
                 {/* Header */}
                 <div className="flex flex-col items-center justify-between mb-12 sm:flex-row sm:items-center">

@@ -350,12 +350,11 @@ export default function TeamSpace() {
         />
       </div>
 
-      {/* dynamic glow keyed to the active member's colour */}
+      {/* subtle neutral depth glow (orange wash removed) */}
       <div
         className="pointer-events-none absolute left-1/2 top-1/3 h-[640px] w-[640px] -translate-x-1/2 -translate-y-1/2 opacity-25 blur-[120px]"
         style={{
-          background: `radial-gradient(circle, ${ACCENT} 0%, transparent 70%)`,
-          transition: 'background 900ms ease-out',
+          background: 'radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%)',
         }}
       />
 
@@ -421,13 +420,7 @@ export default function TeamSpace() {
               </h3>
 
               {/* before → after capsule */}
-              <div
-                className="mb-5 flex items-center gap-3 rounded-2xl border p-4"
-                style={{
-                  borderColor: `${ACCENT}40`,
-                  background: `linear-gradient(135deg, ${ACCENT}12 0%, transparent 100%)`,
-                }}
-              >
+              <div className="mb-5 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                 <div className="flex-1 text-center">
                   <div className="mb-1 text-[10px] uppercase tracking-wider text-gray-500">Before</div>
                   <div className="text-base font-bold text-white sm:text-lg">{member.transformation.before}</div>
@@ -539,7 +532,7 @@ export default function TeamSpace() {
                         width: isMobile ? 'clamp(230px, 70vw, 300px)' : 'clamp(250px, 26vw, 360px)',
                         height: isMobile ? 'clamp(300px, 92vw, 400px)' : 'clamp(340px, 35vw, 480px)',
                         border: `2px solid ${isCenter ? ACCENT : 'rgba(255,255,255,0.10)'}`,
-                        boxShadow: isCenter ? `0 30px 70px -22px ${ACCENT}80` : '0 18px 40px rgba(0,0,0,0.5)',
+                        boxShadow: isCenter ? '0 30px 70px -22px rgba(0,0,0,0.7)' : '0 18px 40px rgba(0,0,0,0.5)',
                         background: '#0a0a0a',
                         cursor: isCenter ? 'default' : 'pointer',
                       }}

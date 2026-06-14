@@ -48,9 +48,6 @@ export default function TheAppComingSoon() {
             <button className="rounded-xl bg-white px-6 py-3 text-sm sm:text-base font-bold text-black hover:bg-gray-100 transition-colors">
               Get Notified
             </button>
-            <button className="rounded-xl border-2 border-white/20 bg-white/5 px-6 py-3 text-sm sm:text-base font-bold text-white hover:border-white/40 hover:bg-white/10 transition-all">
-              View Feature Roadmap
-            </button>
           </div>
         </div>
       </div>

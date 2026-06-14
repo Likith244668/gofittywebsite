@@ -3,260 +3,243 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 
-export default function CommunitySpace() {
-  const [activeState, setActiveState] = useState<number>(0);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [mounted, setMounted] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+type Pillar = {
+  id: number;
+  title: string;
+  tag: string;
+  description: string;
+  color: string;
+  image: string;
+};
 
+// One beam of discipline, refracted into five dimensions of a life fully lived.
+// Order is canonical: Physical → Mental → Social → Nutritional → Medical.
+const pillars: Pillar[] = [
+  {
+    id: 0,
+    title: 'PHYSICAL',
+    tag: 'Move',
+    description: 'Strength, mobility, and energy that back your ambition.',
+    color: '#fb5607',
+    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop',
+  },
+  {
+    id: 1,
+    title: 'MENTAL',
+    tag: 'Focus',
+    description: 'Clarity and resilience for pressure that never clocks out.',
+    color: '#fb5607',
+    image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=1200&auto=format&fit=crop',
+  },
+  {
+    id: 2,
+    title: 'SOCIAL',
+    tag: 'Belong',
+    description: 'Bonds and accountability that pull you forward.',
+    color: '#fb5607',
+    image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1200&auto=format&fit=crop',
+  },
+  {
+    id: 3,
+    title: 'NUTRITIONAL',
+    tag: 'Fuel',
+    description: 'Food that compounds — energy you feel by hour twenty-three.',
+    color: '#fb5607',
+    image: 'https://images.unsplash.com/photo-1490818387583-1baba5e638af?q=80&w=1200&auto=format&fit=crop',
+  },
+  {
+    id: 4,
+    title: 'MEDICAL',
+    tag: 'Longevity',
+    description: 'Health measured, recovery tracked, built to last.',
+    color: '#fb5607',
+    image: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=1200&auto=format&fit=crop',
+  },
+];
+
+export default function CommunitySpace() {
+  const [active, setActive] = useState<number>(0);
+  const [paused, setPaused] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Auto-cycle through the spectrum; pause while the user is interacting.
   useEffect(() => {
-    setMounted(true);
+    if (paused) return;
     const interval = setInterval(() => {
-      setActiveState((prev) => (prev + 1) % 4);
+      setActive((prev) => (prev + 1) % pillars.length);
     }, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [paused]);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setMousePos({ x, y });
-  };
-
-  const handleMouseLeave = () => {
-    setMousePos({ x: 0, y: 0 });
-  };
-
-  const states = [
-    {
-      id: 0,
-      title: 'BODY',
-      subtitle: 'UNLEASH POWER',
-      color: '#fb5607',
-      image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop',
-      description: 'Forging the body through elite discipline.'
-    },
-    {
-      id: 1,
-      title: 'MIND',
-      subtitle: 'FIND CLARITY',
-      color: '#8dd9ff',
-      image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=1200&auto=format&fit=crop',
-      description: 'Mastering the inner game of success.'
-    },
-    {
-      id: 2,
-      title: 'SOCIAL',
-      subtitle: 'BUILD BONDS',
-      color: '#5ff7b6',
-      image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1200&auto=format&fit=crop',
-      description: 'Rising together with the 1%.'
-    },
-    {
-      id: 3,
-      title: 'GOFYTT',
-      subtitle: 'FITNESS PRISM',
-      color: '#ffffff',
-      image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1200&auto=format&fit=crop',
-      description: 'The complete fusion of self.'
-    }
-  ];
-
-  const current = states[activeState];
-
-  // Deterministic positions for background triangles
-  const triangles = [
-    { top: '10%', left: '10%', size: 20, delay: 0, duration: 15 },
-    { top: '20%', left: '80%', size: 30, delay: 2, duration: 18 },
-    { top: '70%', left: '15%', size: 25, delay: 4, duration: 20 },
-    { top: '80%', left: '85%', size: 15, delay: 1, duration: 12 },
-    { top: '40%', left: '5%', size: 35, delay: 3, duration: 22 },
-    { top: '50%', left: '95%', size: 20, delay: 5, duration: 16 },
-    { top: '15%', left: '50%', size: 10, delay: 2, duration: 14 },
-    { top: '85%', left: '40%', size: 28, delay: 6, duration: 19 },
-    { top: '30%', left: '25%', size: 18, delay: 1, duration: 17 },
-    { top: '60%', left: '75%', size: 22, delay: 4, duration: 21 },
-    { top: '5%', left: '90%', size: 12, delay: 0, duration: 13 },
-    { top: '95%', left: '10%', size: 32, delay: 3, duration: 23 },
-  ];
+  const pad = (n: number) => String(n + 1).padStart(2, '0');
 
   return (
     <section
-      className="relative py-24 sm:py-32 overflow-hidden bg-[#050505] flex flex-col items-center justify-center min-h-[900px]"
+      ref={sectionRef}
+      className="relative overflow-hidden bg-[#050505] px-4 py-24 sm:px-6 sm:py-28 lg:px-8"
       style={{ fontFamily: 'var(--font-antonio)' }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      ref={containerRef}
     >
-      <style jsx>{`
-        @keyframes float {
-          0% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(10deg); }
-          100% { transform: translateY(0px) rotate(0deg); }
-        }
-      `}</style>
-
-      {/* Background Ambient Light */}
+      {/* Film grain */}
       <div
-        className="absolute inset-0 transition-colors duration-1000 ease-in-out opacity-10"
-        style={{
-          background: `radial-gradient(circle at center, ${current.color}, transparent 70%)`
-        }}
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-30"
+        style={{ backgroundImage: 'url("/noise.png")' }}
       />
 
-      {/* Floating Background Triangles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {mounted && triangles.map((t, i) => (
-          <div
-            key={i}
-            className="absolute transition-colors duration-1000 opacity-20"
-            style={{
-              top: t.top,
-              left: t.left,
-              width: `${t.size}px`,
-              height: `${t.size}px`,
-              backgroundColor: current.color,
-              clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
-              animation: `float ${t.duration}s infinite ease-in-out`,
-              animationDelay: `-${t.delay}s`,
-            }}
-          />
-        ))}
-      </div>
+      <div className="relative z-10 mx-auto max-w-6xl">
+        {/* Header — editorial eyebrow + giant display heading */}
+        <header className="mb-10 sm:mb-14">
+          <div className="flex items-center gap-4">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#fb5607]" />
+            <span
+              className="text-xs font-bold uppercase tracking-[0.35em] text-[#fb5607] sm:text-sm"
+            >
+              The Spectrum
+            </span>
+            <span className="h-px flex-1 bg-white/10" />
+          </div>
 
-      <div className="absolute inset-0 opacity-30" style={{ backgroundImage: 'url("/noise.png")' }} />
+          <h2 className="mt-6 text-5xl font-bold uppercase leading-[0.95] tracking-tight text-white sm:text-6xl lg:text-7xl">
+            The Full <span className="text-[#fb5607]">Spectrum</span>
+          </h2>
 
-      <div className="relative z-10 text-center mb-16">
-        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tighter mb-4">
-          THE <span className="transition-colors duration-500" style={{ color: activeState === 3 ? '#fff' : current.color }}>FITNESS PRISM</span>
-        </h2>
-        <p className="text-gray-500 text-sm tracking-[0.2em] uppercase max-w-xl mx-auto" style={{ fontFamily: 'var(--font-geist-sans)' }}>
-        Body - Mind - Bond - Gofytt.
-        </p>
-      </div>
-
-      {/* 3D Container */}
-      <div
-        className="relative w-[340px] h-[300px] sm:w-[480px] sm:h-[420px] md:w-[600px] md:h-[520px]"
-        style={{ perspective: '1000px' }}
-      >
-
-        {/* Floating Card */}
-        <div
-          className="relative w-full h-full transition-transform duration-100 ease-out"
-          style={{
-            transformStyle: 'preserve-3d',
-            transform: `rotateX(${mousePos.y * -15}deg) rotateY(${mousePos.x * 15}deg)`
-          }}
-        >
-
-          {/* Layer 1: Back Glow (Deep Z) */}
-          <div
-            className="absolute inset-0 rounded-full blur-[100px] transition-colors duration-1000"
-            style={{
-              transform: 'translateZ(-50px)',
-              backgroundColor: `${current.color}40`
-            }}
-          />
-
-          {/* Layer 2: The Masked Window (Zero Z) */}
-          <div
-            className="absolute inset-0 z-10 overflow-hidden transition-all duration-1000"
-            style={{
-              clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
-              filter: 'drop-shadow(0 20px 50px rgba(0,0,0,0.5))',
-              transform: 'translateZ(0px)'
-            }}
+          <p
+            className="mt-5 max-w-xl text-base leading-relaxed text-white/55"
+            style={{ fontFamily: 'var(--font-geist-sans)' }}
           >
-            {/* Background Image Layer */}
-            {states.map((state, index) => (
-              <div
-                key={state.id}
-                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${activeState === index ? 'opacity-100' : 'opacity-0'}`}
+            One discipline refracts into five dimensions — the difference between an
+            hour in the gym and a life fully lived.
+          </p>
+        </header>
+
+        {/* Spectrum rule — five segments double as progress + nav */}
+        <div className="mb-6 flex gap-1.5">
+          {pillars.map((p, i) => (
+            <button
+              key={`seg-${p.id}`}
+              type="button"
+              aria-label={`Show ${p.title}`}
+              onClick={() => setActive(i)}
+              className="h-1 flex-1 rounded-full transition-all duration-500"
+              style={{
+                backgroundColor: active === i ? p.color : 'rgba(255,255,255,0.12)',
+                boxShadow: active === i ? `0 0 16px ${p.color}` : 'none',
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Expanding band accordion — horizontal on desktop, vertical on mobile */}
+        <div
+          className="flex h-[560px] flex-col gap-2 sm:h-[600px] md:flex-row"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
+          {pillars.map((p, i) => {
+            const isActive = active === i;
+            return (
+              <button
+                key={p.id}
+                type="button"
+                aria-label={p.title}
+                aria-pressed={isActive}
+                onMouseEnter={() => setActive(i)}
+                onFocus={() => setActive(i)}
+                onClick={() => setActive(i)}
+                className="group relative overflow-hidden rounded-2xl outline-none transition-[flex-grow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:ring-2 focus-visible:ring-white/40"
+                style={{ flexGrow: isActive ? 5 : 1, flexBasis: 0, minHeight: 0, minWidth: 0 }}
               >
+                {/* Image */}
                 <Image
-                  src={state.image}
-                  alt={state.title}
+                  src={p.image}
+                  alt={p.title}
                   fill
-                  className="object-cover transition-transform duration-[10000ms] ease-linear scale-110"
+                  sizes="(min-width: 768px) 60vw, 100vw"
+                  className="object-cover transition-all duration-[1200ms] ease-out"
                   style={{
-                    transform: activeState === index ? 'scale(1.1)' : 'scale(1.0)',
-                    filter: 'brightness(0.6) contrast(1.2)'
+                    transform: isActive ? 'scale(1.06)' : 'scale(1.0)',
+                    filter: isActive ? 'brightness(0.65) contrast(1.1)' : 'brightness(0.4) grayscale(0.4)',
                   }}
                 />
-                {/* Color Overlay */}
+
+                {/* Subtle warm wash — keeps brand warmth without tinting the image orange */}
                 <div
-                  className="absolute inset-0 mix-blend-overlay opacity-60"
-                  style={{ backgroundColor: state.color }}
+                  aria-hidden
+                  className="absolute inset-0 mix-blend-overlay transition-opacity duration-700"
+                  style={{ backgroundColor: p.color, opacity: isActive ? 0.22 : 0.12 }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/40" />
-              </div>
-            ))}
-          </div>
+                {/* Legibility gradient */}
+                <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/40" />
+                {/* Top accent — always shows the band's spectrum color */}
+                <div
+                  aria-hidden
+                  className="absolute inset-x-0 top-0 h-[3px] transition-opacity duration-500"
+                  style={{ backgroundColor: p.color, opacity: isActive ? 1 : 0.55 }}
+                />
 
-          {/* Layer 3: Frame & Tech Accents (Positive Z) */}
-          <div
-            className="absolute inset-0 z-20 pointer-events-none"
-            style={{ transform: 'translateZ(30px)' }}
-          >
-            <svg className="w-full h-full overflow-visible">
-              <defs>
-                <filter id="glow-strong" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur stdDeviation="8" result="blur" />
-                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                </filter>
-              </defs>
-              <polygon
-                points="50,0 0,100 100,100"
-                transform="scale(1, 1) translate(0, 0)"
-                vectorEffect="non-scaling-stroke"
-                fill="none"
-                stroke={current.color}
-                strokeWidth="3"
-                className="transition-all duration-1000"
-                style={{ filter: 'url(#glow-strong)', opacity: 0.8 }}
-              />
-              <polygon
-                points="50,0 0,100 100,100"
-                transform="scale(1, 1) translate(0, 0)"
-                vectorEffect="non-scaling-stroke"
-                fill="none"
-                stroke="white"
-                strokeWidth="1"
-                className="opacity-30"
-              />
-            </svg>
+                {/* Collapsed label — vertical on desktop */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 hidden items-center justify-center transition-opacity duration-500 md:flex"
+                  style={{ opacity: isActive ? 0 : 1 }}
+                >
+                  <div className="flex flex-col items-center gap-4" style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>
+                    <span className="text-xl font-bold uppercase tracking-[0.25em] text-white/90">
+                      {p.title}
+                    </span>
+                  </div>
+                  <span className="absolute bottom-4 left-1/2 -translate-x-1/2 text-[11px] font-bold tracking-[0.3em] text-white/35">
+                    {pad(i)}
+                  </span>
+                </div>
 
-            {/* Tech Markers */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-8 text-[10px] text-white/40 tracking-[0.5em]">01</div>
-            <div className="absolute bottom-0 left-0 -translate-x-4 translate-y-4 text-[10px] text-white/40 tracking-[0.5em]">02</div>
-            <div className="absolute bottom-0 right-0 translate-x-4 translate-y-4 text-[10px] text-white/40 tracking-[0.5em]">03</div>
-          </div>
+                {/* Collapsed label — horizontal on mobile */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between px-5 py-4 transition-opacity duration-500 md:hidden"
+                  style={{ opacity: isActive ? 0 : 1 }}
+                >
+                  <span className="text-lg font-bold uppercase tracking-[0.2em] text-white/90">{p.title}</span>
+                  <span className="text-[11px] font-bold tracking-[0.3em] text-white/35">{pad(i)}</span>
+                </div>
 
-          {/* Layer 4: Typography (High Positive Z) */}
-          <div
-            className="absolute inset-0 z-30 flex flex-col items-center justify-end pb-16 sm:pb-24 px-6 text-center pointer-events-none"
-            style={{ transform: 'translateZ(60px)' }}
-          >
-            <h3
-              className="text-5xl sm:text-7xl md:text-8xl font-bold text-white tracking-tighter mb-2 transition-all duration-500"
-              style={{
-                textShadow: '0 20px 40px rgba(0,0,0,0.8)',
-                opacity: 1
-              }}
-            >
-              {current.title}
-            </h3>
-            <div className="h-1 w-12 sm:w-20 mb-4 transition-colors duration-500 shadow-[0_0_20px_currentColor]" style={{ backgroundColor: current.color, color: current.color }} />
-            <p
-              className="text-xs sm:text-sm font-bold tracking-[0.3em] uppercase text-white/90 mb-2 drop-shadow-lg"
-            >
-              {current.subtitle}
-            </p>
-          </div>
-
+                {/* Expanded content */}
+                <div
+                  className="pointer-events-none absolute inset-0 flex flex-col justify-end p-6 transition-all duration-500 sm:p-8"
+                  style={{
+                    opacity: isActive ? 1 : 0,
+                    transform: isActive ? 'translateY(0)' : 'translateY(12px)',
+                  }}
+                >
+                  <span
+                    aria-hidden
+                    className="absolute right-5 top-5 text-6xl font-bold leading-none text-white/10 sm:text-7xl"
+                  >
+                    {pad(i)}
+                  </span>
+                  <span
+                    className="text-xs font-bold uppercase tracking-[0.3em]"
+                    style={{ color: p.color }}
+                  >
+                    {p.tag}
+                  </span>
+                  <h3 className="mt-2 text-4xl font-bold uppercase leading-none tracking-tight text-white sm:text-5xl">
+                    {p.title}
+                  </h3>
+                  <div
+                    className="mt-3 h-1 w-12 rounded-full transition-colors duration-500 sm:w-16"
+                    style={{ backgroundColor: p.color, boxShadow: `0 0 18px ${p.color}` }}
+                  />
+                  <p
+                    className="mt-4 max-w-sm text-sm leading-relaxed text-white/75 sm:text-base"
+                    style={{ fontFamily: 'var(--font-geist-sans)' }}
+                  >
+                    {p.description}
+                  </p>
+                </div>
+              </button>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -1,19 +1,19 @@
 import HeroSection from "./components/HeroSection";
 import VisionSection from "./components/VisionSection";
-import OurServices from "./components/OurServices";
+// import OurServices from "./components/OurServices";
 import CommunitySpace from "./components/CommunitySpace";
 import TheGofyttPath from "./components/TheGofyttPath";
-import MembersWall from "./components/MembersWall";
+// import MembersWall from "./components/MembersWall";
 import SuccessStories from "./components/SuccessStories";
 
 import GofyttAcademy from "./components/GofyttAcademy";
 import TeamSpace from "./components/TeamSpace";
 import JoinThe1PercentFitClub from "./components/JoinThe1PercentFitClub";
-import MediaGallery from "./components/MediaGallery";
-import PressMedia from "./components/PressMedia";
+// import MediaGallery from "./components/MediaGallery";
+// import PressMedia from "./components/PressMedia";
 import AmbassadorProgram from "./components/AmbassadorProgram";
 import TheAppComingSoon from "./components/TheAppComingSoon";
-import WorkWithGofytt from "./components/WorkWithGofytt";
+// import WorkWithGofytt from "./components/WorkWithGofytt";
 import ContactSupportFooter from "./components/ContactSupportFooter";
 import { LogoMarquee } from "./components/LogoMarquee";
 export default function Home() {
@@ -25,13 +25,11 @@ export default function Home() {
       <CommunitySpace />
       <TheGofyttPath />
       <JoinThe1PercentFitClub />
-      <MembersWall />
-      <SuccessStories />
       <AmbassadorProgram />
+      <SuccessStories />
       <GofyttAcademy />
       <TeamSpace />
-      <MediaGallery />
-      <PressMedia />
+      {/* <PressMedia /> */}
       <LogoMarquee />
       <TheAppComingSoon />
       {/* <OurServices /> */}

@@ -1,242 +1,216 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
 
 type JourneyStage = {
   stage: string;
+  phase: string;
   title: string;
   description: string;
-  image: string;
-  color: string;
-  characterPose: string;
 };
 
+// Narrative echoes the Vision section's voice — the one hour of training
+// that earns "the other 23 hours". Plain-spoken, not abstract.
 const journeyStages: JourneyStage[] = [
   {
     stage: '01',
-    title: 'Ignition',
-    description: 'The realization that the gym is too small for your potential. You decide to make the 1 hour of training the spark for the rest of your day.',
-    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80', // Contemplative/Focus
-    color: '#ff6b35',
-    characterPose: 'Focusing'
+    phase: 'Day One',
+    title: 'The Spark',
+    description: 'You show up. One hour, no excuses. The first rep is the decision to begin.',
   },
   {
     stage: '02',
-    title: 'The Refraction',
-    description: 'You adopt the Prism Methodology. Your physical effort stops being just "exercise" and splits into Mental Clarity, Social Presence, and Bodily Power.',
-    image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=600&q=80', // Active/Learning
-    color: '#ff8800',
-    characterPose: 'Refracting'
+    phase: 'The Habit',
+    title: 'The Rhythm',
+    description: 'Showing up stops being a battle. The hour becomes the fixed point your day is built around.',
   },
   {
     stage: '03',
-    title: 'The Expansion',
-    description: 'This is the "Other 23 Hours." The resilience you learned under the bar becomes the patience you show your family and the grit you bring to work.',
-    image: 'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=600&q=80', // Determined/Training
-    color: '#ff8800',
-    characterPose: 'Living'
+    phase: 'Beyond the Gym',
+    title: 'The Carryover',
+    description: 'The discipline leaks out — into your work, your relationships, the way you handle a hard day.',
   },
   {
     stage: '04',
-    title: 'The Integration',
-    description: 'The divide between "gym you" and "real you" vanishes. Discipline becomes automatic. You are no longer training for a look; you are training for a life.',
-    image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=600&q=80', // Strong/Success
-    color: '#ff6b6b',
-    characterPose: 'Evolving'
+    phase: 'The New Normal',
+    title: 'The Shift',
+    description: 'The line between “gym you” and “real you” disappears. You train for a life, not a look.',
   },
   {
     stage: '05',
-    title: 'Full Spectrum',
-    description: 'Vitality without limits. You have built a world where your physical energy fuels your human potential. You don’t just survive the day—you own it.',
-    image: 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=600&q=80', // Master/Leader
-    color: '#fb5607',
-    characterPose: 'Transcending'
-  }
+    phase: 'Fully Lived',
+    title: 'Full Capacity',
+    description: 'Energy without a ceiling. You don’t just get through the day — you meet it at full strength.',
+  },
 ];
 
+const ACCENT = '#fb5607';
+
 export default function TheGofyttPath() {
-  const [activeStage, setActiveStage] = useState<number>(0);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const containerRef = useRef<HTMLElement>(null);
+  const [activeStage, setActiveStage] = useState(0);
+  const [headerIn, setHeaderIn] = useState(false);
+
+  const sectionRef = useRef<HTMLElement>(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const fillRef = useRef<HTMLDivElement>(null);
   const stageRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  // One-time header reveal.
   useEffect(() => {
-    const handleScroll = () => {
-      if (!containerRef.current) return;
-
-      const containerTop = containerRef.current.offsetTop;
-      const containerHeight = containerRef.current.offsetHeight;
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-
-      // Calculate progress through the section
-      const start = containerTop - windowHeight / 2;
-      const end = containerTop + containerHeight - windowHeight / 2;
-      const progress = Math.min(Math.max((scrollY - start) / (end - start), 0), 1);
-
-      setScrollProgress(progress);
-
-      // Determine active stage based on scroll position
-      stageRefs.current.forEach((ref, index) => {
-        if (!ref) return;
-        const rect = ref.getBoundingClientRect();
-        const center = windowHeight / 2;
-
-        // If the element is near the center of the screen
-        if (rect.top < center + 100 && rect.bottom > center - 100) {
-          setActiveStage(index);
+    const node = sectionRef.current;
+    if (!node) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHeaderIn(true);
+          io.disconnect();
         }
-      });
+      },
+      { threshold: 0.2 }
+    );
+    io.observe(node);
+    return () => io.disconnect();
+  }, []);
+
+  // Active stage via IntersectionObserver (no per-frame state); the line fill
+  // is written straight to the DOM on a rAF, so scrolling never re-renders.
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveStage(Number((entry.target as HTMLElement).dataset.index));
+          }
+        }
+      },
+      { rootMargin: '-50% 0px -45% 0px', threshold: 0 }
+    );
+    stageRefs.current.forEach((ref) => ref && io.observe(ref));
+
+    let raf = 0;
+    const draw = () => {
+      raf = 0;
+      const track = timelineRef.current;
+      const fill = fillRef.current;
+      if (!track || !fill) return;
+      const rect = track.getBoundingClientRect();
+      const mid = window.innerHeight * 0.5;
+      const progress = Math.min(Math.max((mid - rect.top) / rect.height, 0), 1);
+      fill.style.height = `${progress * 100}%`;
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(draw);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial check
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    draw();
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      io.disconnect();
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   return (
     <section
-      ref={containerRef}
-      className="relative py-12 sm:py-16 overflow-hidden"
-      style={{
-        backgroundColor: '#050505',
-        backgroundImage: `
-          radial-gradient(circle at 50% 0%, rgba(251,86,7,0.15) 0%, transparent 70%),
-          linear-gradient(to bottom, #050505 0%, #0a0a0a 100%)
-        `
-      }}
+      ref={sectionRef}
+      aria-labelledby="path-heading"
+      className="relative w-full overflow-hidden bg-[#050505] px-5 py-24 sm:px-8 sm:py-32 lg:py-40"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      {/* One faint ambient glow. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-1/4 h-[560px] w-[560px] -translate-x-1/2 rounded-full opacity-[0.12]"
+        style={{ background: `radial-gradient(circle, ${ACCENT} 0%, transparent 70%)`, filter: 'blur(130px)' }}
+      />
+
+      <div className="relative z-10 mx-auto max-w-2xl">
         {/* Header */}
-        <div className="mb-12 text-center">
-          <h2
-            className="mb-4 text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter text-white"
+        <header
+          className={`text-center transition-all duration-700 ease-out ${
+            headerIn ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+          }`}
+        >
+          <span
+            className="text-xs font-bold uppercase tracking-[0.4em] text-[#fb5607]"
             style={{ fontFamily: 'var(--font-antonio)' }}
           >
-            THE PATH TO <span className="text-[#fb5607]">GLORY</span>
-          </h2>
-          <p
-            className="mx-auto max-w-2xl text-base text-gray-400"
-            style={{ fontFamily: 'var(--font-geist-sans)' }}
+            The Journey
+          </span>
+          <h2
+            id="path-heading"
+            className="mt-5 text-5xl font-bold uppercase leading-[0.95] tracking-tight text-white sm:text-6xl"
+            style={{ fontFamily: 'var(--font-antonio)' }}
           >
-            Follow the steps. Trust the process. Become the 1%.
-          </p>
-        </div>
+            From one hour to a whole <span className="text-[#fb5607]">life</span>
+          </h2>
+        </header>
 
-        {/* 3D Path Container */}
-        <div className="relative">
-          {/* Progress Line (Vertical Center) */}
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 -translate-x-1/2 bg-gray-800 rounded-full overflow-hidden z-0">
+        {/* Timeline */}
+        <div ref={timelineRef} className="relative mt-20 sm:mt-24">
+          {/* The line — a hairline track with an accent fill that follows scroll. */}
+          <div className="absolute left-0 top-2 bottom-2 w-px bg-white/10">
             <div
-              className="w-full bg-gradient-to-b from-[#ff6b35] via-[#ff8800] to-[#fb5607] transition-all duration-300 ease-out"
-              style={{ height: `${scrollProgress * 100}%` }}
+              ref={fillRef}
+              className="w-full bg-gradient-to-b from-[#ff6b35] to-[#fb5607]"
+              style={{ height: '0%' }}
             />
           </div>
 
-          {/* Stages */}
-          <div className="space-y-16 md:space-y-24">
+          <div className="space-y-14 sm:space-y-16">
             {journeyStages.map((stage, index) => {
-              const isActive = activeStage === index;
-              const isLeft = index % 2 === 0;
+              const isActive = index <= activeStage;
 
               return (
                 <div
                   key={stage.stage}
-                  ref={el => { stageRefs.current[index] = el; }}
-                  className={`relative flex flex-col md:flex-row items-center gap-6 md:gap-12 ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'
-                    }`}
-                  style={{
-                    perspective: '1000px'
+                  ref={(el) => {
+                    stageRefs.current[index] = el;
                   }}
+                  data-index={index}
+                  className="relative grid grid-cols-[auto_1fr] items-start gap-6 pl-8 sm:gap-8 sm:pl-12"
                 >
-                  {/* Stage Marker (Center) */}
-                  <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-6 h-6 md:w-10 md:h-10 rounded-full border-4 border-[#050505] z-10 flex items-center justify-center transition-all duration-500"
+                  {/* Node on the line. */}
+                  <span
+                    aria-hidden
+                    className="absolute left-0 top-3 h-2.5 w-2.5 -translate-x-1/2 rounded-full transition-all duration-500"
                     style={{
-                      backgroundColor: isActive ? stage.color : '#1f2937',
-                      transform: isActive ? 'translate(-50%) scale(1.2)' : 'translate(-50%) scale(1)',
-                      boxShadow: isActive ? `0 0 30px ${stage.color}` : 'none'
+                      backgroundColor: isActive ? ACCENT : '#2a2a2a',
+                      boxShadow: isActive ? `0 0 0 4px ${ACCENT}1a, 0 0 18px ${ACCENT}80` : 'none',
+                    }}
+                  />
+
+                  {/* Oversized index numeral — carries the visual weight. */}
+                  <span
+                    className="select-none text-5xl font-bold leading-none tracking-tighter transition-colors duration-500 sm:text-6xl"
+                    style={{
+                      fontFamily: 'var(--font-antonio)',
+                      color: isActive ? ACCENT : 'rgba(255,255,255,0.12)',
                     }}
                   >
-                    <div className="w-1.5 h-1.5 md:w-2.5 md:h-2.5 rounded-full bg-white" />
-                  </div>
+                    {stage.stage}
+                  </span>
 
-                  {/* Content Side */}
-                  <div className={`w-full md:w-1/2 pl-10 md:pl-0 ${isLeft ? 'md:text-right md:pr-10' : 'md:text-left md:pl-10'}`}>
-                    <div
-                      className={`transition-all duration-700 transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-30 translate-y-10'
-                        }`}
+                  {/* Copy. */}
+                  <div
+                    className="transition-opacity duration-500"
+                    style={{ opacity: isActive ? 1 : 0.45 }}
+                  >
+                    <span className="text-[0.7rem] font-medium uppercase tracking-[0.25em] text-white/45">
+                      {stage.phase}
+                    </span>
+                    <h3
+                      className="mt-1.5 text-2xl font-bold uppercase tracking-tight text-white sm:text-[1.7rem]"
+                      style={{ fontFamily: 'var(--font-antonio)' }}
                     >
-                      <span
-                        className="block text-5xl md:text-7xl font-bold opacity-10 mb-1"
-                        style={{ fontFamily: 'var(--font-antonio)', color: stage.color }}
-                      >
-                        {stage.stage}
-                      </span>
-                      <h3
-                        className="text-2xl md:text-3xl font-bold text-white mb-2"
-                        style={{ fontFamily: 'var(--font-antonio)' }}
-                      >
-                        {stage.title}
-                      </h3>
-                      <p className="text-gray-400 text-base leading-relaxed">
-                        {stage.description}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* 3D Character Card Side */}
-                  <div className={`w-full md:w-1/2 pl-10 md:pl-0 ${isLeft ? 'md:pl-10' : 'md:pr-10'}`}>
-                    <div
-                      className="relative w-full max-w-sm mx-auto aspect-[3/4] rounded-2xl transition-all duration-700 ease-out"
-                      style={{
-                        transformStyle: 'preserve-3d',
-                        transform: isActive
-                          ? `rotateY(${isLeft ? '-15deg' : '15deg'}) rotateX(5deg) scale(1)`
-                          : `rotateY(${isLeft ? '-5deg' : '5deg'}) rotateX(0deg) scale(0.9)`,
-                        opacity: isActive ? 1 : 0.5,
-                        filter: isActive ? 'none' : 'grayscale(100%) blur(2px)'
-                      }}
-                    >
-                      {/* Card Background/Glow */}
-                      <div
-                        className="absolute inset-0 rounded-2xl transition-all duration-500"
-                        style={{
-                          background: `linear-gradient(135deg, ${stage.color}20, transparent)`,
-                          boxShadow: isActive ? `0 20px 50px -10px ${stage.color}40` : 'none',
-                          transform: 'translateZ(-20px)'
-                        }}
-                      />
-
-                      {/* Character Image */}
-                      <div className="relative h-full w-full rounded-2xl overflow-hidden border border-white/10">
-                        <Image
-                          src={stage.image}
-                          alt={stage.characterPose}
-                          fill
-                          className="object-cover transition-transform duration-1000"
-                          style={{
-                            transform: isActive ? 'scale(1.1)' : 'scale(1)'
-                          }}
-                        />
-
-                        {/* Overlay Gradient */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-
-                        {/* Floating Badge */}
-                        <div
-                          className="absolute bottom-4 left-4 px-3 py-1.5 rounded-full backdrop-blur-md border border-white/20 text-white font-bold tracking-wider uppercase text-xs transition-all duration-700 delay-300"
-                          style={{
-                            backgroundColor: `${stage.color}40`,
-                            transform: isActive ? 'translateZ(30px) translateY(0)' : 'translateZ(30px) translateY(20px)',
-                            opacity: isActive ? 1 : 0
-                          }}
-                        >
-                          {stage.characterPose}
-                        </div>
-                      </div>
-                    </div>
+                      {stage.title}
+                    </h3>
+                    <p className="mt-2 text-[15px] leading-relaxed text-white/55">
+                      {stage.description}
+                    </p>
                   </div>
                 </div>
               );
@@ -244,20 +218,26 @@ export default function TheGofyttPath() {
           </div>
         </div>
 
-        {/* Final CTA */}
-        <div className="mt-16 text-center">
+        {/* CTA — matches the Vision section's button system. */}
+        <div className="mt-20 flex justify-center sm:mt-24">
           <button
-            className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-300 bg-[#fb5607] rounded-full hover:bg-[#ff6b1f] hover:scale-110 hover:shadow-[0_0_40px_rgba(251,86,7,0.6)]"
+            type="button"
+            className="group inline-flex items-center gap-3 rounded-full bg-[#fb5607] px-8 py-4 text-sm font-bold uppercase tracking-[0.08em] text-white shadow-[0_12px_34px_-8px_rgba(251,86,7,0.6)] transition-colors duration-300 hover:bg-[#ff6b35] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fb5607] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
             style={{ fontFamily: 'var(--font-antonio)' }}
           >
-            <span className="relative z-10">BEGIN YOUR TRANSFORMATION</span>
-            <div className="absolute inset-0 rounded-full bg-white/20 blur-lg group-hover:blur-xl transition-all opacity-0 group-hover:opacity-100" />
+            Start the journey
+            <svg
+              className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
           </button>
         </div>
       </div>
     </section>
   );
 }
-
-
-
